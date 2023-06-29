@@ -31,7 +31,7 @@ class gameMap{
         System.out.println("1. Town");
         System.out.println("2. North");
         System.out.println("3. South");
-        System.out.println("4. East");
+        System.out.println("4. river");
         System.out.println("5. West");
 
        int choice;
@@ -43,10 +43,28 @@ class gameMap{
              map.town();
 
         }
-       if(choice == 2){
+       else if(choice == 2){
              
             gameMap map = new gameMap();
             map.north();
+
+        }
+        else if(choice == 3){
+             
+            gameMap map = new gameMap();
+            map.south();
+
+        }
+        else if(choice == 4){
+             
+            gameMap map = new gameMap();
+            map.river();
+
+        }
+         else if(choice == 5){
+             
+            gameMap map = new gameMap();
+            map.west();
 
         }
         sc.close();
@@ -82,10 +100,40 @@ class gameMap{
         System.out.println("----------------------------------------------------");
 
     }
-    public void east(){
+    //Can rest and increase HP
+    public void river(){
         System.out.println("----------------------------------------------------");
-        System.out.println("                       EAST                         ");
+        System.out.println("                       RIVER                         ");
         System.out.println("----------------------------------------------------");
+        System.out.println("\nYou have arrived at a river.");
+        System.out.println("\nMake a choice:\n");
+        System.out.println("\n1.Rest\n2.Leave\n");
+
+        int choice;
+        Scanner sc = new Scanner(System.in);  // Create a Scanner object
+        choice = sc.nextInt();
+        if(choice == 1){
+                //work in progress
+                Sword sword = new Sword(10);
+                Warrior player = new Warrior("m", 100, sword, sword);  //maybe should change afterwards
+
+                int heal = 5;
+                int HP;
+                HP = player.getHP();
+                HP = player.getHP() + heal;
+
+                System.out.println("You have rested....gain HP");
+                System.out.println("HP: " + HP);
+
+                gameMap map = new gameMap();
+                map.map();
+        }
+       else if(choice == 2){
+            gameMap map = new gameMap(); 
+            map.map();
+        }
+
+          sc.close();
 
     }
     public void west(){

@@ -2,6 +2,7 @@ package character;
 import weapon.*;
 
 public class Warrior extends Character {
+    public static Object player;
     private Weapon leftHandWeapon;
     private Weapon rightHandWeapon;
 
