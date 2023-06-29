@@ -83,7 +83,6 @@ class gameMap{
         System.out.println("The safety of the town is threatened by a monster.");
         System.out.println("To ensure the safety of the townfolks you must find the monster and defeat it.");
         System.out.println("You may begin your quest by viewing the map.");
-
         gameMap map = new gameMap();
         map.map();
     }
@@ -112,21 +111,24 @@ class gameMap{
         int choice;
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
         choice = sc.nextInt();
+
         if(choice == 1){
                 //work in progress
                 Sword sword = new Sword(10);
                 Warrior player = new Warrior("m", 100, sword, sword);  //maybe should change afterwards
 
-                int heal = 5;
-                int HP;
-                HP = player.getHP();
-                HP = player.getHP() + heal;
+                int heal;
+                heal = 5;
+                //int HP;
+                player.setHP(player.getHP() + heal);
+                //HP = player.getHP();
 
                 System.out.println("You have rested....gain HP");
-                System.out.println("HP: " + HP);
-
+                System.out.println("HP: " + player.getHP());
+                heal = heal + 5;
                 gameMap map = new gameMap();
                 map.map();
+                
         }
        else if(choice == 2){
             gameMap map = new gameMap(); 
@@ -191,5 +193,6 @@ public class trial{
         gameMap map = new gameMap();
         map.town();
         sc.close();
+
     }
 }
