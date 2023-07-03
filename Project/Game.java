@@ -27,7 +27,7 @@ public class Game{
 	// int playerHP, monsterHP;
 	// String weapon, position;
 	
-	//TitleScreenHandler tsHandler = new TitleScreenHandler();
+	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	//ChoiceHandler choiceHandler = new ChoiceHandler();
 	
 	//ImageIcon logo = new ImageIcon(".//res//jackfrost.jpg");
@@ -61,8 +61,8 @@ public class Game{
 		startButton.setBackground(Color.black);
 		startButton.setForeground(Color.white);
 		startButton.setFont(normalFont);
-		//startButton.addActionListener(tsHandler);
-		//startButton.setFocusPainted(false);
+		startButton.addActionListener(tsHandler);
+		startButton.setFocusPainted(false);
 		
 		titleNamePanel.add(titleNameLabel);
 		startButtonPanel.add(startButton);
@@ -71,5 +71,26 @@ public class Game{
 		con.add(startButtonPanel);
 		
 		window.setVisible(true);
+	}
+
+	public void Gameplay(){
+		mainTextPanel = new JPanel();
+		mainTextPanel.setBounds(100,100, 600, 250);
+		mainTextPanel.setBackground(Color.white);
+		con.add(mainTextPanel);
+
+		mainTextArea = new JTextArea();
+		mainTextArea.setBounds(100, 100, 600, 250);
+		mainTextPanel.setBackground(Color.black);
+		mainTextArea.setForeground(Color.white);
+		startButton.setFont(normalFont);
+		mainTextArea.setLineWrap(true);
+		mainTextPanel.add(mainTextArea);
+	}
+
+	public class TitleScreenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			Gameplay();
+		}
 	}
 }
