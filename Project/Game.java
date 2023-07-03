@@ -15,16 +15,17 @@ import weapon.*;
 public class Game{
     JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	JButton startButton, mapButton, choice1, choice2, choice3, choice4;
-	JTextArea mainTextArea;
+	JTextArea mainTextArea, mapTextArea;
 	int playerHP, monsterHP;
-	String weapon, position, location;
+	String playerName, weapon, position, location;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
+	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
 	
 	//ImageIcon logo = new ImageIcon(".//res//jackfrost.jpg");
@@ -134,22 +135,6 @@ public class Game{
 		mainTextArea.setEditable(false); 	
 		mainTextPanel.add(mainTextArea);
 
-		// Map Button panel
-		mapButtonPanel = new JPanel();
-		mapButtonPanel.setBounds(300, 400, 200, 100);
-		mapButtonPanel.setBackground(Color.black);
-
-		mapButton = new JButton("View MAP");
-		mapButton.setBackground(Color.black);
-		mapButton.setForeground(Color.white);
-		mapButton.setFont(normalFont);
-		mapButton.addActionListener(tsHandler);
-		mapButton.setFocusPainted(false);
-		mapButtonPanel.add(mapButton);
-		con.add(mapButtonPanel);
-
-		//Map();
-
 		// choices panel
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 350, 300, 150);
@@ -190,38 +175,54 @@ public class Game{
 
 		// choice4.setContentAreaFilled(false);  // disable highlighting on press
 
+		// Map button panel
+		mapButtonPanel = new JPanel();
+		mapButtonPanel.setBounds(500, 500, 300, 150);
+		mapButtonPanel.setBackground(Color.black);
+
+		mapButton = new JButton("View MAP");
+		mapButton.setBackground(Color.black);
+		mapButton.setForeground(Color.white);
+		mapButton.setFont(normalFont);
+		mapButton.addActionListener(mapHandler);
+		mapButton.setFocusPainted(false);
+		mapButtonPanel.add(mapButton);
+		con.add(mapButtonPanel);
+		window.setVisible(true);
+
 	}
 
-	public void Map(){ // modify
-		position = "map";
+	public void Map() {
+    //position = "map";
 
-		//mapButtonPanel.setVisible(false);
+    mainTextPanel.setVisible(false); // Hide the main text panel
 
-		mainTextPanel = new JPanel();
-		mainTextPanel.setBounds(100, 100, 600, 250);
-		mainTextPanel.setBackground(Color.black);
-		con.add(mainTextPanel);		
-		mainTextArea = new JTextArea("Choose where to go.");
-		mainTextArea.setBounds(100, 100, 600, 250);
-		mainTextArea.setBackground(Color.black);
-		mainTextArea.setForeground(Color.white);
-		mainTextArea.setFont(normalFont);
-		mainTextArea.setLineWrap(true);
-		mainTextArea.setWrapStyleWord(true); 
-		mainTextArea.setEditable(false); 	
-		
-		mainTextPanel.add(mainTextArea);
+    mapPanel = new JPanel();
+    mapPanel.setBounds(100, 100, 600, 250);
+    mapPanel.setBackground(Color.black);
+    con.add(mapPanel);
 
-		choice1.setText("Town");
-		choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
-		choice3.setText("Village");
-		choice4.setText("");
+    mapTextArea = new JTextArea("Choose where to go.");
+    mapTextArea.setBounds(100, 150, 600, 250);
+    mapTextArea.setBackground(Color.red);
+    mapTextArea.setForeground(Color.white);
+    mapTextArea.setFont(normalFont);
+    mapTextArea.setLineWrap(true);
+    mapTextArea.setWrapStyleWord(true);
+    mapTextArea.setEditable(false);
+
+    mapPanel.add(mapTextArea);
+    mapPanel.setVisible(true); // Show the map panel
+
+	choice1.setText("Town");
+	choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
+	choice3.setText("Village");
+	choice4.setText("");
 	}
 
 	public void playerSetup(){ //to modify
 		playerHP = 100;
 		location = "Town";
-		//String playerName = "Jame";
 
 		Knife knife = new Knife("knife",10);
 		weaponLabelName.setText(knife.getName());
@@ -230,12 +231,6 @@ public class Game{
 		locationName.setText(location);
 		characterLabelName.setText("Adventurer");
 
-	}
-
-	public class TitleScreenHandler implements ActionListener{
-		public void actionPerformed(ActionEvent event){
-			Gameplay();
-		}
 	}
 
 	public class ChoiceHandler implements ActionListener{
@@ -251,6 +246,18 @@ public class Game{
 			// 		}
 			// 		break;
 			// }
+		}
+	}
+
+	public class TitleScreenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			Gameplay();
+		}
+	}
+	public class MapScreenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			//mainTextPanel.setVisible(false);
+			Map();
 		}
 	}
 }
