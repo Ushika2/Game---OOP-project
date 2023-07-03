@@ -104,9 +104,10 @@ class gameMap{
         System.out.println("----------------------------------------------------");
         System.out.println("                       RIVER                         ");
         System.out.println("----------------------------------------------------");
-        System.out.println("\nYou have arrived at a river.");
+        System.out.println("\nYou have arrived at a river and saw a fairy in the water.");
+        System.out.println("A forelone traveller. Allow me to heal you from your journey.");
         System.out.println("\nMake a choice:\n");
-        System.out.println("\n1.Rest\n2.Leave\n");
+        System.out.println("\n1.Heal\n2.Leave\n");
 
         int choice;
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
@@ -123,8 +124,8 @@ class gameMap{
                 player.setHP(player.getHP() + heal);
                 //HP = player.getHP();
 
-                System.out.println("You have rested....gain HP");
-                System.out.println("HP: " + player.getHP());
+                System.out.println("You were healed by the fairy and gained" + heal +"HP");
+                System.out.println("HP is now: " + player.getHP());
                 heal = heal + 5;
                 gameMap map = new gameMap();
                 map.map();
