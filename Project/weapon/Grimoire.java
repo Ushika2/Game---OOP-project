@@ -1,7 +1,7 @@
 package weapon;
 
 public class Grimoire extends Weapon{
-    public Grimoire(int damage) {
-        super(damage);
+    public Grimoire(String name,int damage) {
+        super(name,damage);
     }
 }

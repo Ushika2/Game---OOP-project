@@ -16,9 +16,9 @@ public class Game{
     JFrame window;
 	Container con;
 	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,locationLabel, locationName;
+	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
-	Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
+	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	JButton startButton, mapButton, choice1, choice2, choice3, choice4;
 	JTextArea mainTextArea;
 	int playerHP, monsterHP;
@@ -84,7 +84,7 @@ public class Game{
 		playerPanel = new JPanel();
 		playerPanel.setBounds(70, 5, 600, 50);
 		playerPanel.setBackground(Color.black);
-		playerPanel.setLayout(new FlowLayout(FlowLayout.LEADING,10,5));
+		playerPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
 		con.add(playerPanel);
 		hpLabel = new JLabel("HP:");  // adding Hp
 		hpLabel.setFont(normalFont);
@@ -94,6 +94,14 @@ public class Game{
 		hpLabelNumber.setFont(normalFont);
 		hpLabelNumber.setForeground(Color.white);
 		playerPanel.add(hpLabelNumber);
+		characterLabel = new JLabel(" |Character:");  // adding character
+		characterLabel.setFont(normalFont);
+		characterLabel.setForeground(Color.white);
+		playerPanel.add(characterLabel);
+		characterLabelName = new JLabel();
+		characterLabelName.setFont(normalFont);
+		characterLabelName.setForeground(Color.white);
+		playerPanel.add(characterLabelName);
 		weaponLabel = new JLabel(" |Weapon:");  // adding weapon
 		weaponLabel.setFont(normalFont);
 		weaponLabel.setForeground(Color.white);
@@ -139,6 +147,8 @@ public class Game{
 		mapButton.setFocusPainted(false);
 		mapButtonPanel.add(mapButton);
 		con.add(mapButtonPanel);
+
+		//Map();
 
 		// choices panel
 		choiceButtonPanel = new JPanel();
@@ -188,18 +198,18 @@ public class Game{
 		//mapButtonPanel.setVisible(false);
 
 		mainTextPanel = new JPanel();
-		mainTextPanel.setBounds(100,100, 600, 250);
-		mainTextPanel.setBackground(Color.white);
-		con.add(mainTextPanel);
-
+		mainTextPanel.setBounds(100, 100, 600, 250);
+		mainTextPanel.setBackground(Color.black);
+		con.add(mainTextPanel);		
 		mainTextArea = new JTextArea("Choose where to go.");
 		mainTextArea.setBounds(100, 100, 600, 250);
-		mainTextPanel.setBackground(Color.black);
-		mainTextArea.setForeground(Color.black);  //maybe to change later
-		startButton.setFont(normalFont);
+		mainTextArea.setBackground(Color.black);
+		mainTextArea.setForeground(Color.white);
+		mainTextArea.setFont(normalFont);
 		mainTextArea.setLineWrap(true);
 		mainTextArea.setWrapStyleWord(true); 
 		mainTextArea.setEditable(false); 	
+		
 		mainTextPanel.add(mainTextArea);
 
 		choice1.setText("Town");
@@ -209,12 +219,17 @@ public class Game{
 	}
 
 	public void playerSetup(){ //to modify
-		playerHP = 15;
-		weapon = "knife";
+		playerHP = 100;
 		location = "Town";
-		weaponLabelName.setText(weapon);
+		//String playerName = "Jame";
+
+		Knife knife = new Knife("knife",10);
+		weaponLabelName.setText(knife.getName());
+
 		hpLabelNumber.setText("" + playerHP);
 		locationName.setText(location);
+		characterLabelName.setText("Adventurer");
+
 	}
 
 	public class TitleScreenHandler implements ActionListener{

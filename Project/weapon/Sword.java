@@ -1,7 +1,7 @@
 package weapon;
 
 public class Sword extends Weapon{
-    public Sword(int damage) {
-        super(damage);
+    public Sword(String name, int damage) {
+        super(name,damage);
     }
 }
