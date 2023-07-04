@@ -6,11 +6,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import character.*;
 import weapon.*;
+import User_input.*;
 
 public class Game{
     JFrame window;
@@ -27,6 +29,9 @@ public class Game{
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
+	IHandler iHandler = new IHandler();
+	User_input UI = new User_input();  //instantiate
+	
 
 	Knife knife = new Knife("knife",10);
 	Warrior warrior = new Warrior("warrior",100, knife, null);
@@ -72,8 +77,10 @@ public class Game{
 		
 		con.add(titleNamePanel);
 		con.add(startButtonPanel);
-		
+
 		window.setVisible(true);
+
+      
 	}
 
 	public void Gameplay(){
@@ -130,7 +137,7 @@ public class Game{
 
 		// Begining of story - town
 		position = "town1";
-		mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello ..playername.. I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
+		mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello..playername... I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
 		mainTextArea.setBounds(100, 100, 600, 250);
 		mainTextPanel.setBackground(Color.black);
 		mainTextArea.setForeground(Color.black);  //maybe to change later
@@ -319,4 +326,10 @@ public class Game{
 			Map();
 		}
 	}
+
+	public class IHandler implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+             
+        }
+    }
 }
