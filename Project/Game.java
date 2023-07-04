@@ -125,6 +125,7 @@ public class Game{
 		playerSetup();
 
 		// Begining of story - town
+		position = "town1";
 		mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello ..playername.. I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
 		mainTextArea.setBounds(100, 100, 600, 250);
 		mainTextPanel.setBackground(Color.black);
@@ -234,19 +235,67 @@ public class Game{
 
 	}
 
+	// Going to village for 1st time
+	public void village1(){
+		position = "village1";
+		location = "Village";
+		locationName.setText(location);
+		mapPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+
+		mainTextArea.setText("You are at the village.\nYou see a shop where you can buy weapons.You go in.");		
+		choice1.setText("");
+		choice2.setText("");
+		choice3.setText("");
+		choice4.setText("");
+	}
+	// Going to forest for the 1st time
+	public void forest1(){
+		position = "forest";
+		location = "Forest";
+		locationName.setText(location);
+		mapPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+
+		mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
+		choice1.setText("Fight the goblin");
+		choice2.setText("");
+		choice3.setText("");
+		choice4.setText("");
+	}
+
+	//Gobin Attack
+	public void goblinAttack(){
+		position = "goblinAttack";
+		int damage = 0;
+		damage = new java.util.Random().nextInt(6);
+		mainTextArea.setText("The goblin attacked you giving" + damage + "damage.");
+		playerHP = playerHP - damage;
+		hpLabelNumber.setText(""+playerHP);
+
+		choice1.setText("");
+		choice2.setText("");
+		choice3.setText("");
+		choice4.setText("");
+	}
+
 	public class ChoiceHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			String yourChoice = event.getActionCommand();
 
-			// switch(position){
-			// 	case "map":
-			// 		switch(yourChoice){
-			// 			case "c1": town();break;
-			// 			case "c2": Forest();break;
-			// 			case "c3": Village();break;
-			// 		}
-			// 		break;
-			// }
+			switch(position){
+				case "town1":
+					switch(yourChoice){
+						//case "c1": town1(); break;
+						case "c2": forest1(); break;
+						case "c3": village1(); break;
+					}
+					break;
+				case "forest":
+					switch(yourChoice){
+						case "c1": goblinAttack(); break;
+					}
+			}
 		}
 	}
 
