@@ -16,17 +16,21 @@ public class Game{
     JFrame window;
 	Container con;
 	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName;
+	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterName, monsterHP;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	JButton startButton, mapButton, choice1, choice2, choice3, choice4;
 	JTextArea mainTextArea, mapTextArea;
-	int playerHP, monsterHP;
+	int playerHP;
 	String playerName, weapon, position, location;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
+
+	Knife knife = new Knife("knife",10);
+	Warrior warrior = new Warrior("warrior",100, knife, null);
+	Goblin goblin = new Goblin("goblin",13);
 	
 	//ImageIcon logo = new ImageIcon(".//res//jackfrost.jpg");
 
@@ -223,15 +227,19 @@ public class Game{
 	}
 
 	public void playerSetup(){ //to modify
-		playerHP = 100;
 		location = "Town";
 
-		Knife knife = new Knife("knife",10);
 		weaponLabelName.setText(knife.getName());
-
+		playerHP = warrior.getHP();
 		hpLabelNumber.setText("" + playerHP);
 		locationName.setText(location);
-		characterLabelName.setText("Adventurer");
+		characterLabelName.setText("" + warrior.getName());
+	}
+
+	// Goblin setup
+	public void goblinSetup(){
+		monsterName.setText(goblin.getName());
+		monsterHP.setText("" + goblin.getHP());
 
 	}
 
@@ -267,11 +275,19 @@ public class Game{
 	//Gobin Attack
 	public void goblinAttack(){
 		position = "goblinAttack";
-		int damage = 0;
-		damage = new java.util.Random().nextInt(6);
+		//goblinSetup();
+		
+		//create goblin
+		// Goblin goblin = new Goblin("goblin",13);
+		// monsterName.setText(goblin.getName());
+		// monsterHP.setText("" + goblin.getHP());
+
+		int damage = new java.util.Random().nextInt(6);
 		mainTextArea.setText("The goblin attacked you giving" + damage + "damage.");
-		playerHP = playerHP - damage;
-		hpLabelNumber.setText(""+playerHP);
+		//goblin.attack(warrior);
+		// update hp of player
+		//playerHP = playerHP - goblin.getDamage();
+		//hpLabelNumber.setText(""+warrior.getHP());
 
 		choice1.setText("");
 		choice2.setText("");

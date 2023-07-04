@@ -31,11 +31,11 @@ public class Warrior extends Character {
     public void attack(Character target) {
         int totalDamage = leftHandWeapon.getDamage() + rightHandWeapon.getDamage();
         target.takeDamage(totalDamage);
-        System.out.println(getName() + " attacks " + target.getName() + " for " + totalDamage + " damage.");
+        //System.out.println(getName() + " attacks " + target.getName() + " for " + totalDamage + " damage.");
     }
 
     public void takeDamage(int damage) {
         setHP(getHP() - damage);
-        System.out.println(getName() + " takes " + damage + " damage.");
+        //System.out.println(getName() + " takes " + damage + " damage.");
     }
 }
