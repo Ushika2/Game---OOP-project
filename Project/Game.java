@@ -275,19 +275,12 @@ public class Game{
 	//Gobin Attack
 	public void goblinAttack(){
 		position = "goblinAttack";
-		//goblinSetup();
-		
-		//create goblin
-		// Goblin goblin = new Goblin("goblin",13);
-		// monsterName.setText(goblin.getName());
-		// monsterHP.setText("" + goblin.getHP());
 
-		int damage = new java.util.Random().nextInt(6);
+		int damage = new java.util.Random().nextInt(1,6);
 		mainTextArea.setText("The goblin attacked you giving" + damage + "damage.");
-		//goblin.attack(warrior);
+		warrior.takeDamage(damage);
 		// update hp of player
-		//playerHP = playerHP - goblin.getDamage();
-		//hpLabelNumber.setText(""+warrior.getHP());
+		hpLabelNumber.setText(""+warrior.getHP());
 
 		choice1.setText("");
 		choice2.setText("");

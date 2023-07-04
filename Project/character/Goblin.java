@@ -6,7 +6,7 @@ public class Goblin extends Character{
         super(name, HP);
     }
 
-    public int getDamage(){
+    public int getDamage(int damage){
         return attackDamage;
     }
 
