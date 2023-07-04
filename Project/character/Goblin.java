@@ -12,8 +12,7 @@ public class Goblin extends Character{
     }
 
     public void attack(Character target){
-        int totalDamage = attackDamage;
         target.takeDamage(attackDamage);
-        System.out.println(getName() + "cast spell on" + target.getName() + "causing" + totalDamage + "damage.");
+        System.out.println(getName() + "attacks" + target.getName() + "causing" + attackDamage + "damage.");
     }
 }
