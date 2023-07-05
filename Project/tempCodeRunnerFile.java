@@ -1,5 +1,10 @@
-// choices panel
-		// choiceButtonPanel = new JPanel();
-		// choiceButtonPanel.setBounds(250, 350, 300, 150);
-		// choiceButtonPanel.setBackground(Color.black);
-		// con.add(choiceButtonPanel);
+choice1.setText("view map");
+		// choice2.setText("");
+		// choice3.setText("");
+		// choice4.setText("");
+		
+
+		// choice2.setVisible(false);
+		// choice3.setVisible(false);
+		// choice4.setVisible(false);
+		
