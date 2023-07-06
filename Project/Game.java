@@ -34,6 +34,7 @@ public class Game{
 	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
 	InputHandler iHandler = new InputHandler();
+	ChoiceclassHandler classChoiceclassHandler = new ChoiceclassHandler();
 	
     
     Knife knife = new Knife("knife",10);
@@ -436,4 +437,14 @@ public class Game{
 			 Gameplay();
         }
     }
+
+
+
+    public class ChoiceclassHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			//String yourChoice = event.getActionCommand();  
+
+			
+			}
+		}
 }
