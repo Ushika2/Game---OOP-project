@@ -34,7 +34,6 @@ public class Game{
 	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
 	InputHandler iHandler = new InputHandler();
-	ChoiceclassHandler classChoiceclassHandler = new ChoiceclassHandler();
 	
     
     Knife knife = new Knife("knife",10);
@@ -186,61 +185,49 @@ public class Game{
 		playerSetup();
 		intro();
 
-		//Created a method for this part named intro
-
-		// // Begining of story - town
-		// position = "town1";
-		// mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello," + jtf.getText() + " I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
-		// mainTextArea.setBounds(100, 100, 600, 250);
-		// mainTextPanel.setBackground(Color.black);
-		// mainTextArea.setForeground(Color.black);  //maybe to change later
-		// startButton.setFont(normalFont);
-		// mainTextArea.setLineWrap(true);
-		// mainTextArea.setWrapStyleWord(true); 
-		// mainTextArea.setEditable(false); 	
-		// mainTextPanel.add(mainTextArea);
-
 		// choices panel
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 350, 300, 150);
 		choiceButtonPanel.setBackground(Color.black);
 		con.add(choiceButtonPanel);
 		
-		//This part is in map
+		choice1 = new JButton("");  // choice 1 
+		choice1.setBackground(Color.black);
+		choice1.setForeground(Color.white);
+		choice1.setFont(normalFont);
+		choice1.setFocusPainted(false);
+		choice1.addActionListener(choiceHandler);
+		choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
+		choiceButtonPanel.add(choice1);
+		choice2 = new JButton("");  // choice 2
+		choice2.setBackground(Color.black);
+		choice2.setForeground(Color.white);
+		choice2.setFont(normalFont);
+		choice2.setFocusPainted(false);
+		choice2.addActionListener(choiceHandler);
+		choice2.setActionCommand("c2");
+		choiceButtonPanel.add(choice2);
+		choice3 = new JButton("");  // choice 3 
+		choice3.setBackground(Color.black);
+		choice3.setForeground(Color.white);
+		choice3.setFont(normalFont);
+		choice3.setFocusPainted(false);
+		choice3.addActionListener(choiceHandler);
+		choice3.setActionCommand("c3");
+		choiceButtonPanel.add(choice3);
 
-		// choice1 = new JButton("");  // choice 1 
-		// choice1.setBackground(Color.black);
-		// choice1.setForeground(Color.white);
-		// choice1.setFont(normalFont);
-		// choice1.setFocusPainted(false);
-		// choice1.addActionListener(choiceHandler);
-		// choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
-		// choiceButtonPanel.add(choice1);
-		// choice2 = new JButton("");  // choice 2
-		// choice2.setBackground(Color.black);
-		// choice2.setForeground(Color.white);
-		// choice2.setFont(normalFont);
-		// choice2.setFocusPainted(false);
-		// choice2.addActionListener(choiceHandler);
-		// choice2.setActionCommand("c2");
-		// choiceButtonPanel.add(choice2);
-		// choice3 = new JButton("");  // choice 3 
-		// choice3.setBackground(Color.black);
-		// choice3.setForeground(Color.white);
-		// choice3.setFont(normalFont);
-		// choice3.setFocusPainted(false);
-		// choice3.addActionListener(choiceHandler);
-		// choice3.setActionCommand("c3");
-		// choiceButtonPanel.add(choice3);
-		// choice4 = new JButton("");  // choice 4 
-		// choice4.setBackground(Color.black);
-		// choice4.setForeground(Color.white);
-		// choice4.setFont(normalFont);
-		// choice4.setFocusPainted(false);
-		// choice4.addActionListener(choiceHandler);
-		// choice4.setActionCommand("c4");
-		// choiceButtonPanel.add(choice4);
+		choice4 = new JButton("");  // choice 4 
+		choice4.setBackground(Color.black);
+		choice4.setForeground(Color.white);
+		choice4.setFont(normalFont);
+		choice4.setFocusPainted(false);
+		choice4.addActionListener(choiceHandler);
+		choice4.setActionCommand("c4");
+		choiceButtonPanel.add(choice4);
 
+		choiceButtonPanel.setVisible(false);
+
+		
 		// choice4.setContentAreaFilled(false);  // disable highlighting on press
 
 		// Map button panel
@@ -261,9 +248,11 @@ public class Game{
 	}
 
 	public void Map() {
-    //position = "map";
+    position = "map";
 
+	choiceButtonPanel.setVisible(true);
     mainTextPanel.setVisible(false); // Hide the main text panel
+	mapButtonPanel.setVisible(false); //hide the view map button when on the map
 
     mapPanel = new JPanel();
     mapPanel.setBounds(100, 100, 600, 250);
@@ -282,46 +271,19 @@ public class Game{
     mapPanel.add(mapTextArea);
     mapPanel.setVisible(true); // Show the map panel
 
-
-		
-
-	choice1 = new JButton("");  // choice 1 
-	choice1.setBackground(Color.black);
-	choice1.setForeground(Color.white);
-	choice1.setFont(normalFont);
-	choice1.setFocusPainted(false);
-	choice1.addActionListener(choiceHandler);
-	choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
-	choiceButtonPanel.add(choice1);
-    choice2 = new JButton("");  // choice 2
-	choice2.setBackground(Color.black);
-	choice2.setForeground(Color.white);
-	choice2.setFont(normalFont);
-	choice2.setFocusPainted(false);
-    choice2.addActionListener(choiceHandler);
-	choice2.setActionCommand("c2");
-	choiceButtonPanel.add(choice2);
-	choice3 = new JButton("");  // choice 3 
-	choice3.setBackground(Color.black);
-	choice3.setForeground(Color.white);
-	choice3.setFont(normalFont);
-	choice3.setFocusPainted(false);
-	choice3.addActionListener(choiceHandler);
-	choice3.setActionCommand("c3");
-	choiceButtonPanel.add(choice3);
-	choice4 = new JButton("");  // choice 4 
-	choice4.setBackground(Color.black);
-	choice4.setForeground(Color.white);
-	choice4.setFont(normalFont);
-	choice4.setFocusPainted(false);
-	choice4.addActionListener(choiceHandler);
-	choice4.setActionCommand("c4");
-	choiceButtonPanel.add(choice4);
-	choice1.setText("Town");
+	choice1.setText("Townn");
 	choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
 	choice3.setText("Village");
 	choice4.setText("River");
 	// choice 5 for moauntain
+    
+	//ensure that all choices appear when map is called
+	choice1.setVisible(true);
+	choice2.setVisible(true);
+	choice3.setVisible(true);
+	choice4.setVisible(true);
+	   
+
 	}
 
 	public void playerSetup(){ //to modify
@@ -357,6 +319,21 @@ public class Game{
 	}
 
 	// Going to village for 1st time
+	public void townn(){
+		position = "townn";
+		location = "Town";
+		locationName.setText(location);
+		mapPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+
+		mainTextArea.setText("You are at the town.\n");		
+		choice1.setText("");
+		choice2.setText("");
+		choice3.setText("");
+		choice4.setText("");
+	}
+
+	// Going to village for 1st time
 	public void village1(){
 		position = "village1";
 		location = "Village";
@@ -380,14 +357,20 @@ public class Game{
 
 		mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
 		choice1.setText("Fight the goblin");
-		choice2.setText("");
+		choice2.setText("view map");
 		choice3.setText("");
 		choice4.setText("");
+		
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+		
 	}
 
 	//Gobin Attack
 	public void goblinAttack(){
 		position = "goblinAttack";
+
+		mapButtonPanel.setVisible(false);
 
 		int damage = new java.util.Random().nextInt(1,6);
 		mainTextArea.setText("The goblin attacked you giving" + damage + "damage.");
@@ -396,27 +379,14 @@ public class Game{
 		// update hp of player
 		hpLabelNumber.setText(""+warrior.getHP());
 
-		mapPanel.setVisible(false);
-		mapButtonPanel.setVisible(false);
-		choiceButtonPanel.setVisible(false);
-
-		//choiceButtonPanel.setVisible(false);
-        inputPanel = new JPanel();
-        inputPanel.setBounds(150,450,500,50);
-        inputPanel.setBackground(Color.black);
-        inputPanel.setLayout(new GridLayout(1,1)); //1 and 2 because panel is divoded into 2 parts textbox and button horizontally
-        
-		inputPanel.add(mapButton);
-
-        inputPanel.add(mapButton); //add button to input panel
-        con.add(inputPanel); //add input panel to ocntainer
-          
-		window.setVisible(true);
-
-		// choice1.setText("");
-		// choice2.setText("");
-		// choice3.setText("");
-		// choice4.setText("");
+		choice1.setText("view map");
+		choice2.setText("Advance in the Forest");
+		choice3.setText("");
+		choice4.setText("");
+		
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+		
 	}
 
 	public class ChoiceHandler implements ActionListener{
@@ -424,52 +394,46 @@ public class Game{
 			String yourChoice = event.getActionCommand();  
 
 			switch(position){      //the game recognize player's current position
-				case "intro":
+				case "map": 
 					switch(yourChoice){
 						//case "c1": town1(); break;
 						case "c2": forest1(); break;
 						case "c3": village1(); break;
 					}
 					break;
+					
 				 case "forest":   
-				    switch(yourChoice){     //
+				    switch(yourChoice){     
 						case "c1": goblinAttack(); break;
+						case "c2": Map(); break;
 					}
+					break;
+				case "goblinAttack":
+                    switch(yourChoice){     
+			     		case "c1": Map();break;
+						           
+				 	}
+					break;
+				   
 			}
 		}
 	}
 
 	public class TitleScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			// Gameplay();
 			userInput();
 		}
 	}
 	public class MapScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			//mainTextPanel.setVisible(false);
 			Map();
 		}
 	}
 
-	
-
 	public class InputHandler implements ActionListener{
         public void actionPerformed(ActionEvent event){
-            //  //here is to put result after performing action
-            //  String text = jtf.getText(); //get the text entered from the text box declared as jtf
-            //  textLabel.setText(text);//displays received input
+            
 			 Gameplay();
         }
     }
-
-
-
-    public class ChoiceclassHandler implements ActionListener{
-		public void actionPerformed(ActionEvent event){
-			//String yourChoice = event.getActionCommand();  
-
-			
-			}
-		}
 }
