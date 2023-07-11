@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,12 +22,12 @@ import weapon.*;
 public class Game{
     JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel; //panel to display text;
+	JPanel titleNamePanel, startButtonPanel, continueButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel; //panel to display text;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font
-	JButton startButton, mapButton, choice1, choice2, choice3, choice4,enterButton; //add button
+	JButton startButton, continueButton, mapButton, choice1, choice2, choice3, choice4,enterButton; //add button
 	JTextArea mainTextArea, mapTextArea;
 	JTextField jtf;  //text box for user input
 
@@ -66,7 +69,7 @@ public class Game{
 		
 		// Start button panel
 		startButtonPanel = new JPanel();
-		startButtonPanel.setBounds(300, 400, 200, 100);
+		startButtonPanel.setBounds(300, 350, 200, 50);
 		startButtonPanel.setBackground(Color.black);
 		
 		startButton = new JButton("START");
@@ -75,12 +78,30 @@ public class Game{
 		startButton.setFont(normalFont);
 		startButton.addActionListener(tsHandler);
 		startButton.setFocusPainted(false);
+		startButton.setActionCommand("start");
+		startButton.setBorder(null);
 		
+		// Continue button 
+		continueButtonPanel = new JPanel();
+		continueButtonPanel.setBounds(300, 400, 200, 50);
+		continueButtonPanel.setBackground(Color.black);
+
+		continueButton = new JButton("CONTINUE");
+		continueButton.setBackground(Color.black);
+		continueButton.setForeground(Color.white);
+		continueButton.setFont(normalFont);
+		continueButton.addActionListener(tsHandler);
+		continueButton.setFocusPainted(false);
+		continueButton.setActionCommand("continue");
+		continueButton.setBorder(null);
+
 		titleNamePanel.add(titleNameLabel);
 		startButtonPanel.add(startButton);
-		
+		continueButtonPanel.add(continueButton);
+
 		con.add(titleNamePanel);
 		con.add(startButtonPanel);
+		con.add(continueButtonPanel);
 
 		window.setVisible(true);
 	}
@@ -90,6 +111,7 @@ public class Game{
 
 		titleNamePanel.setVisible(false);
 		startButtonPanel.setVisible(false);
+		continueButtonPanel.setVisible(false);
 
 		//add text to the panel
         textPanel = new JPanel();
@@ -126,7 +148,7 @@ public class Game{
 
 	}
 
-	public void Gameplay(){
+	public void Gameplay(String startOrContinue){
 		// titleNamePanel.setVisible(false);
 		// startButtonPanel.setVisible(false);
 
@@ -203,8 +225,16 @@ public class Game{
 		monsterPanel.add(monsterName);
 		monsterPanel.setVisible(false);
 
-		playerSetup();
-		intro();
+		if(startOrContinue.equals("start")){
+			playerSetup();
+			intro();
+		}
+		else if(startOrContinue.equals("continue")){
+			loadData();
+		}
+
+		// playerSetup();
+		// intro();
 
 		// choices panel
 		choiceButtonPanel = new JPanel();
@@ -304,7 +334,6 @@ public class Game{
 	choice3.setVisible(true);
 	choice4.setVisible(true);
 	   
-
 	}
 
 	public void playerSetup(){ //to modify
@@ -351,9 +380,9 @@ public class Game{
 		mapPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
 
-		mainTextArea.setText("You are at the town.\n");		
-		choice1.setText("");
-		choice2.setText("");
+		mainTextArea.setText("You are at the town.\nYou see a checkpoint to save the game.");		
+		choice1.setText("Save game");
+		choice2.setText("View map");
 		choice3.setText("");
 		choice4.setText("");
 	}
@@ -411,7 +440,6 @@ public class Game{
 		choice3.setText("");
 		choice4.setText("");
 		
-		choice2.setVisible(false);
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 		
@@ -433,14 +461,44 @@ public class Game{
 		else{
 			mainTextArea.setText("You attack the goblin back, giving it a" + damage + "damage. The goblin has been defeated.");
 			choice1.setText("Move forward");
-			choice2.setText("");
+			choice2.setText("View map");
 			choice3.setText("");
 			choice4.setText("");
 			
-			choice2.setVisible(false);
 			choice3.setVisible(false);
 			choice4.setVisible(false);
 		}
+	}
+
+	public void saveFile(){
+		try{
+			BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt", null, false));
+			bw.write("" + playerHP);
+			bw.newLine();
+			bw.write(weapon);
+			bw.close();
+		}
+		catch(Exception e){
+
+		}
+		hpLabelNumber.setText("" + playerHP);
+		weaponLabelName.setText(weapon);
+		//Map();
+	}
+
+	public void loadData(){
+		try{
+			BufferedReader br = new BufferedReader(new FileReader("saveFile.txt"));
+			playerHP = Integer.parseInt(br.readLine());
+			weapon = br.readLine();
+			br.close();
+		}
+		catch(Exception e){
+			
+		}
+		hpLabelNumber.setText("" + playerHP);
+		weaponLabelName.setText(weapon);
+		townn();
 	}
 
 	public class ChoiceHandler implements ActionListener{
@@ -450,13 +508,18 @@ public class Game{
 			switch(position){      //the game recognize player's current position
 				case "map": 
 					switch(yourChoice){
-						//case "c1": town1(); break;
-						case "c2":forest1(); break;
+						case "c1": townn(); break;
+						case "c2": forest1(); break;
 						case "c3": village1(); break;
 					}
 					break;
-					
-				 case "forest":   
+				case "townn":
+					switch(yourChoice){
+						case "c1": saveFile(); break;
+						case "c2": Map(); break;
+					}
+
+				case "forest":   
 				    switch(yourChoice){     
 						case "c1": goblinAttack(); break;
 						case "c2": Map(); break;
@@ -469,15 +532,62 @@ public class Game{
 					break;
 				case "attackGoblin":
 					switch(yourChoice){
-						case "c1": 
+						//case "c1": 
+						case "c2": Map(); break;
 					}
 			}
 		}
 	}
 
+	public void User_input(){
+		//new window display
+			window = new JFrame();
+			window.setSize(800, 600);
+			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			window.getContentPane().setBackground(Color.black);
+			window.setLayout(null);
+			con = window.getContentPane();
+	
+	
+			 //add text to the window panel
+			textPanel = new JPanel();
+			textPanel.setBounds(150,250,500,100);
+			textPanel.setBackground(Color.black);
+			textLabel = new JLabel("Enter your name:");  // adding name
+			textLabel.setFont(normalFont);
+			textLabel.setForeground(Color.white);
+			textPanel.add(textLabel);
+			con.add(textPanel);
+	
+			//panel takes user input
+			inputPanel = new JPanel();
+			inputPanel.setBounds(150,450,500,50);
+			inputPanel.setBackground(Color.black);
+			inputPanel.setLayout(new GridLayout(1,2)); //1 and 2 because panel is divoded into 2 parts textbox and button horizontally
+			
+			jtf = new JTextField();
+			inputPanel.add(jtf);//add jtf(text box) to input panel
+	
+			enterButton = new JButton("ENTER");  //shows enter on the button
+			enterButton.setForeground(Color.black);
+			enterButton.addActionListener(iHandler);
+			inputPanel.add(enterButton); //add button to input panel
+	
+			con.add(inputPanel); //add input panel to ocntainer
+	
+	
+			window.setVisible(true);
+					
+		}
+
 	public class TitleScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			userInput();
+			String yourChoice = event.getActionCommand();
+			switch(yourChoice){
+				case "start": userInput(); break;
+				case "continue": Gameplay("continue"); break;
+			}
+			//userInput();
 		}
 	}
 	public class MapScreenHandler implements ActionListener{
@@ -488,8 +598,8 @@ public class Game{
 
 	public class InputHandler implements ActionListener{
         public void actionPerformed(ActionEvent event){
-            
-			 Gameplay();
+			String text = jtf.getText();
+			Gameplay("start");
         }
     }
 }
