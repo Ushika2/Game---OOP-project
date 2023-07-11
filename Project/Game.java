@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import character.*;
+import spell.Fire;
+import spell.Spell;
 import weapon.*;
 
 public class Game{
@@ -302,6 +304,12 @@ public class Game{
 		monsterHP.setText("" + goblin.getHP());
 
 	}
+
+	//trial to create mage
+	// public void mageSetup(){
+	// 	Spell spell = new Fire("Fireball", 50);
+	// 	Mage mage = new Mage("Gandalf", 100, spell);
+	// }
 
 	//Intro to the game
 	public void intro(){
