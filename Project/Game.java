@@ -13,15 +13,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import character.*;
-import spell.Fire;
-import spell.Spell;
+import spell.*;
 import weapon.*;
 
 public class Game{
     JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel; //panel to display text;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterName, monsterHP,textLabel;
+	JPanel titleNamePanel, startButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel; //panel to display text;
+	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font
@@ -83,11 +82,7 @@ public class Game{
 		con.add(titleNamePanel);
 		con.add(startButtonPanel);
 
-		
-
 		window.setVisible(true);
-
-      
 	}
 
 	//get name from user
@@ -183,6 +178,30 @@ public class Game{
 		locationName.setFont(normalFont);
 		locationName.setForeground(Color.white);
 		playerPanel.add(locationName);
+
+		//monster panel
+		monsterPanel = new JPanel();
+		monsterPanel.setBounds(70, 500, 500, 50);
+		monsterPanel.setBackground(Color.black);
+		monsterPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
+		con.add(monsterPanel);
+		monsterHPLabel = new JLabel("HP:");  // adding Hp
+		monsterHPLabel.setFont(normalFont);
+		monsterHPLabel.setForeground(Color.white);
+		monsterPanel.add(monsterHPLabel);
+		monsterHP = new JLabel();
+		monsterHP.setFont(normalFont);
+		monsterHP.setForeground(Color.white);
+		monsterPanel.add(monsterHP);
+		monsterLabel = new JLabel(" |Monster:");  // adding character
+		monsterLabel.setFont(normalFont);
+		monsterLabel.setForeground(Color.white);
+		monsterPanel.add(monsterLabel);
+		monsterName = new JLabel();
+		monsterName.setFont(normalFont);
+		monsterName.setForeground(Color.white);
+		monsterPanel.add(monsterName);
+		monsterPanel.setVisible(false);
 
 		playerSetup();
 		intro();
@@ -302,7 +321,6 @@ public class Game{
 	public void goblinSetup(){
 		monsterName.setText(goblin.getName());
 		monsterHP.setText("" + goblin.getHP());
-
 	}
 
 	//trial to create mage
@@ -311,7 +329,6 @@ public class Game{
 	// 	Mage mage = new Mage("Gandalf", 100, spell);
 	// }
 
-	//Intro to the game
 	public void intro(){
 		// Begining of story - town
 		position = "intro";
@@ -319,7 +336,7 @@ public class Game{
 		mainTextArea.setBounds(100, 100, 600, 250);
 		mainTextPanel.setBackground(Color.black);
 		mainTextArea.setForeground(Color.black);  //maybe to change later
-		startButton.setFont(normalFont);
+		//startButton.setFont(normalFont);
 		mainTextArea.setLineWrap(true);
 		mainTextArea.setWrapStyleWord(true); 
 		mainTextArea.setEditable(false); 	
@@ -377,6 +394,8 @@ public class Game{
 	//Gobin Attack
 	public void goblinAttack(){
 		position = "goblinAttack";
+		monsterPanel.setVisible(true);
+		goblinSetup();
 
 		mapButtonPanel.setVisible(false);
 
@@ -387,14 +406,41 @@ public class Game{
 		// update hp of player
 		hpLabelNumber.setText(""+warrior.getHP());
 
-		choice1.setText("view map");
-		choice2.setText("Advance in the Forest");
+		choice1.setText("Attack goblin");
+		choice2.setText("");
 		choice3.setText("");
 		choice4.setText("");
 		
+		choice2.setVisible(false);
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 		
+	}
+
+	public void AttackGoblin(){
+		position = "attackGoblin";
+		mapButtonPanel.setVisible(false);
+		int damage = knife.getDamage();
+		mainTextArea.setText("You attack the goblin back, giving it a" + damage + "damage.");
+		//warrior.attack(goblin);
+		goblin.takeDamage(damage);
+		// update hp of goblin
+		monsterHP.setText("" + goblin.getHP());
+
+		if (goblin.getHP() > 0){
+			goblinAttack();
+		}
+		else{
+			mainTextArea.setText("You attack the goblin back, giving it a" + damage + "damage. The goblin has been defeated.");
+			choice1.setText("Move forward");
+			choice2.setText("");
+			choice3.setText("");
+			choice4.setText("");
+			
+			choice2.setVisible(false);
+			choice3.setVisible(false);
+			choice4.setVisible(false);
+		}
 	}
 
 	public class ChoiceHandler implements ActionListener{
@@ -405,7 +451,7 @@ public class Game{
 				case "map": 
 					switch(yourChoice){
 						//case "c1": town1(); break;
-						case "c2": forest1(); break;
+						case "c2":forest1(); break;
 						case "c3": village1(); break;
 					}
 					break;
@@ -417,12 +463,14 @@ public class Game{
 					}
 					break;
 				case "goblinAttack":
-                    switch(yourChoice){     
-			     		case "c1": Map();break;
-						           
+                    switch(yourChoice){
+			     		case "c1":AttackGoblin();break;
 				 	}
 					break;
-				   
+				case "attackGoblin":
+					switch(yourChoice){
+						case "c1": 
+					}
 			}
 		}
 	}
