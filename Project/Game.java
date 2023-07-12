@@ -540,7 +540,7 @@ public class Game{
 						case "c1": saveFile(); break;
 						case "c2": Map(); break;
 					}
-
+					break;
 				case "forest":   
 				    switch(yourChoice){     
 						case "c1": goblinAttack(); break;
@@ -563,6 +563,7 @@ public class Game{
 						//case "c1":
 						case "c2": Map(); break;
 					}
+					break;
 			}
 		}
 	}
