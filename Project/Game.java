@@ -5,6 +5,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -304,6 +311,7 @@ public class Game{
 	choiceButtonPanel.setVisible(true);
     mainTextPanel.setVisible(false); // Hide the main text panel
 	mapButtonPanel.setVisible(false); //hide the view map button when on the map
+	monsterPanel.setVisible(false);
 
     mapPanel = new JPanel();
     mapPanel.setBounds(100, 100, 600, 250);
@@ -459,6 +467,8 @@ public class Game{
 			goblinAttack();
 		}
 		else{
+			goblin.setHP(0);
+			monsterHP.setText("" + goblin.getHP());
 			mainTextArea.setText("You attack the goblin back, giving it a" + damage + "damage. The goblin has been defeated.");
 			choice1.setText("Move forward");
 			choice2.setText("View map");
@@ -471,19 +481,19 @@ public class Game{
 	}
 
 	public void saveFile(){
-		try{
-			BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt", null, false));
-			bw.write("" + playerHP);
-			bw.newLine();
-			bw.write(weapon);
-			bw.close();
-		}
-		catch(Exception e){
+		Path filePath = Paths.get("saveFile.txt");
+		List<String> lines = new ArrayList<>();
+		lines.add(String.valueOf(warrior.getHP()));
+		// Add other data you want to save to the file here
 
+		try {
+			Files.write(filePath, lines, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		hpLabelNumber.setText("" + playerHP);
-		weaponLabelName.setText(weapon);
-		//Map();
+
+		hpLabelNumber.setText(String.valueOf(warrior.getHP()));
+		townn();
 	}
 
 	public void loadData(){
