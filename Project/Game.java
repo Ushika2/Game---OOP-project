@@ -480,6 +480,18 @@ public class Game{
 		}
 	}
 
+	public void Mountain(){
+		position = "mountainFoot";
+		mainTextArea.setText("While venturing deep into the forest, you arrived at the foot of a mountain.\nDanger ahead: do note that proceeding to the mountain will not allow you to open your map. Adventurers are advised to be fully prepared.");
+		choice1.setText("Go up the mountain");
+		choice2.setText("View map");
+		choice3.setText("");
+		choice4.setText("");
+		
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
 	public void saveFile(){
 		Path filePath = Paths.get("saveFile.txt");
 		List<String> lines = new ArrayList<>();
@@ -542,7 +554,13 @@ public class Game{
 					break;
 				case "attackGoblin":
 					switch(yourChoice){
-						//case "c1": 
+						case "c1": Mountain(); break;
+						case "c2": Map(); break;
+					}
+					break;
+				case "mountainFoot":
+					switch(yourChoice){
+						//case "c1":
 						case "c2": Map(); break;
 					}
 			}
