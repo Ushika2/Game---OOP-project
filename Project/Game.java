@@ -159,8 +159,8 @@ public class Game{
 		// titleNamePanel.setVisible(false);
 		// startButtonPanel.setVisible(false);
 
-		textPanel.setVisible(false);
-		inputPanel.setVisible(false);
+		//textPanel.setVisible(false);
+		//inputPanel.setVisible(false);
 
 		mainTextPanel = new JPanel();
 		mainTextPanel.setBounds(100,100, 600, 250);
@@ -237,7 +237,14 @@ public class Game{
 			intro();
 		}
 		else if(startOrContinue.equals("continue")){
+			titleNamePanel.setVisible(false);
+		                         startButtonPanel.setVisible(false);
+		                         continueButtonPanel.setVisible(false);
+								mainTextPanel.setVisible(false); // Hide the main text panel
+								//mapButtonPanel.setVisible(true); //hide the view map button when on the map
+										 
 			loadData();
+			//Map();
 		}
 
 		// playerSetup();
@@ -341,12 +348,12 @@ public class Game{
 	choice2.setVisible(true);
 	choice3.setVisible(true);
 	choice4.setVisible(true);
-	   
+	
 	}
 
 	public void playerSetup(){ //to modify
 		location = "Town";
-
+        
 		weaponLabelName.setText(knife.getName());
 		playerHP = warrior.getHP();
 		hpLabelNumber.setText("" + playerHP);
@@ -435,19 +442,21 @@ public class Game{
 		goblinSetup();
 
 		mapButtonPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
 
 		int damage = new java.util.Random().nextInt(1,6);
-		mainTextArea.setText("The goblin attacked you giving" + damage + "damage.");
+		mainTextArea.setText("The goblin attacked you giving " + damage + " damage.");
 
 		warrior.takeDamage(damage);
 		// update hp of player
 		hpLabelNumber.setText(""+warrior.getHP());
 
 		choice1.setText("Attack goblin");
-		choice2.setText("");
+		choice2.setText("Retreat");
 		choice3.setText("");
 		choice4.setText("");
 		
+		choice2.setVisible(true);
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 		
@@ -456,26 +465,43 @@ public class Game{
 	public void AttackGoblin(){
 		position = "attackGoblin";
 		mapButtonPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
 		int damage = knife.getDamage();
-		mainTextArea.setText("You attack the goblin back, giving it a" + damage + "damage.");
+
+		mainTextArea.setText("You attack the goblin back, giving it " + goblin.getHP() + " damage. The goblin has been defeated.");
 		//warrior.attack(goblin);
 		goblin.takeDamage(damage);
 		// update hp of goblin
 		monsterHP.setText("" + goblin.getHP());
-
+		//goblinAttack();
+		
 		if (goblin.getHP() > 0){
-			goblinAttack();
+			//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
+		 	//goblinAttack();
+			mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
+			choice1.setText("Continue");
+			choice2.setText("");
+			choice3.setText("");
+			choice4.setText("");
+			//goblinAttack();
+			choice2.setVisible(false);
+			choice3.setVisible(false);
+			choice4.setVisible(false);
+			
 		}
+		
 		else{
 			goblin.setHP(0);
 			monsterHP.setText("" + goblin.getHP());
-			mainTextArea.setText("You attack the goblin back, giving it a" + damage + "damage. The goblin has been defeated.");
-			choice1.setText("Move forward");
-			choice2.setText("View map");
-			choice3.setText("");
-			choice4.setText("");
+			//mainTextArea.setText("You attack the goblin back, giving it a " + damage  + " damage. The goblin has been defeated.");
+			choice2.setText("Move forward");
+			choice3.setText("View map");
+			//choice3.setText("");
+			//choice4.setText("");
 			
-			choice3.setVisible(false);
+			choice1.setVisible(false);
+			choice2.setVisible(true);
+			choice3.setVisible(true);
 			choice4.setVisible(false);
 		}
 	}
@@ -487,7 +513,9 @@ public class Game{
 		choice2.setText("View map");
 		choice3.setText("");
 		choice4.setText("");
-		
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 	}
@@ -496,6 +524,7 @@ public class Game{
 		Path filePath = Paths.get("saveFile.txt");
 		List<String> lines = new ArrayList<>();
 		lines.add(String.valueOf(warrior.getHP()));
+		lines.add(String.valueOf(knife.getName()));
 		// Add other data you want to save to the file here
 
 		try {
@@ -509,19 +538,22 @@ public class Game{
 	}
 
 	public void loadData(){
-		try{
-			BufferedReader br = new BufferedReader(new FileReader("saveFile.txt"));
-			playerHP = Integer.parseInt(br.readLine());
-			weapon = br.readLine();
-			br.close();
-		}
-		catch(Exception e){
+	 	try{
+	 		BufferedReader br = new BufferedReader(new FileReader("saveFile.txt"));
+	 		playerHP = Integer.parseInt(br.readLine());
+	 		weapon = br.readLine();
+	 		br.close();
+	 	}
+	 	catch(Exception e){
+	 		e.printStackTrace();
 			
-		}
-		hpLabelNumber.setText("" + playerHP);
-		weaponLabelName.setText(weapon);
-		townn();
-	}
+	 	}
+	 	hpLabelNumber.setText("" + playerHP);
+	 	weaponLabelName.setText(weapon);
+		
+	 }
+
+	
 
 	public class ChoiceHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
@@ -550,12 +582,14 @@ public class Game{
 				case "goblinAttack":
                     switch(yourChoice){
 			     		case "c1":AttackGoblin();break;
+						case "c2": Map(); break;
 				 	}
 					break;
 				case "attackGoblin":
 					switch(yourChoice){
-						case "c1": Mountain(); break;
-						case "c2": Map(); break;
+						case "c1":goblinAttack(); break;
+						case "c2": Mountain(); break;
+						case "c3": Map(); break;
 					}
 					break;
 				case "mountainFoot":
@@ -628,7 +662,9 @@ public class Game{
 	public class InputHandler implements ActionListener{
         public void actionPerformed(ActionEvent event){
 			String text = jtf.getText();
-			Gameplay("start");
+				textPanel.setVisible(false);
+		        inputPanel.setVisible(false);
+			    Gameplay("start");
         }
     }
 }
