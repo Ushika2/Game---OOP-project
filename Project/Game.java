@@ -41,7 +41,7 @@ public class Game{
 	JTextField jtf;  //text box for user input
 
 	int playerHP;
-	int gold = 1000;
+	int gold;
 	String playerName, weapon, position, location;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
@@ -210,15 +210,6 @@ public class Game{
 		locationName.setFont(normalFont);
 		locationName.setForeground(Color.white);
 		playerPanel.add(locationName);
-		// goldLabel = new JLabel("|Gold:");  // adding gold
-		// goldLabel.setFont(normalFont);
-		// goldLabel.setForeground(Color.white);
-		// goldLabel.setBackground(Color.red);
-		// playerPanel.add(goldLabel);
-		// // goldnumber = new JLabel();
-		// goldnumber.setFont(normalFont);
-		// goldnumber.setForeground(Color.white);
-		// playerPanel.add(goldnumber);
 		goldLabel = new JLabel(" |Gold:");  // adding Hp
 		goldLabel.setFont(normalFont);
 		goldLabel.setForeground(Color.white);
@@ -597,15 +588,15 @@ public class Game{
 		choice4.setVisible(false);
 
 	}
-	public void chest(){
-		position = "chest";
+	public void goldchest(){
+		position = "goldchest";
 		mapButtonPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
 
 		int addgold = new java.util.Random().nextInt(1000) + 1;
-		int Gold = gold + addgold;
+		gold = gold + addgold;
 		// update gold of player
-		goldLabelNumber.setText(""+ Gold);
+		goldLabelNumber.setText(""+ gold);
 		mainTextArea.setText("You opened the chest and found " + addgold + " gold.");
 		choice1.setText("Advance in forest");
 		choice2.setText("Turn back");
@@ -617,6 +608,34 @@ public class Game{
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 
+	}
+    public void waterfall(){
+		position = "waterfall";
+		mapButtonPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+		mainTextArea.setText("You advanced further in the forest and arrived at a waterfall.");
+
+		choice1.setText("Go for a swim");
+		choice2.setText("Turn back");
+		choice3.setText("");
+		choice4.setText("");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+
+
+	}
+    public void swim(){
+		position = "swim";
+		mapButtonPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+		mainTextArea.setText("You decide to go for a swim. However, the water was too deep somethimng somethinmg idk BUT you drowned.");
+        choice1.setVisible(false);
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
 	}
 	public void saveFile(){
 		Path filePath = Paths.get("saveFile.txt");
@@ -706,7 +725,19 @@ public class Game{
 					break;
 				case "left":   
 				    switch(yourChoice){     
-						case "c1": chest(); break;
+						case "c1": goldchest(); break;
+						case "c2": forest2(); break;
+					}
+					break;
+				case "goldchest":   
+				    switch(yourChoice){     
+						case "c1": waterfall(); break;
+						case "c2": forest2(); break;
+					}
+					break;
+				case "waterfall":   
+				    switch(yourChoice){     
+						case "c1": swim(); break;
 						case "c2": forest2(); break;
 					}
 					break;
