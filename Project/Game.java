@@ -42,6 +42,7 @@ public class Game{
 
 	int playerHP;
 	int gold;
+	int numOfTimesChestOpened = 0;
 	String playerName, weapon, position, location;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
@@ -575,11 +576,12 @@ public class Game{
 
 	public void left(){
 		position = "left";
+		
+		mainTextArea.setText("Dialogue");	
 
-		mainTextArea.setText("Dialogue");		
 		choice1.setText("Open Chest");
-		choice2.setText("Turn back");
-		choice3.setText("");
+		choice2.setText("Advanced in forest");
+		choice3.setText("Turn back");
 		choice4.setText("");
 
 		choice1.setVisible(true);
@@ -593,11 +595,24 @@ public class Game{
 		mapButtonPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
 
-		int addgold = new java.util.Random().nextInt(1000) + 1;
-		gold = gold + addgold;
-		// update gold of player
-		goldLabelNumber.setText(""+ gold);
-		mainTextArea.setText("You opened the chest and found " + addgold + " gold.");
+		
+        boolean chestOpened = false;
+
+		if (!chestOpened) {
+            if (numOfTimesChestOpened < 1) {   
+				int addgold = new java.util.Random().nextInt(1000) + 1;
+				gold = gold + addgold;
+				// update gold of player
+				goldLabelNumber.setText(""+ gold);
+				mainTextArea.setText("You opened the chest and found " + addgold + " gold.");
+                numOfTimesChestOpened++;
+            } 
+			else {
+                mainTextArea.setText("The chest is empty...");
+                chestOpened = true;
+            }
+		}
+
 		choice1.setText("Advance in forest");
 		choice2.setText("Turn back");
 		choice3.setText("");
