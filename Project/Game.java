@@ -439,14 +439,26 @@ public class Game{
 		locationName.setText(location);
 		mapPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
+
+		if(goblin.getHP() > 0){
 		mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
 		choice1.setText("Fight the goblin");
 		choice2.setText("view map");
 		choice3.setText("");
 		choice4.setText("");
-		
 		choice3.setVisible(false);
 		choice4.setVisible(false);
+		}
+		else{
+			mainTextArea.setText("The goblin has been defeated. You can advance further in the forest");
+			choice3.setText("Advance in forest");
+		    choice4.setText("View map");
+
+			choice1.setVisible(false);
+		    choice2.setVisible(false);
+		}
+		
+	
 		
 	}
 
@@ -709,6 +721,8 @@ public class Game{
 				    switch(yourChoice){     
 						case "c1": goblinAttack(); break;
 						case "c2": Map(); break;
+						case "c3": forest2(); break;
+						case "c4": Map(); break;
 					}
 					break;
 				case "goblinAttack":
