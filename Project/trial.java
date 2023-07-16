@@ -115,17 +115,17 @@ class gameMap{
 
         if(choice == 1){
                 //work in progress
-                Sword sword = new Sword(10);
-                Warrior player = new Warrior("m", 100, sword, sword);  //maybe should change afterwards
+               // Sword sword = new Sword(10);
+                //Warrior player = new Warrior("m", 100, sword, sword);  //maybe should change afterwards
 
                 int heal;
                 heal = 5;
                 //int HP;
-                player.setHP(player.getHP() + heal);
+               // player.setHP(player.getHP() + heal);
                 //HP = player.getHP();
 
                 System.out.println("You were healed by the fairy and gained" + heal +"HP");
-                System.out.println("HP is now: " + player.getHP());
+              //  System.out.println("HP is now: " + player.getHP());
                 heal = heal + 5;
                 gameMap map = new gameMap();
                 map.map();
@@ -164,8 +164,8 @@ public class trial{
         // System.out.println("Choose a character:\n1.Warrior\n2.Healer\n3.Mage\n4.Archer");
         // int choice = sc.nextInt();
         //if(choice == 1){
-            Sword sword = new Sword(10);
-            Warrior player = new Warrior(playerName, 100, sword, sword);  //maybe should change afterwards
+        //    Sword sword = new Sword(10);
+         //   Warrior player = new Warrior(playerName, 100, sword, sword);  //maybe should change afterwards
         //}
         // else if(choice == 2){
         //     Sword sword = new Sword(10);
@@ -185,9 +185,9 @@ public class trial{
         System.out.println("Current status:");
         String location = "Home town entrance";
 
-        System.out.println("HP: " + player.getHP());
-        System.out.println("weapons: " + player.getLeftHandWeapon() + player.getRightHandWeapon());
-        System.out.println("Location: " + location);
+        // System.out.println("HP: " + player.getHP());
+        // System.out.println("weapons: " + player.getLeftHandWeapon() + player.getRightHandWeapon());
+        // System.out.println("Location: " + location);
        
         System.out.println("\nLet the game start.\n");
 

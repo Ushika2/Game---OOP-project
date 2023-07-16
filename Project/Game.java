@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import character.*;
 import spell.*;
@@ -30,7 +32,7 @@ public class Game{
     JFrame window;
 	Container con;
 	JPanel titleNamePanel, startButtonPanel, continueButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel; //panel to display text;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel;
+	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font
@@ -39,14 +41,15 @@ public class Game{
 	JTextField jtf;  //text box for user input
 
 	int playerHP;
+	int gold = 1000;
 	String playerName, weapon, position, location;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
 	InputHandler iHandler = new InputHandler();
-	
-    
+
+
     Knife knife = new Knife("knife",10);
 	Warrior warrior = new Warrior("warrior",100, knife, null);
 	Goblin goblin = new Goblin("goblin",13);
@@ -207,6 +210,23 @@ public class Game{
 		locationName.setFont(normalFont);
 		locationName.setForeground(Color.white);
 		playerPanel.add(locationName);
+		// goldLabel = new JLabel("|Gold:");  // adding gold
+		// goldLabel.setFont(normalFont);
+		// goldLabel.setForeground(Color.white);
+		// goldLabel.setBackground(Color.red);
+		// playerPanel.add(goldLabel);
+		// // goldnumber = new JLabel();
+		// goldnumber.setFont(normalFont);
+		// goldnumber.setForeground(Color.white);
+		// playerPanel.add(goldnumber);
+		goldLabel = new JLabel(" |Gold:");  // adding Hp
+		goldLabel.setFont(normalFont);
+		goldLabel.setForeground(Color.white);
+		playerPanel.add(goldLabel);
+		goldLabelNumber = new JLabel();
+		goldLabelNumber.setFont(normalFont);
+		goldLabelNumber.setForeground(Color.white);
+		playerPanel.add(goldLabelNumber);
 
 		//monster panel
 		monsterPanel = new JPanel();
@@ -238,10 +258,10 @@ public class Game{
 		}
 		else if(startOrContinue.equals("continue")){
 			titleNamePanel.setVisible(false);
-		                         startButtonPanel.setVisible(false);
-		                         continueButtonPanel.setVisible(false);
-								mainTextPanel.setVisible(false); // Hide the main text panel
-								//mapButtonPanel.setVisible(true); //hide the view map button when on the map
+		    startButtonPanel.setVisible(false);
+		    continueButtonPanel.setVisible(false);
+			mainTextPanel.setVisible(false); // Hide the main text panel
+			//mapButtonPanel.setVisible(true); //hide the view map button when on the map
 										 
 			loadData();
 			//Map();
@@ -309,7 +329,8 @@ public class Game{
 		mapButtonPanel.add(mapButton);
 		con.add(mapButtonPanel);
 		window.setVisible(true);
-
+        
+		
 	}
 
 	public void Map() {
@@ -337,7 +358,7 @@ public class Game{
     mapPanel.add(mapTextArea);
     mapPanel.setVisible(true); // Show the map panel
 
-	choice1.setText("Townn");
+	choice1.setText("Town");
 	choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
 	choice3.setText("Village");
 	choice4.setText("River");
@@ -351,6 +372,8 @@ public class Game{
 	
 	}
 
+	
+
 	public void playerSetup(){ //to modify
 		location = "Town";
         
@@ -359,6 +382,7 @@ public class Game{
 		hpLabelNumber.setText("" + playerHP);
 		locationName.setText(location);
 		characterLabelName.setText("" + warrior.getName());
+		goldLabelNumber.setText(""+ gold);
 	}
 
 	// Goblin setup
@@ -423,7 +447,6 @@ public class Game{
 		locationName.setText(location);
 		mapPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
-
 		mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
 		choice1.setText("Fight the goblin");
 		choice2.setText("view map");
@@ -494,7 +517,7 @@ public class Game{
 			goblin.setHP(0);
 			monsterHP.setText("" + goblin.getHP());
 			//mainTextArea.setText("You attack the goblin back, giving it a " + damage  + " damage. The goblin has been defeated.");
-			choice2.setText("Move forward");
+			choice2.setText("Advance in the forest");
 			choice3.setText("View map");
 			//choice3.setText("");
 			//choice4.setText("");
@@ -506,11 +529,32 @@ public class Game{
 		}
 	}
 
-	public void Mountain(){
-		position = "mountainFoot";
-		mainTextArea.setText("While venturing deep into the forest, you arrived at the foot of a mountain.\nDanger ahead: do note that proceeding to the mountain will not allow you to open your map. Adventurers are advised to be fully prepared.");
-		choice1.setText("Go up the mountain");
-		choice2.setText("View map");
+	public void forest2(){
+		position = "forest2";
+		location = "Forest";
+		locationName.setText(location);
+		mapPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+		mapButtonPanel.setVisible(false);
+
+		mainTextArea.setText("You arrive at a crossroad in the forest. You can either go right or left.");		
+		choice1.setText("Right");
+		choice2.setText("Left");
+		choice3.setText("View map");
+		choice4.setText("");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(true);
+		choice4.setVisible(false);
+	}
+
+	public void right(){
+		position = "right";
+		mainTextArea.setText("While venturing deep in the forest, you arrived at the foot of a mountain. The path to the summit appears treacherous, windy through the rocky terrain.Its shadowy twists hinting at the dangers that lie ahead.\r\n" + 
+				"(Danger: Proceeding to the mountain will not allow you to go back/open your map. Adventurers are advised to be fully prepared.)\r\n");
+		choice1.setText("Climb the mountain");
+		choice2.setText("Turn back");
 		choice3.setText("");
 		choice4.setText("");
 
@@ -520,6 +564,60 @@ public class Game{
 		choice4.setVisible(false);
 	}
 
+
+
+	public void Mountain(){
+		position = "mountainFoot";
+		location = "Mountain";
+		locationName.setText(location);
+		mainTextArea.setText("Breathless, you arrive at the top and notice a small dark cave. At the entrance, you find a dirty old torch, but still usable.\r\n");
+		choice1.setText("Take the torch");
+		choice2.setText("Leave torch");
+		choice3.setText("");
+		choice4.setText("");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	public void left(){
+		position = "left";
+
+		mainTextArea.setText("Dialogue");		
+		choice1.setText("Open Chest");
+		choice2.setText("Turn back");
+		choice3.setText("");
+		choice4.setText("");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+
+	}
+	public void chest(){
+		position = "chest";
+		mapButtonPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+
+		int addgold = new java.util.Random().nextInt(1000) + 1;
+		int Gold = gold + addgold;
+		// update gold of player
+		goldLabelNumber.setText(""+ Gold);
+		mainTextArea.setText("You opened the chest and found " + addgold + " gold.");
+		choice1.setText("Advance in forest");
+		choice2.setText("Turn back");
+		choice3.setText("");
+		choice4.setText("");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+
+	}
 	public void saveFile(){
 		Path filePath = Paths.get("saveFile.txt");
 		List<String> lines = new ArrayList<>();
@@ -588,13 +686,33 @@ public class Game{
 				case "attackGoblin":
 					switch(yourChoice){
 						case "c1":goblinAttack(); break;
-						case "c2": Mountain(); break;
+						case "c2": forest2(); break;
 						case "c3": Map(); break;
+					}
+					break;
+				case "forest2":   
+				    switch(yourChoice){     
+						case "c1": right(); break;
+					    case "c2": left(); break;
+						case "c3": Map(); break;
+					}
+					break;
+				case "right":   
+				    switch(yourChoice){     
+						case "c1": Mountain(); break;
+					    //case "c2": left(); break;
+						case "c2": forest2(); break;
+					}
+					break;
+				case "left":   
+				    switch(yourChoice){     
+						case "c1": chest(); break;
+						case "c2": forest2(); break;
 					}
 					break;
 				case "mountainFoot":
 					switch(yourChoice){
-						//case "c1":
+						//case "c1": 
 						case "c2": Map(); break;
 					}
 					break;
@@ -658,6 +776,8 @@ public class Game{
 			Map();
 		}
 	}
+
+
 
 	public class InputHandler implements ActionListener{
         public void actionPerformed(ActionEvent event){
