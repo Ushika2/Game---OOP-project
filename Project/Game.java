@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import User_input.User_input.InputHandler;
 import character.*;
 import spell.*;
 import weapon.*;
@@ -612,20 +613,36 @@ public class Game{
 
 		if (!chestOpened) {
             if (numOfTimesChestOpened < 1) {   
-				int addgold = new java.util.Random().nextInt(1000) + 1;
-				gold = gold + addgold;
-				// update gold of player
+
+				Reward reward = generateRandomReward();
+
+				if (reward instanceof Gold) {
+					Gold goldReward = (Gold) reward;
+					int addGold = goldReward.getAmount();
+				// int addgold = new java.util.Random().nextInt(1000) + 1;
+				 gold = gold + addGold;
+				// // update gold of player
 				goldLabelNumber.setText(""+ gold);
-				mainTextArea.setText("You opened the chest and found " + addgold + " gold.");
+				mainTextArea.setText("You opened the chest and found " + addGold + " gold.");
+				}
+			    else if (reward instanceof Weapon) {
+                Weapon weaponReward = (Weapon) reward;
+                String weaponName = weaponReward.getName();
+                mainTextArea.setText("You opened the chest and found a " + weaponName + ".");
+                // Your code to handle the weapon goes here
+                // For example, you can equip the weapon to the player or add it to their inventory
+            }
+
                 numOfTimesChestOpened++;
-            } 
+            
+		} 
 			else {
                 mainTextArea.setText("The chest is empty...");
                 chestOpened = true;
             }
 		}
 
-		choice1.setText("Advance in forest");
+     	choice1.setText("Advance in forest");
 		choice2.setText("Turn back");
 		choice3.setText("");
 		choice4.setText("");
@@ -636,6 +653,53 @@ public class Game{
 		choice4.setVisible(false);
 
 	}
+
+	class Reward {
+		// Base class for rewards
+		//serves as a placeholder base class for different types of rewards
+		// it acts as a common superclass to enable polymorphism and help organize the different types of rewards.
+	}
+	
+	class Gold extends Reward {
+		private int amount;
+	
+		public Gold(int amount) {
+			this.amount = amount;
+		}
+	
+		public int getAmount() {
+			return amount;
+		}
+	}
+	
+	class Weapon extends Reward {
+		private String name;
+	
+		public Weapon(String name) {
+			this.name = name;
+		}
+	
+		public String getName() {
+			return name;
+		}
+	}
+	
+	private Reward generateRandomReward() {
+		Random random = new Random();
+		int chance = random.nextInt(100); // Generating a random number between 0 and 99 (inclusive)
+	
+		if (chance < 70) {
+			// 70% chance to get gold
+			int randomGold = random.nextInt(1000) + 1; // Generates a random number between 1 and 1000 (inclusive)
+			return new Gold(randomGold);
+		} else {
+			// 30% chance to get a weapon
+			String[] weapons = {"Sword", "Axe", "Bow", "Staff", "Dagger"};
+			int randomWeaponIndex = random.nextInt(weapons.length);
+			return new Weapon(weapons[randomWeaponIndex]);
+		}
+	}
+
     public void waterfall(){
 		position = "waterfall";
 		mapButtonPanel.setVisible(false);
