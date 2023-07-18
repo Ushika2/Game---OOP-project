@@ -32,12 +32,12 @@ import weapon.*;
 public class Game{
     JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, continueButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel; //panel to display text;
+	JPanel titleNamePanel, startButtonPanel, continueButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel, healerButtonPanel; //panel to display text;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font
-	JButton startButton, continueButton, mapButton, choice1, choice2, choice3, choice4,enterButton; //add button
+	JButton startButton, continueButton, mapButton, choice1, choice2, choice3, choice4,enterButton, healerButton; //add button
 	JTextArea mainTextArea, mapTextArea;
 	JTextField jtf;  //text box for user input
 
@@ -323,6 +323,21 @@ public class Game{
 		con.add(mapButtonPanel);
 		window.setVisible(true);
         
+		// Healer button panel
+		healerButtonPanel = new JPanel();
+		healerButtonPanel.setBounds(600, 450, 200, 50);
+		healerButtonPanel.setBackground(Color.black);
+
+		healerButton = new JButton("Healer");
+		healerButton.setBackground(Color.black);
+		healerButton.setForeground(Color.white);
+		healerButton.setFont(normalFont);
+		healerButton.addActionListener(mapHandler);
+		healerButton.setFocusPainted(false);
+		healerButtonPanel.add(healerButton);
+		con.add(healerButtonPanel);
+		window.setVisible(true);
+		healerButtonPanel.setVisible(false);
 		
 	}
 
@@ -487,6 +502,9 @@ public class Game{
 
 		choice1.setText("Enter shop");
 		choice2.setVisible(false);
+
+		//gain healer
+		healerButtonPanel.setVisible(true);
 	}
 
 	public void hideWatch(){
@@ -517,6 +535,9 @@ public class Game{
 		mainTextArea.setText("You offer him some water and after a few minutes, he sits up, feeling better.'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?' You introduce yourself and while chatting. You tell him about your quest and he offers to join you. He then guides you to a small shady shop at the corner.\n\nYou found yourself a healer. Brook can fight alongside you and can heal you in case of serious injuries.");
 		choice1.setText("Enter shop");
 		choice2.setVisible(false);
+
+		//gain healer
+		healerButtonPanel.setVisible(true);
 	}
 
 	public void walkPast(){
