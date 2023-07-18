@@ -55,7 +55,7 @@ public class Game{
     Knife knife = new Knife("knife",10);
 	Warrior warrior = new Warrior("warrior",100, knife, null);
 	Goblin goblin = new Goblin("goblin",13);
-	
+	Axe axe = new Axe("axe",20);  //goblin weapon in village
 	//ImageIcon logo = new ImageIcon(".//res//jackfrost.jpg");
 
 	public static void main(String[] args) {
@@ -365,8 +365,6 @@ public class Game{
 	
 	}
 
-	
-
 	public void playerSetup(){ //to modify
 		location = "Town";
         
@@ -404,7 +402,7 @@ public class Game{
 		mainTextPanel.add(mainTextArea);
 	}
 
-	// Going to village for 1st time
+	// Going to town for 1st time
 	public void townn(){
 		position = "townn";
 		location = "Town";
@@ -427,12 +425,123 @@ public class Game{
 		mapPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
 
-		mainTextArea.setText("You are at the village.\nYou see a shop where you can buy weapons.You go in.");		
-		choice1.setText("");
-		choice2.setText("");
+		mainTextArea.setText("You decide to go take a look at the forlorn village. Upon arrival, you find the village under attack by a horde of goblins. Amidst the chaos, you catch sight of a solitary figure battling the malignant goblins.");		
+		choice1.setText("Join him in the fight");
+		choice2.setText("Hide and watch");
 		choice3.setText("");
 		choice4.setText("");
+
+		choice3.setVisible(false);
+		choice4.setVisible(false);
 	}
+
+	public void aidHealer1(){
+		position = "aidHealer1";
+		mainTextArea.setText("You rush to his side while his gaze acknowledges your kindness and you fight off the monsters alongside.\nYou turn to your left and see a goblin charges at you with an ax.");
+		choice1.setText("Dodge");
+		choice2.setText("Block attack");
+		choice3.setText("Attack back");
+
+	}
+
+	public void dodge(){
+		//position = "dodge";
+		Random random = new Random();
+        int randomNumber = random.nextInt(2);
+		if (randomNumber == 0){
+			mainTextArea.setText("You duck your head and was able to dodge the attack");
+		}
+		else{
+			int damage = new java.util.Random().nextInt(5,20);
+			mainTextArea.setText("You try to dodge, but failed, taking in" + damage + "damage");
+			warrior.takeDamage(damage);
+			// update hp of player
+			hpLabelNumber.setText(""+warrior.getHP());
+		}
+		position = "attackGoblin";
+		choice1.setText("Attack");
+		choice2.setVisible(false);
+	}
+
+	public void blockAttack(){
+		if (warrior.getLeftHandWeapon().getDamage() < axe.getDamage()){
+			int damage = new java.util.Random().nextInt(1,10);
+			mainTextArea.setText("You try to block the attack, but failed. You stumble back.");
+			warrior.takeDamage(damage);
+			hpLabelNumber.setText(""+warrior.getHP());
+		}
+		else{
+			mainTextArea.setText("You raise your weapon and block the attack.");
+		}
+		position = "attackGoblin";
+		choice1.setText("Attack");
+		choice2.setVisible(false);
+	}
+
+	public void villageFightEnd(){
+		position = "endQuest1";
+		mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
+		playerHP = warrior.getHP() + 25;
+		warrior.setHP(playerHP);
+		hpLabelNumber.setText(""+warrior.getHP());
+
+		choice1.setText("Enter shop");
+		choice2.setVisible(false);
+	}
+
+	public void hideWatch(){
+		position = "hide";
+		mainTextArea.setText("You find a place to hide and watch the fight closely. After some struggle, he managed to fight them off, but then collapsed to the ground.");
+		choice1.setText("Rush to his aid");
+		choice2.setText("Don't bother to help");
+	
+	}
+
+	public void aidHealer2(){
+		position = "aidHealer2";
+		mainTextArea.setText("You rushed to his side and managed to drag him on a nearby bench.'Water, please.'");
+		choice1.setText("Offer him some water");
+
+	}
+
+	public void notHelp1(){
+		position = "noHelp1";
+		mainTextArea.setText("The latter started to whimper in pain, asking for some water.");
+		choice1.setText("Offer him some water");
+		choice2.setText("Walk past him");
+		
+	}
+
+	public void offerWater(){
+		position = "endQuest1";
+		mainTextArea.setText("You offer him some water and after a few minutes, he sits up, feeling better.'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?' You introduce yourself and while chatting. You tell him about your quest and he offers to join you. He then guides you to a small shady shop at the corner.\n\nYou found yourself a healer. Brook can fight alongside you and can heal you in case of serious injuries.");
+		choice1.setText("Enter shop");
+		choice2.setVisible(false);
+	}
+
+	public void walkPast(){
+		position = "endQuest1";
+		mainTextArea.setText("You walk past him, heading to the small shady shop at the corner.");
+		choice1.setText("Enter shop");
+		choice2.setVisible(false);
+	}
+
+	public void village2(){
+		position = "endQuest1";
+		mainTextArea.setText("You are back to the village.");
+		choice1.setText("Enter shop");
+		choice2.setText("View map");
+		//choice2.setVisible(false);
+	}
+
+	public void shop(){
+		position = "shop";
+		mainTextArea.setText("Greeted by the old lady, she offers you a look at her goods.\n'Anything that interests you lad?'");
+		choice1.setText("Sell");
+		choice2.setText("Buy");
+		choice2.setVisible(true);
+	}
+
 	// Going to forest for the 1st time
 	public void forest1(){
 		position = "forest";
@@ -459,8 +568,6 @@ public class Game{
 		    choice2.setVisible(false);
 		}
 		
-	
-		
 	}
 
 	//Gobin Attack
@@ -472,7 +579,7 @@ public class Game{
 		mapButtonPanel.setVisible(false);
 		mainTextPanel.setVisible(true);
 
-		int damage = new java.util.Random().nextInt(1,6);
+		int damage = new java.util.Random().nextInt(1,20);
 		mainTextArea.setText("The goblin attacked you giving " + damage + " damage.");
 
 		warrior.takeDamage(damage);
@@ -480,11 +587,15 @@ public class Game{
 		hpLabelNumber.setText(""+warrior.getHP());
 
 		choice1.setText("Attack goblin");
-		choice2.setText("Retreat");
+		if(location == "Forest"){
+			choice2.setText("Retreat");
+			choice2.setVisible(true);
+		}
+		else{
+			choice2.setVisible(false);
+		}
 		choice3.setText("");
 		choice4.setText("");
-		
-		choice2.setVisible(true);
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 		
@@ -521,15 +632,20 @@ public class Game{
 		else{
 			goblin.setHP(0);
 			monsterHP.setText("" + goblin.getHP());
-			//mainTextArea.setText("You attack the goblin back, giving it a " + damage  + " damage. The goblin has been defeated.");
-			choice2.setText("Advance in the forest");
-			choice3.setText("View map");
-			//choice3.setText("");
-			//choice4.setText("");
 			
-			choice1.setVisible(false);
-			choice2.setVisible(true);
-			choice3.setVisible(true);
+			if(location == "Forest"){
+				choice1.setText("Advance in the forest");
+				choice2.setText("View map");
+				choice2.setVisible(true);
+			}
+			else if(location == "Village"){
+				position = "endFightVillage";
+				choice1.setText(">");
+				choice2.setVisible(false);
+			}
+			
+			choice1.setVisible(true);
+			choice3.setVisible(false);
 			choice4.setVisible(false);
 		}
 	}
@@ -778,6 +894,47 @@ public class Game{
 				case "townn":
 					switch(yourChoice){
 						case "c1": saveFile(); break;
+						case "c2": Map(); break;
+					}
+					break;
+				case "village1":
+					switch(yourChoice){
+						case "c1": aidHealer1(); break;
+						case "c2": hideWatch(); break;
+					}
+					break;
+				case "aidHealer1":
+					switch(yourChoice){
+						case "c1": dodge(); break;
+						case "c2": blockAttack(); break;
+						case "c3": AttackGoblin(); break;
+					}
+					break;
+				case "endFightVillage":
+					switch(yourChoice){
+						case "c1": villageFightEnd(); break;
+					}
+					break;
+				case "hide":
+					switch(yourChoice){
+						case "c1": aidHealer2(); break;
+						case "c2": notHelp1(); break;
+					}
+					break;
+				case "aidHealer2":
+					switch(yourChoice){
+						case "c1": offerWater(); break;
+					}
+					break;
+				case "noHelp1":
+					switch(yourChoice){
+						case "c1": offerWater(); break;
+						case "c2": walkPast(); break;
+					}
+					break;
+				case "endQuest1":
+					switch(yourChoice){
+						case "c1": shop(); break;
 						case "c2": Map(); break;
 					}
 					break;
