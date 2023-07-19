@@ -54,8 +54,13 @@ public class Game{
 
     Knife knife = new Knife("knife",10);
 	Warrior warrior = new Warrior("warrior",100, knife, null);
+
+	// Creating monsters & weapon
 	Goblin goblin = new Goblin("goblin",13);
 	Axe axe = new Axe("axe",20);  //goblin weapon in village
+	Orgre orgre = new Orgre("orgre", 30);
+	Wolf wolf = new Wolf("wolf",23);
+
 	//ImageIcon logo = new ImageIcon(".//res//jackfrost.jpg");
 
 	public static void main(String[] args) {
