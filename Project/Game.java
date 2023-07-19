@@ -572,13 +572,13 @@ public class Game{
 		mainTextPanel.setVisible(true);
 
 		if(goblin.getHP() > 0){
-		mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
-		choice1.setText("Fight the goblin");
-		choice2.setText("view map");
-		choice3.setText("");
-		choice4.setText("");
-		choice3.setVisible(false);
-		choice4.setVisible(false);
+			mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
+			choice1.setText("Fight the goblin");
+			choice2.setText("view map");
+			choice3.setText("");
+			choice4.setText("");
+			choice3.setVisible(false);
+			choice4.setVisible(false);
 		}
 		else{
 			mainTextArea.setText("The goblin has been defeated. You can advance further in the forest");
@@ -655,6 +655,7 @@ public class Game{
 			monsterHP.setText("" + goblin.getHP());
 			
 			if(location == "Forest"){
+				position = "endFightForest";
 				choice1.setText("Advance in the forest");
 				choice2.setText("View map");
 				choice2.setVisible(true);
@@ -736,7 +737,7 @@ public class Game{
 
 		choice1.setVisible(true);
 		choice2.setVisible(true);
-		choice3.setVisible(false);
+		choice3.setVisible(true);
 		choice4.setVisible(false);
 
 	}
@@ -976,8 +977,12 @@ public class Game{
 				case "attackGoblin":
 					switch(yourChoice){
 						case "c1":goblinAttack(); break;
-						case "c2": forest2(); break;
-						case "c3": Map(); break;
+					}
+					break;
+				case "endFightForest":
+					switch(yourChoice){
+						case "c1": forest2(); break;
+						case "c2": Map(); break;
 					}
 					break;
 				case "forest2":   
@@ -997,7 +1002,8 @@ public class Game{
 				case "left":   
 				    switch(yourChoice){     
 						case "c1": goldchest(); break;
-						case "c2": forest2(); break;
+						case "c2": waterfall(); break;
+						case "c3": forest2(); break;
 					}
 					break;
 				case "goldchest":   
