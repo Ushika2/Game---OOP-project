@@ -596,6 +596,7 @@ public class Game{
 	}
 
 	public void sellItem(String item){
+		position = "sellItem";
 		if(item == "GoblinTeeth"){
 			if(goblinTeeth == 0){
 				mainTextArea.setText("You do not have any goblin teeth to sell.");
@@ -626,36 +627,17 @@ public class Game{
 		choice4.setVisible(false);
 	}
 
-	// public void sellGoblin(){
-	// 	position = "sellGoblin";
-	// 	if(goblinTeeth == 0){
-	// 		mainTextArea.setText("You do not have any goblin teeth to sell.");
-	// 		choice1.setText("Back");
-	// 		choice2.setVisible(false);
-	// 		choice3.setVisible(false);
-	// 		choice4.setVisible(false);
-	// 	}
-	// 	else{
-	// 		int priceGoblin = 10;
-	// 		gold = gold + (priceGoblin*goblinTeeth);
-	// 		goldLabelNumber.setText(""+ gold);
-	// 	}
-	// }
-
-	public void sellOrgre(){
-
-	}
-
-	public void sellWraith(){
-		
-	}
-
-	public void sellWolf(){
-		
-	}
-
 	public void buy(){
-		
+		position = "buy";
+		mainTextArea.setText("You can buy stuff");
+		choice1.setText("");
+		choice2.setText("");
+		choice3.setText("");
+		choice4.setText("");
+
+		choice2.setVisible(true);
+		choice3.setVisible(true);
+		choice4.setVisible(true);
 	}
 
 	// Going to forest for the 1st time
@@ -1068,6 +1050,11 @@ public class Game{
 						case "c2": sellItem("WolfSkin"); break;
 						case "c3": sellItem("WraithCloth"); break;
 						case "c4": sellItem("OrgreClaw"); break;
+					}
+					break;
+				case "sellItem":
+					switch(yourChoice){
+						case "c1": sell(); break;
 					}
 					break;
 				case "forest":   
