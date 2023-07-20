@@ -32,20 +32,20 @@ import weapon.*;
 public class Game{
     JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, continueButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel, healerButtonPanel; //panel to display text;
+	JPanel titleNamePanel, startButtonPanel, continueButtonPanel, mapButtonPanel, mainTextPanel, mapPanel, choiceButtonPanel, playerPanel,textPanel,inputPanel, monsterPanel, mageButtonPanel, healerButtonPanel; //panel to display text;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font
-	JButton startButton, continueButton, mapButton, choice1, choice2, choice3, choice4,enterButton, healerButton; //add button
+	JButton startButton, continueButton, mapButton, choice1, choice2, choice3, choice4,enterButton, healerButton, mageButton; //add button
 	JTextArea mainTextArea, mapTextArea;
 	JTextField jtf;  //text box for user input
 
-	int playerHP;
+	int playerHP = 100;
 	int gold;
 	int numOfTimesChestOpened = 0;
 	String playerName, weapon, position, location, character;
-	int villageCount = 0, HealPotionCount = 0;
+	int villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	MapScreenHandler mapHandler = new MapScreenHandler();
@@ -66,10 +66,10 @@ public class Game{
 	Lightning lightning = new Lightning("lightning", 15);
 
 	// Creating characters
-	Warrior warrior = new Warrior("warrior",100, knife, null);
-	Healer healer = new Healer("healer", 100, 10, null);
-	Archer archer = new Archer("archer",100,null);
-	Mage mage = new Mage("mage",100,blast,grimoire);
+	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
+	Healer healer = new Healer("healer", playerHP, 10, null);
+	Archer archer = new Archer("archer",playerHP,null);
+	Mage mage = new Mage("mage",playerHP,blast,grimoire);
 
 	// Creating monsters
 	Goblin goblin = new Goblin("goblin",13);
@@ -278,11 +278,11 @@ public class Game{
 			titleNamePanel.setVisible(false);
 		    startButtonPanel.setVisible(false);
 		    continueButtonPanel.setVisible(false);
-			mainTextPanel.setVisible(false); // Hide the main text panel
+			mainTextPanel.setVisible(true); // Hide the main text panel
 			//mapButtonPanel.setVisible(true); //hide the view map button when on the map
-										 
+			
 			loadData();
-			townn();
+			//townn();
 			//Map();
 		}
 
@@ -364,6 +364,22 @@ public class Game{
 		con.add(healerButtonPanel);
 		window.setVisible(true);
 		healerButtonPanel.setVisible(false);
+
+		// Mage button panel
+		mageButtonPanel = new JPanel();
+		mageButtonPanel.setBounds(600, 400, 200, 50);
+		mageButtonPanel.setBackground(Color.black);
+
+		mageButton = new JButton("Mage");
+		mageButton.setBackground(Color.black);
+		mageButton.setForeground(Color.white);
+		mageButton.setFont(normalFont);
+		mageButton.addActionListener(mapHandler);
+		mageButton.setFocusPainted(false);
+		mageButtonPanel.add(mageButton);
+		con.add(mageButtonPanel);
+		window.setVisible(true);
+		mageButtonPanel.setVisible(false);
 		
 	}
 
@@ -535,6 +551,7 @@ public class Game{
 		choice2.setVisible(false);
 
 		//gain healer
+		healerCount = 1;
 		healerButtonPanel.setVisible(true);
 	}
 
@@ -568,6 +585,7 @@ public class Game{
 		choice2.setVisible(false);
 
 		//gain healer
+		healerCount = 1;
 		healerButtonPanel.setVisible(true);
 	}
 
@@ -799,9 +817,10 @@ public class Game{
 		position = "buyPotion";
 		mainTextArea.setText("Choose item: ");
 		choice1.setText("Healing potion - 80 gold");
-		choice2.setText(" ");
+		choice2.setText("Curing potion - 80 gold");
 		choice3.setText(" ");
 		choice4.setText("Back");
+		choice3.setVisible(false);
 		choice4.setVisible(true);
 	}
 
@@ -819,10 +838,166 @@ public class Game{
 				HealPotionCount = 1;
 			}
 		}
-		else if(item == " "){
-
+		else if(item == "CuringPotion"){
+			if(gold < 80){
+				mainTextArea.setText("You do not have enough gold to buy curing potion.");
+			}
+			else{
+				mainTextArea.setText("You have acquired the curing potion, which can be used against poison.");
+				gold = gold - 80;
+				goldLabelNumber.setText(""+ gold);
+				CurePotionCount = 1;
+			}
 		}
 		choice1.setText("Back");
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	public void river1(){
+		position = "river1";
+		location = "River";
+		locationName.setText(location);
+		mapPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+		mapButtonPanel.setVisible(false);
+
+		mainTextArea.setText("You went down to a nearby river to rest and bath, when you see that water has been poisoned. People in surrounding camps seem to be infected and in agony.");		
+		choice1.setText("Investigate");
+		choice2.setText("View map");
+		choice3.setText("");
+		choice4.setText("");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	public void investigate(){
+		position = "investigate";
+		location = "River";
+		locationName.setText(location);
+		mainTextPanel.setVisible(true);
+
+		mainTextArea.setText("You move towards a person lying on the grounds, hoping to get some informations from him. Feebly, he said:\n 'The water, it's bad. Got poisoned by some witch. We need a cure, please. A cure.'");		
+		choice1.setText("Try to save them");
+		choice2.setText("Use curing potion");
+		choice3.setText("View map");
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(true);
+		choice4.setVisible(false);
+	}
+
+	public void saveRiver(){
+		position = "saveRiver";
+		mainTextPanel.setVisible(true);
+		if(healerCount == 0){
+			mainTextArea.setText("You get in the water, but end up getting poisoned. The poison started to infect your whole body until you feel numb. And without much help, you die in your own suffering.");
+			choice1.setText(" ");
+			choice2.setVisible(false);
+			choice3.setVisible(false);
+		}
+		else{
+			if(character == "warrior" || character == "archer"){
+				mainTextArea.setText("Having a good expertise, Brook tells you that he will be able to remove the poison and heal the people.");
+				choice2.setText("Switch to Brook");
+				choice3.setVisible(false);
+			}
+			else if(character == "healer"){
+				mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you some Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
+				playerHP = healer.getHP() - 35;	
+				healer.setHP(playerHP);
+				hpLabelNumber.setText("" + playerHP);
+
+				choice3.setText("Save the boy");
+				choice4.setText("Leave him be");
+				choice1.setVisible(false);
+				choice2.setVisible(false);
+				choice4.setVisible(true);
+			}
+		}
+		
+	}
+	
+	public void usePotion(String name){
+		position = "potion";
+		if(name == "CuringPotion"){
+			if(CurePotionCount == 0){
+				mainTextArea.setText("You do not possess the potion. You might find one at the village shop.");
+				choice1.setText("View map");
+				choice2.setVisible(false);
+				choice3.setVisible(false);
+			}
+			else if(CurePotionCount == 1){
+				mainTextArea.setText("You reach for your pockets and take out the curing potion. At the same time, one of the boys commes towards you, begging you to save him.But, you possess only 1 potion.");
+				choice2.setText("Save river");
+				choice3.setText("Save boy");
+				choice1.setVisible(false);
+				choice3.setVisible(true);
+			}
+		}
+		else if(name == "HealingPotion"){
+
+		}
+	}
+
+	public void saveRiver2(){
+		riverCount = 1;
+		position = "endRiver";
+		mainTextArea.setText("You decide that saving the river would be the best choice and you empty the flask into the river. The boy was left in anguish. Unable to fight against the poison, he succumbs to his death.");
+		choice1.setText("View map");
+		choice1.setVisible(true);
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	public void saveBoy(){  // acquire mage
+		riverCount = 1;
+		position = "endRiver";
+		mainTextArea.setText("Feeling pity for the boy, he decide to save him and in less than a minute, he's completely back to normal. Out of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.");
+		choice1.setText("View map");
+		choice1.setVisible(true);
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+
+		//gain healer
+		mageCount = 1;
+		mageButtonPanel.setVisible(true);
+	}
+
+	public void NosaveBoy(){
+		riverCount = 1;
+		position = "endRiver";
+		location = "River";
+		locationName.setText(location);
+		mainTextPanel.setVisible(true);
+
+		mainTextArea.setText("You move away from him, leaving him in anguish. Unable to fight against the poison, he succumbs to his death.");		
+		choice1.setText("View map");
+
+		choice1.setVisible(true);
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	// Going to river after the quest
+	public void river2(){
+		position = "endRiver";
+		location = "River";
+		locationName.setText(location);
+		mainTextPanel.setVisible(true);
+
+		mainTextArea.setText("You went back to the river. Nothing in view except from the peaceful stream.");		
+		choice1.setText("View map");
+
+		choice1.setVisible(true);
 		choice2.setVisible(false);
 		choice3.setVisible(false);
 		choice4.setVisible(false);
@@ -1149,7 +1324,7 @@ public class Game{
 		}
 
 		hpLabelNumber.setText(String.valueOf(warrior.getHP()));
-		townn();
+		//townn();
 	}
 
 	public void loadData(){
@@ -1186,7 +1361,8 @@ public class Game{
 					switch(yourChoice){
 						case "c1": townn(); break;
 						case "c2": forest1(); break;
-						case "c3": if(villageCount == 0){village1();}else{village2();};break;
+						case "c3": if(villageCount == 0){village1();}else{village2();}; break;
+						case "c4": if(riverCount == 0){river1();}else{river2();}; break;
 					}
 					break;
 				case "townn":
@@ -1293,13 +1469,47 @@ public class Game{
 				case "buyPotion":
 					switch(yourChoice){
 						case "c1": buyPotions("HealingPotion"); break;
-						
+						case "c2": buyPotions("CuringPotion"); break;
 						case "c4": buy(); break;
 					}
 					break;
 				case "choosePotion":
 					switch(yourChoice){
 						case "c1": buy(); break;
+					}
+					break;
+				case "river1":
+					switch(yourChoice){
+						case "c1": investigate(); break;
+						case "c2": Map(); break;
+					}
+					break;
+				case "investigate":
+					switch(yourChoice){
+						case "c1": saveRiver(); break;
+						case "c2": usePotion("CuringPotion"); break;
+						case "c3": Map(); break;
+					}
+					break;
+				case "saveRiver":
+					switch(yourChoice){
+						case "c1":  break; //player dies
+						case "c2": break;  //switch to healer
+						case "c3": saveBoy(); break;
+						case "c4": NosaveBoy(); break;
+					}
+					break;
+				case "potion":
+					switch(yourChoice){
+						case "c1": Map(); break;
+						case "c2": saveRiver2(); break;
+						case "c3": saveBoy(); break;
+						case "c4":  break;
+					}
+					break;
+				case "endRiver":
+					switch(yourChoice){
+						case "c1": Map(); break;
 					}
 					break;
 				case "forest":   
@@ -1404,7 +1614,7 @@ public class Game{
 			enterButton.addActionListener(iHandler);
 			inputPanel.add(enterButton); //add button to input panel
 	
-			con.add(inputPanel); //add input panel to ocntainer
+			con.add(inputPanel); //add input panel to container
 	
 	
 			window.setVisible(true);
@@ -1418,7 +1628,6 @@ public class Game{
 				case "start": userInput(); break;
 				case "continue": Gameplay("continue"); break;
 			}
-			//userInput();
 		}
 	}
 	public class MapScreenHandler implements ActionListener{
