@@ -1,2 +1,5 @@
-92
+104
+warrior
 knife
+Town
+60

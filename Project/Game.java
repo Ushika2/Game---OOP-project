@@ -282,6 +282,7 @@ public class Game{
 			//mapButtonPanel.setVisible(true); //hide the view map button when on the map
 										 
 			loadData();
+			townn();
 			//Map();
 		}
 
@@ -412,7 +413,8 @@ public class Game{
 		playerHP = warrior.getHP();
 		hpLabelNumber.setText("" + playerHP);
 		locationName.setText(location);
-		characterLabelName.setText("" + warrior.getName());
+		character = warrior.getName();
+		characterLabelName.setText("" + character);
 		goldLabelNumber.setText(""+ gold);
 	}
 
@@ -502,6 +504,7 @@ public class Game{
 		position = "attackGoblin";
 		choice1.setText(">");
 		choice2.setVisible(false);
+		choice3.setVisible(false);
 	}
 
 	public void blockAttack(){
@@ -517,10 +520,12 @@ public class Game{
 		position = "attackGoblin";
 		choice1.setText(">");
 		choice2.setVisible(false);
+		choice3.setVisible(false);
 	}
 
 	public void villageFightEnd(){
 		position = "endQuest1";
+		monsterPanel.setVisible(false);
 		mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
 		playerHP = warrior.getHP() + 25;
 		warrior.setHP(playerHP);
@@ -1130,7 +1135,11 @@ public class Game{
 		Path filePath = Paths.get("saveFile.txt");
 		List<String> lines = new ArrayList<>();
 		lines.add(String.valueOf(warrior.getHP()));
+		lines.add(String.valueOf(warrior.getName()));
 		lines.add(String.valueOf(knife.getName()));
+		lines.add(String.valueOf(location));
+		lines.add(String.valueOf(gold));
+
 		// Add other data you want to save to the file here
 
 		try {
@@ -1147,7 +1156,11 @@ public class Game{
 	 	try{
 	 		BufferedReader br = new BufferedReader(new FileReader("saveFile.txt"));
 	 		playerHP = Integer.parseInt(br.readLine());
+			character = br.readLine();
 	 		weapon = br.readLine();
+			location = br.readLine();
+			gold = Integer.parseInt(br.readLine());
+			
 	 		br.close();
 	 	}
 	 	catch(Exception e){
@@ -1155,7 +1168,10 @@ public class Game{
 			
 	 	}
 	 	hpLabelNumber.setText("" + playerHP);
+		characterLabelName.setText(character);
 	 	weaponLabelName.setText(weapon);
+		locationName.setText(location);
+		goldLabelNumber.setText(""+gold);
 		
 	 }
 
