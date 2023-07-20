@@ -44,21 +44,35 @@ public class Game{
 	int playerHP;
 	int gold;
 	int numOfTimesChestOpened = 0;
-	String playerName, weapon, position, location;
-	int villageCount = 0;
+	String playerName, weapon, position, location, character;
+	int villageCount = 0, HealPotionCount = 0;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	MapScreenHandler mapHandler = new MapScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
 	InputHandler iHandler = new InputHandler();
 
-
-    Knife knife = new Knife("knife",10);
-	Warrior warrior = new Warrior("warrior",100, knife, null);
-
-	// Creating monsters & weapon
-	Goblin goblin = new Goblin("goblin",13);
+	// Creating weapons
 	Axe axe = new Axe("axe",20);  //goblin weapon in village
+    Knife knife = new Knife("knife",10);
+	Sword sword = new Sword("sword", 25);
+	Bow bow = new Bow("Bow", 25);
+	Grimoire grimoire = new Grimoire("grimoire",20);
+
+	// Creating spells
+	Blast blast = new Blast("blast",10);
+	Fire fire = new Fire("fire",18);
+	Frost frost = new Frost("frost",12);
+	Lightning lightning = new Lightning("lightning", 15);
+
+	// Creating characters
+	Warrior warrior = new Warrior("warrior",100, knife, null);
+	Healer healer = new Healer("healer", 100, 10, null);
+	Archer archer = new Archer("archer",100,null);
+	Mage mage = new Mage("mage",100,blast,grimoire);
+
+	// Creating monsters
+	Goblin goblin = new Goblin("goblin",13);
 	Orgre orgre = new Orgre("orgre", 30);
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
@@ -468,7 +482,7 @@ public class Game{
 		choice1.setText("Dodge");
 		choice2.setText("Block attack");
 		choice3.setText("Attack back");
-
+		choice3.setVisible(true);
 	}
 
 	public void dodge(){
@@ -486,7 +500,7 @@ public class Game{
 			hpLabelNumber.setText(""+warrior.getHP());
 		}
 		position = "attackGoblin";
-		choice1.setText("Attack");
+		choice1.setText(">");
 		choice2.setVisible(false);
 	}
 
@@ -501,7 +515,7 @@ public class Game{
 			mainTextArea.setText("You raise your weapon and block the attack.");
 		}
 		position = "attackGoblin";
-		choice1.setText("Attack");
+		choice1.setText(">");
 		choice2.setVisible(false);
 	}
 
@@ -600,26 +614,50 @@ public class Game{
 		if(item == "GoblinTeeth"){
 			if(goblinTeeth == 0){
 				mainTextArea.setText("You do not have any goblin teeth to sell.");
-				// choice1.setText("Back");
-				// choice2.setVisible(false);
-				// choice3.setVisible(false);
-				// choice4.setVisible(false);
 			}
 			else{
 				int priceGoblin = 10;
-				gold = gold + (priceGoblin*goblinTeeth);
+				int total = priceGoblin*goblinTeeth;
+				gold = gold + total;
 				goldLabelNumber.setText(""+ gold);
-				mainTextArea.setText("You sold all goblin teeth and received " + gold + " golds.");
+				mainTextArea.setText("You sold all goblin teeth and received " + total + " golds.");
 			}
 		}
 		else if(item == "WolfSkin"){
-
+			if(wolfSkin == 0){
+				mainTextArea.setText("You do not have any wolf skin to sell.");
+			}
+			else{
+				int priceWolf = 25;
+				int total = priceWolf*wolfSkin;
+				gold = gold + total;
+				goldLabelNumber.setText(""+ gold);
+				mainTextArea.setText("You sold all wolf skins and received " + total + " golds.");
+			}
 		}
 		else if(item == "WraithCloth"){
-
+			if(wraithCloth == 0){
+				mainTextArea.setText("You do not have any wraith cloth to sell.");
+			}
+			else{
+				int priceWraith = 22;
+				int total = priceWraith*wraithCloth;
+				gold = gold + total;
+				goldLabelNumber.setText(""+ gold);
+				mainTextArea.setText("You sold all wraith cloth and received " + total + " golds.");
+			}
 		}
 		else if(item == "OrgreClaw"){
-
+			if(orgreClaw == 0){
+				mainTextArea.setText("You do not have any orgre claw to sell.");
+			}
+			else{
+				int priceOrgre = 30;
+				int total = priceOrgre*orgreClaw;
+				gold = gold + total;
+				goldLabelNumber.setText(""+ gold);
+				mainTextArea.setText("You sold all orgre claw and received " + total + " golds.");
+			}
 		}
 		choice1.setText("Back");
 		choice2.setVisible(false);
@@ -629,15 +667,160 @@ public class Game{
 
 	public void buy(){
 		position = "buy";
-		mainTextArea.setText("You can buy stuff");
-		choice1.setText("");
-		choice2.setText("");
-		choice3.setText("");
-		choice4.setText("");
+		mainTextArea.setText("You can buy weapons, spells and potions.");
+		choice1.setText("Weapons");
+		choice2.setText("Spells");
+		choice3.setText("Potions");
+		choice4.setText("Back");
 
 		choice2.setVisible(true);
 		choice3.setVisible(true);
 		choice4.setVisible(true);
+	}
+
+	public void weapons(){
+		position = "chooseWeapon";
+		mainTextArea.setText("Choose a weapon: ");
+		choice1.setText("Sword - 80 gold");
+		choice2.setText("Axe - 40 gold");
+		choice3.setText("Bow - 80 gold");
+		choice4.setText("Back");
+		choice4.setVisible(true);
+	}
+
+	public void buyWeapons(String item){
+		position = "buyWeapon";
+		if(item == "Sword"){  // give to warrior
+			if(gold < 80){
+				mainTextArea.setText("You do not have enough gold to buy the sword.");
+			}
+			else if(character == "archer"){
+				mainTextArea.setText("Sword not compatible with archer. A bow is recommended.");
+			}
+			else{
+				mainTextArea.setText("You have acquired a sword.\nDamage: "+ sword.getDamage());
+				gold = gold - 80;
+				goldLabelNumber.setText(""+ gold);
+				//weaponLabelName.setText(""+ sword.getName());
+				warrior.setRightHandWeapon(sword);
+			}
+		}
+		else if(item == "Axe"){  // give to healer
+			if(gold < 40){
+				mainTextArea.setText("You do not have enough gold to buy the axe.");
+			}
+			else{
+				mainTextArea.setText("You have acquired an axe.\nDamage: "+ axe.getDamage());
+				gold = gold - 40;
+				goldLabelNumber.setText(""+ gold);
+				//weaponLabelName.setText(""+ axe.getName());
+				healer.setWeapon(axe);
+			}
+		}
+		else if(item == "Bow"){  // give to archer
+			if(gold < 80){
+				mainTextArea.setText("You do not have enough gold to buy the bow.");
+			}
+			else if(character == "warrior"){
+				mainTextArea.setText("Bow not compatible with warrior. A sword is recommended.");
+			}
+			else{
+				mainTextArea.setText("You have acquired a bow.\nDamage: "+ bow.getDamage());
+				gold = gold - 80;
+				goldLabelNumber.setText(""+ gold);
+				//weaponLabelName.setText(""+ bow.getName());
+				archer.setWeapon(bow);
+			}
+		}
+		choice1.setText("Back");
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	public void spells(){
+		position = "buySpell";
+		mainTextArea.setText("Choose a spell: ");
+		choice1.setText("Fire - 40 gold");
+		choice2.setText("Lightning - 40 gold");
+		choice3.setText("Frost - 40 gold");
+		choice4.setText("Back");
+		choice4.setVisible(true);
+	}
+
+	public void buySpells(String item){
+		position = "chooseSpell";
+		if(item == "Fire spell"){
+			if(gold < 40){
+				mainTextArea.setText("You do not have enough gold to buy this spell.");
+			}
+			else{
+				mainTextArea.setText("You have acquired the fire spell.\nDamage: "+ fire.getDamage());
+				gold = gold - 40;
+				goldLabelNumber.setText(""+ gold);
+				// add fire spell
+				
+			}
+		}
+		else if(item == "Lightning spell"){
+			if(gold < 40){
+				mainTextArea.setText("You do not have enough gold to buy this spell.");
+			}
+			else{
+				mainTextArea.setText("You have acquired the lightning spell.\nDamage: "+ lightning.getDamage());
+				gold = gold - 40;
+				goldLabelNumber.setText(""+ gold);
+				// add lightning spell
+			}
+		}
+		else if(item == "Frost spell"){
+			if(gold < 40){
+				mainTextArea.setText("You do not have enough gold to buy this spell.");
+			}
+			else{
+				mainTextArea.setText("You have acquired the frost spell.\nDamage: "+ frost.getDamage());
+				gold = gold - 40;
+				goldLabelNumber.setText(""+ gold);
+				// add frost spell
+			}
+		}
+		choice1.setText("Back");
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	public void potions(){
+		position = "buyPotion";
+		mainTextArea.setText("Choose item: ");
+		choice1.setText("Healing potion - 80 gold");
+		choice2.setText(" ");
+		choice3.setText(" ");
+		choice4.setText("Back");
+		choice4.setVisible(true);
+	}
+
+	public void buyPotions(String item){
+		position = "choosePotion";
+		int healingPotionHP = 50;
+		if(item == "HealingPotion"){
+			if(gold < 80){
+				mainTextArea.setText("You do not have enough gold to buy healing potion.");
+			}
+			else{
+				mainTextArea.setText("You have acquired the healing potion.\nRecover: " + healingPotionHP+ "Hp");
+				gold = gold - 80;
+				goldLabelNumber.setText(""+ gold);
+				HealPotionCount = 1;
+			}
+		}
+		else if(item == " "){
+
+		}
+		choice1.setText("Back");
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
 	}
 
 	// Going to forest for the 1st time
@@ -1054,7 +1237,53 @@ public class Game{
 					break;
 				case "sellItem":
 					switch(yourChoice){
-						case "c1": sell(); break;
+						case "c1": shop(); break;
+					}
+					break;
+				case "buy":
+					switch(yourChoice){
+						case "c1": weapons(); break;
+						case "c2": spells(); break;
+						case "c3": potions(); break;
+						case "c4": shop(); break;
+					}
+					break;
+				case "chooseWeapon":
+					switch(yourChoice){
+						case "c1": buyWeapons("Sword"); break;
+						case "c2": buyWeapons("Axe");  break;
+						case "c3": buyWeapons("Bow");  break;
+						case "c4": buy(); break;
+					}
+					break;
+				case "buyWeapon":
+					switch(yourChoice){
+						case "c1": buy(); break;
+					}
+					break;
+				case "buySpell":
+					switch(yourChoice){
+						case "c1": buySpells("Fire"); break;
+						case "c2": buySpells("Lightning");  break;
+						case "c3": buySpells("Frost"); break;
+						case "c4": buy(); break;
+					}
+					break;
+				case "chooseSpell":
+					switch(yourChoice){
+						case "c1": buy(); break;
+					}
+					break;
+				case "buyPotion":
+					switch(yourChoice){
+						case "c1": buyPotions("HealingPotion"); break;
+						
+						case "c4": buy(); break;
+					}
+					break;
+				case "choosePotion":
+					switch(yourChoice){
+						case "c1": buy(); break;
 					}
 					break;
 				case "forest":   
