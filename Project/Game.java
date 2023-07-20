@@ -45,6 +45,7 @@ public class Game{
 	int gold;
 	int numOfTimesChestOpened = 0;
 	String playerName, weapon, position, location;
+	int villageCount = 0;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	MapScreenHandler mapHandler = new MapScreenHandler();
@@ -60,6 +61,11 @@ public class Game{
 	Axe axe = new Axe("axe",20);  //goblin weapon in village
 	Orgre orgre = new Orgre("orgre", 30);
 	Wolf wolf = new Wolf("wolf",23);
+	Wraith wraith = new Wraith("wraith", 35);
+	int goblinTeeth = 0;
+	int wolfSkin = 0;
+	int orgreClaw = 0;
+	int wraithCloth = 0;
 
 	//ImageIcon logo = new ImageIcon(".//res//jackfrost.jpg");
 
@@ -217,7 +223,7 @@ public class Game{
 		locationName.setFont(normalFont);
 		locationName.setForeground(Color.white);
 		playerPanel.add(locationName);
-		goldLabel = new JLabel(" |Gold:");  // adding Hp
+		goldLabel = new JLabel(" |Gold:");  // adding Gold
 		goldLabel.setFont(normalFont);
 		goldLabel.setForeground(Color.white);
 		playerPanel.add(goldLabel);
@@ -439,6 +445,7 @@ public class Game{
 
 	// Going to village for 1st time
 	public void village1(){
+		villageCount = 1;
 		position = "village1";
 		location = "Village";
 		locationName.setText(location);
@@ -554,10 +561,15 @@ public class Game{
 
 	public void village2(){
 		position = "endQuest1";
+		locationName.setText(location);
+		mapPanel.setVisible(false);
+		mainTextPanel.setVisible(true);
+
 		mainTextArea.setText("You are back to the village.");
 		choice1.setText("Enter shop");
 		choice2.setText("View map");
-		//choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
 	}
 
 	public void shop(){
@@ -565,7 +577,85 @@ public class Game{
 		mainTextArea.setText("Greeted by the old lady, she offers you a look at her goods.\n'Anything that interests you lad?'");
 		choice1.setText("Sell");
 		choice2.setText("Buy");
+		choice3.setText("View Map");
 		choice2.setVisible(true);
+		choice3.setVisible(true);
+	}
+
+	public void sell(){
+		position = "sell";
+		mainTextArea.setText("You can sell all the items you've acquired from destroying monsters.");
+		choice1.setText("Goblin teeth");
+		choice2.setText("Wolf skin");
+		choice3.setText("Wraith Cloth");
+		choice4.setText("Orgre Claw");
+
+		choice2.setVisible(true);
+		choice3.setVisible(true);
+		choice4.setVisible(true);
+	}
+
+	public void sellItem(String item){
+		if(item == "GoblinTeeth"){
+			if(goblinTeeth == 0){
+				mainTextArea.setText("You do not have any goblin teeth to sell.");
+				// choice1.setText("Back");
+				// choice2.setVisible(false);
+				// choice3.setVisible(false);
+				// choice4.setVisible(false);
+			}
+			else{
+				int priceGoblin = 10;
+				gold = gold + (priceGoblin*goblinTeeth);
+				goldLabelNumber.setText(""+ gold);
+				mainTextArea.setText("You sold all goblin teeth and received " + gold + " golds.");
+			}
+		}
+		else if(item == "WolfSkin"){
+
+		}
+		else if(item == "WraithCloth"){
+
+		}
+		else if(item == "OrgreClaw"){
+
+		}
+		choice1.setText("Back");
+		choice2.setVisible(false);
+		choice3.setVisible(false);
+		choice4.setVisible(false);
+	}
+
+	// public void sellGoblin(){
+	// 	position = "sellGoblin";
+	// 	if(goblinTeeth == 0){
+	// 		mainTextArea.setText("You do not have any goblin teeth to sell.");
+	// 		choice1.setText("Back");
+	// 		choice2.setVisible(false);
+	// 		choice3.setVisible(false);
+	// 		choice4.setVisible(false);
+	// 	}
+	// 	else{
+	// 		int priceGoblin = 10;
+	// 		gold = gold + (priceGoblin*goblinTeeth);
+	// 		goldLabelNumber.setText(""+ gold);
+	// 	}
+	// }
+
+	public void sellOrgre(){
+
+	}
+
+	public void sellWraith(){
+		
+	}
+
+	public void sellWolf(){
+		
+	}
+
+	public void buy(){
+		
 	}
 
 	// Going to forest for the 1st time
@@ -586,7 +676,7 @@ public class Game{
 			choice4.setVisible(false);
 		}
 		else{
-			mainTextArea.setText("The goblin has been defeated. You can advance further in the forest");
+			mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
 			choice3.setText("Advance in forest");
 		    choice4.setText("View map");
 
@@ -633,7 +723,8 @@ public class Game{
 		mainTextPanel.setVisible(true);
 		int damage = knife.getDamage();
 
-		mainTextArea.setText("You attack the goblin back, giving it " + goblin.getHP() + " damage. The goblin has been defeated.");
+		mainTextArea.setText("You attack the goblin back, giving it " + goblin.getHP() + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
+		goblinTeeth = goblinTeeth + 3;
 		//warrior.attack(goblin);
 		goblin.takeDamage(damage);
 		// update hp of goblin
@@ -644,7 +735,7 @@ public class Game{
 			//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
 		 	//goblinAttack();
 			mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
-			choice1.setText("Continue");
+			choice1.setText(">");
 			choice2.setText("");
 			choice3.setText("");
 			choice4.setText("");
@@ -661,6 +752,7 @@ public class Game{
 			
 			if(location == "Forest"){
 				position = "endFightForest";
+
 				choice1.setText("Advance in the forest");
 				choice2.setText("View map");
 				choice2.setVisible(true);
@@ -711,8 +803,6 @@ public class Game{
 		choice3.setVisible(false);
 		choice4.setVisible(false);
 	}
-
-
 
 	public void Mountain(){
 		position = "mountainFoot";
@@ -915,7 +1005,7 @@ public class Game{
 					switch(yourChoice){
 						case "c1": townn(); break;
 						case "c2": forest1(); break;
-						case "c3": village1(); break;
+						case "c3": if(villageCount == 0){village1();}else{village2();};break;
 					}
 					break;
 				case "townn":
@@ -963,6 +1053,21 @@ public class Game{
 					switch(yourChoice){
 						case "c1": shop(); break;
 						case "c2": Map(); break;
+					}
+					break;
+				case "shop":
+					switch(yourChoice){
+						case "c1": sell(); break;
+						case "c2": buy(); break;
+						case "c3": Map(); break;
+					}
+					break;
+				case "sell":
+					switch(yourChoice){
+						case "c1": sellItem("GoblinTeeth"); break;
+						case "c2": sellItem("WolfSkin"); break;
+						case "c3": sellItem("WraithCloth"); break;
+						case "c4": sellItem("OrgreClaw"); break;
 					}
 					break;
 				case "forest":   
