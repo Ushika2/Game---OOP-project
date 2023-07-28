@@ -10,12 +10,10 @@ public class App {
     }
 
     
-    public App()
-    {
+    public App(){
      
         ui.titleUI();  // call method create ui from UI class
 
     }
-
 
 }

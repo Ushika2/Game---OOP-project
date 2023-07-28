@@ -18,12 +18,12 @@ public class UI{
 
     JFrame window;
 	Container con;
-    JPanel titleNamePanel, startButtonPanel, choiceButtonPanel, mapButtonPanel, mainTextPanel, playerPanel,textPanel,inputPanel, monsterPanel, healerButtonPanel; //panel to display text;
+    JPanel titleNamePanel, startButtonPanel, choiceButtonPanel, mapButtonPanel, mainTextPanel, playerPanel,textPanel,inputPanel, monsterPanel, healerButtonPanel, mageButtonPanel; //panel to display text;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font-
-	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton; //add button
+	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton, mageButton; //add button
 	JTextArea mainTextArea,mapTextArea;
 
 	
@@ -31,12 +31,9 @@ public class UI{
     ContinueScreenHandler conHandler = new ContinueScreenHandler();
     MapScreenHandler mapHandler = new MapScreenHandler();
 
-
 	Storyline story;
 
-
-
-    public void titleUI() {
+    public void titleUI(){
 
         //WINDOW
         window = new JFrame();
@@ -50,7 +47,6 @@ public class UI{
         con = window.getContentPane();
 
 		story = new Storyline(con,this);
-
 		
 	    //TITLE SCREEN
         titleNamePanel = new JPanel();
@@ -89,8 +85,6 @@ public class UI{
 		continueButton.setFocusPainted(false);
 		continueButton.setActionCommand("continue");
 		//continueButton.setBorder(null);
-
-
     
 		titleNamePanel.add(titleNameLabel);
 		startButtonPanel.add(startButton);
@@ -101,59 +95,55 @@ public class UI{
 
         window.setVisible(true);
 
-     }
+    }
 
-		public void choices(){
+	public void choices(){
 
-			// choices panel
-			choiceButtonPanel = new JPanel();
-			choiceButtonPanel.setBounds(250, 350, 300, 150);
-			choiceButtonPanel.setBackground(Color.black);
-			//Container con;
-		   
-			con.add(choiceButtonPanel);
-	
-			choice1 = createChoiceButton("");
-			choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
-	
-			choice2 = createChoiceButton("");
-			choice2.setActionCommand("c2");
-	
-			choice3 = createChoiceButton("");
-			choice3.setActionCommand("c3");
-	
-			choice4 = createChoiceButton("");
-			choice4.setActionCommand("c4");
-	
-			choice1.setText(""); // Set text after creating the button
-			choice2.setText(""); // Set text after creating the button
-			choice3.setText(""); // Set text after creating the button
-			choice4.setText(""); // Set text after creating the button
-	
-			choice1.setVisible(true);
-			choice2.setVisible(true);
-			choice3.setVisible(true);
-			choice4.setVisible(true);
-	
-	
-			 choiceButtonPanel.setVisible(false);
-		}
-	
-		// //ENCAPSULATION
-		private JButton createChoiceButton(String text) {
-			JButton button = new JButton(text);
-			button.setBackground(Color.black);
-			button.setForeground(Color.white);
-			button.setFont(normalFont);
-			button.setFocusPainted(false);
-			button.addActionListener(e -> handleChoiceButtonClick(e));
-			choiceButtonPanel.add(button);
-			return button;
-		}
-	
-	
+		// choices panel
+		choiceButtonPanel = new JPanel();
+		choiceButtonPanel.setBounds(250, 350, 300, 150);
+		choiceButtonPanel.setBackground(Color.black);
+		//Container con;
+		
+		con.add(choiceButtonPanel);
 
+		choice1 = createChoiceButton("");
+		choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
+
+		choice2 = createChoiceButton("");
+		choice2.setActionCommand("c2");
+
+		choice3 = createChoiceButton("");
+		choice3.setActionCommand("c3");
+
+		choice4 = createChoiceButton("");
+		choice4.setActionCommand("c4");
+
+		choice1.setText(""); // Set text after creating the button
+		choice2.setText(""); // Set text after creating the button
+		choice3.setText(""); // Set text after creating the button
+		choice4.setText(""); // Set text after creating the button
+
+		choice1.setVisible(true);
+		choice2.setVisible(true);
+		choice3.setVisible(true);
+		choice4.setVisible(true);
+
+
+			choiceButtonPanel.setVisible(false);
+	}
 	
+	// //ENCAPSULATION
+	private JButton createChoiceButton(String text) {
+		JButton button = new JButton(text);
+		button.setBackground(Color.black);
+		button.setForeground(Color.white);
+		button.setFont(normalFont);
+		button.setFocusPainted(false);
+		button.addActionListener(e -> handleChoiceButtonClick(e));
+		choiceButtonPanel.add(button);
+		return button;
+	}
 
     public void Gameplay(String startOrContinue){
 
@@ -264,7 +254,7 @@ public class UI{
 		con.add(mapButtonPanel);
 		window.setVisible(true);
         
-		// // Healer button panel
+		// Healer button panel
 		healerButtonPanel = new JPanel();
 		healerButtonPanel.setBounds(600, 450, 200, 50);
 		healerButtonPanel.setBackground(Color.black);
@@ -279,6 +269,22 @@ public class UI{
 		con.add(healerButtonPanel);
 		window.setVisible(true);
 		healerButtonPanel.setVisible(false);
+
+		// Mage button panel
+		mageButtonPanel = new JPanel();
+		mageButtonPanel.setBounds(600, 400, 200, 50);
+		mageButtonPanel.setBackground(Color.black);
+
+		mageButton = new JButton("Mage");
+		mageButton.setBackground(Color.black);
+		mageButton.setForeground(Color.white);
+		mageButton.setFont(normalFont);
+		mageButton.addActionListener(mapHandler);
+		mageButton.setFocusPainted(false);
+		mageButtonPanel.add(mageButton);
+		con.add(mageButtonPanel);
+		window.setVisible(true);
+		mageButtonPanel.setVisible(false);
 
 		if(startOrContinue.equals("continue")) {
 										 
@@ -322,78 +328,157 @@ public class UI{
 			case "map":
 				switch (yourChoice) {
 					case "c1": story.townn(); break;
-					case "c2":
-						story.forest1();
-						break;
-					case "c3": if(story.villageCount == 0){story.village1();}else{story.village2();};break;
+					case "c2": story.forest1();break;
+					case "c3": if(story.villageCount == 0){story.village1();} else{story.village2();}; break;
+					case "c4": if(story.riverCount == 0){story.river1();} else{story.river2();}; break;
 				}
 				break;
-				case "townn":
-					switch(yourChoice){
-						case "c1": story.saveGame();break;
-						case "c2": story.Map(); break;
-					}
-					break;
-				case "village1":
-					switch(yourChoice){
-						case "c1": story.aidHealer1(); break;
-						case "c2": story.hideWatch(); break;
-					}
-					break;
-				case "aidHealer1":
-					switch(yourChoice){
-						case "c1": story.dodge(); break;
-						case "c2": story.blockAttack(); break;
-						case "c3": story.AttackGoblin(); break;
-					}
-					break;
-				case "endFightVillage":
-					switch(yourChoice){
-						case "c1": story.villageFightEnd(); break;
-					}
-					break;
-				case "hide":
-					switch(yourChoice){
-						case "c1": story.aidHealer2(); break;
-						case "c2": story.notHelp1(); break;
-					}
-					break;
-				case "aidHealer2":
-					switch(yourChoice){
-						case "c1": story.offerWater(); break;
-					}
-					break;
-				case "noHelp1":
-					switch(yourChoice){
-						case "c1": story.offerWater(); break;
-						case "c2": story.walkPast(); break;
-					}
-					break;
-				case "endQuest1":
-					switch(yourChoice){
-						case "c1": story.shop(); break;
-						case "c2": story.Map(); break;
-					}
-					break;
-				case "shop":
-					switch(yourChoice){
-						case "c1": story.sell(); break;
-						case "c2": story.buy(); break;
-						case "c3": story.Map(); break;
-					}
-					break;
-				case "sell":
-					switch(yourChoice){
-						case "c1": story.sellItem("GoblinTeeth"); break;
-						case "c2": story.sellItem("WolfSkin"); break;
-						case "c3": story.sellItem("WraithCloth"); break;
-						case "c4": story.sellItem("OrgreClaw"); break;
-					}
-					break;
-				case "sellItem":
-					switch(yourChoice){
-						case "c1": story.sell(); break;
-					}
+			case "townn":
+				switch(yourChoice){
+					case "c1": story.saveGame();break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			case "village1":
+				switch(yourChoice){
+					case "c1": story.aidHealer1(); break;
+					case "c2": story.hideWatch(); break;
+				}
+				break;
+			case "aidHealer1":
+				switch(yourChoice){
+					case "c1": story.dodge(); break;
+					case "c2": story.blockAttack(); break;
+					case "c3": story.AttackGoblin(); break;
+				}
+				break;
+			case "endFightVillage":
+				switch(yourChoice){
+					case "c1": story.villageFightEnd(); break;
+				}
+				break;
+			case "hide":
+				switch(yourChoice){
+					case "c1": story.aidHealer2(); break;
+					case "c2": story.notHelp1(); break;
+				}
+				break;
+			case "aidHealer2":
+				switch(yourChoice){
+					case "c1": story.offerWater(); break;
+				}
+				break;
+			case "noHelp1":
+				switch(yourChoice){
+					case "c1": story.offerWater(); break;
+					case "c2": story.walkPast(); break;
+				}
+				break;
+			case "endQuest1":
+				switch(yourChoice){
+					case "c1": story.shop(); break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			case "shop":
+				switch(yourChoice){
+					case "c1": story.sell(); break;
+					case "c2": story.buy(); break;
+					case "c3": story.Map(); break;
+				}
+				break;
+			case "sell":
+				switch(yourChoice){
+					case "c1": story.sellItem("GoblinTeeth"); break;
+					case "c2": story.sellItem("WolfSkin"); break;
+					case "c3": story.sellItem("WraithCloth"); break;
+					case "c4": story.sellItem("OrgreClaw"); break;
+				}
+				break;
+			case "sellItem":
+				switch(yourChoice){
+					case "c1": story.sell(); break;
+				}
+				case "buy":
+				switch(yourChoice){
+					case "c1": story.weapons(); break;
+					case "c2": story.spells(); break;
+					case "c3": story.potions(); break;
+					case "c4": story.shop(); break;
+				}
+				break;
+			case "chooseWeapon":
+				switch(yourChoice){
+					case "c1": story.buyWeapons("Sword"); break;
+					case "c2": story.buyWeapons("Axe");  break;
+					case "c3": story.buyWeapons("Bow");  break;
+					case "c4": story.buy(); break;
+				}
+				break;
+			case "buyWeapon":
+				switch(yourChoice){
+					case "c1": story.buy(); break;
+				}
+				break;
+			case "buySpell":
+				switch(yourChoice){
+					case "c1": story.buySpells("Fire"); break;
+					case "c2": story.buySpells("Lightning");  break;
+					case "c3": story.buySpells("Frost"); break;
+					case "c4": story.buy(); break;
+				}
+				break;
+			case "chooseSpell":
+				switch(yourChoice){
+					case "c1": story.buy(); break;
+				}
+				break;
+			case "buyPotion":
+				switch(yourChoice){
+					case "c1": story.buyPotions("HealingPotion"); break;
+					case "c2": story.buyPotions("CuringPotion"); break;
+					case "c4": story.buy(); break;
+				}
+				break;
+			case "choosePotion":
+				switch(yourChoice){
+					case "c1": story.buy(); break;
+				}
+				break;
+			case "river1":
+				switch(yourChoice){
+					case "c1": story.investigate(); break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			case "investigate":
+				switch(yourChoice){
+					case "c1": story.saveRiver(); break;
+					case "c2": story.usePotion("CuringPotion"); break;
+					case "c3": story.Map(); break;
+				}
+				break;
+			case "saveRiver":
+				switch(yourChoice){
+					case "c1":  break; //player dies
+					case "c2": break;  //switch to healer
+					case "c3": story.saveBoy(); break;
+					case "c4": story.NosaveBoy(); break;
+				}
+				break;
+			case "potion":
+				switch(yourChoice){
+					case "c1": story.Map(); break;
+					case "c2": story.saveRiver2(); break;
+					case "c3": story.saveBoy(); break;
+					case "c4":  break;
+				}
+				break;
+			case "endRiver":
+				switch(yourChoice){
+					case "c1": story.Map(); break;
+				}
+				break;
 			case "forest":   
 				    switch(yourChoice){     
 						case "c1": story.goblinAttack(); break;
@@ -402,62 +487,62 @@ public class UI{
 						case "c4": story.Map(); break;
 					}
 					break;
-				case "goblinAttack":
-                    switch(yourChoice){
-			     		case "c1":story.AttackGoblin();break;
-						case "c2": story.Map(); break;
-				 	}
-					break;
-				case "attackGoblin":
-					switch(yourChoice){
-						case "c1":story.goblinAttack(); break;
-					}
-					break;
-				case "endFightForest":
-					switch(yourChoice){
-						case "c1": story.forest2(); break;
-						case "c2": story.Map(); break;
-					}
-					break;
-				case "forest2":   
-				    switch(yourChoice){     
-						case "c1": story.right(); break;
-					    case "c2": story.left(); break;
-						case "c3": story.Map(); break;
-					}
-					break;
-				case "right":   
-				    switch(yourChoice){     
-						case "c1": story.Mountain(); break;
-					    //case "c2": left(); break;
-						case "c2": story.forest2(); break;
-					}
-					break;
-				case "left":   
-				    switch(yourChoice){     
-						case "c1": story.goldchest(); break;
-						case "c2": story.waterfall(); break;
-						case "c3": story.forest2(); break;
-					}
-					break;
-				case "goldchest":   
-				    switch(yourChoice){     
-						case "c1": story.waterfall(); break;
-						case "c2": story.forest2(); break;
-					}
-					break;
-				case "waterfall":   
-				    switch(yourChoice){     
-						case "c1": story.swim(); break;
-						case "c2": story.forest2(); break;
-					}
-					break;
-				case "mountainFoot":
-					switch(yourChoice){
-						//case "c1": 
-						case "c2": story.Map(); break;
-					}
-					break;
+			case "goblinAttack":
+				switch(yourChoice){
+					case "c1":story.AttackGoblin();break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			case "attackGoblin":
+				switch(yourChoice){
+					case "c1":story.goblinAttack(); break;
+				}
+				break;
+			case "endFightForest":
+				switch(yourChoice){
+					case "c1": story.forest2(); break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			case "forest2":   
+				switch(yourChoice){     
+					case "c1": story.right(); break;
+					case "c2": story.left(); break;
+					case "c3": story.Map(); break;
+				}
+				break;
+			case "right":   
+				switch(yourChoice){     
+					case "c1": story.Mountain(); break;
+					//case "c2": left(); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "left":   
+				switch(yourChoice){     
+					case "c1": story.goldchest(); break;
+					case "c2": story.waterfall(); break;
+					case "c3": story.forest2(); break;
+				}
+				break;
+			case "goldchest":   
+				switch(yourChoice){     
+					case "c1": story.waterfall(); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "waterfall":   
+				switch(yourChoice){     
+					case "c1": story.swim(); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "mountainFoot":
+				switch(yourChoice){
+					//case "c1": 
+					case "c2": story.Map(); break;
+				}
+				break;
 
 			// Add other cases as needed for different positions
 		}
