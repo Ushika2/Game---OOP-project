@@ -364,7 +364,8 @@ public class Storyline{
 		position = "endQuest1";
 		ui.mainTextArea.setText("You offer him some water and after a few minutes, he sits up, feeling better.'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?' You introduce yourself and while chatting. You tell him about your quest and he offers to join you. He then guides you to a small shady shop at the corner.\n\nYou found yourself a healer. Brook can fight alongside you and can heal you in case of serious injuries.");
 		ui.choice1.setText("Enter shop");
-		ui.choice2.setVisible(false);
+		ui.choice2.setText("View map");
+		ui.choice2.setVisible(true);
 
 		//gain healer
 		ui.healerButtonPanel.setVisible(true);
@@ -374,7 +375,8 @@ public class Storyline{
 		position = "endQuest1";
 		ui.mainTextArea.setText("You walk past him, heading to the small shady shop at the corner.");
 		ui.choice1.setText("Enter shop");
-		ui.choice2.setVisible(false);
+		ui.choice2.setText("View map");
+		ui.choice2.setVisible(true);
 	}
 
 	public void village2(){
@@ -386,6 +388,7 @@ public class Storyline{
 		ui.mainTextArea.setText("You are back to the village.");
 		ui.choice1.setText("Enter shop");
 		ui.choice2.setText("View map");
+		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	}
