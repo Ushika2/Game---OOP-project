@@ -13,11 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import character.*;
-import spell.Blast;
-import spell.Fire;
-import spell.Frost;
-import spell.Lightning;
+import spell.*;
 import weapon.*;
+import monster.*;
 
 public class Storyline{
 	
