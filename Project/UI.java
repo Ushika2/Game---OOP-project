@@ -30,6 +30,7 @@ public class UI{
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ContinueScreenHandler conHandler = new ContinueScreenHandler();
     MapScreenHandler mapHandler = new MapScreenHandler();
+	//HealerScreenHandler healerHandler = new HealerScreenHandler();
 
 	Storyline story;
 
@@ -130,7 +131,7 @@ public class UI{
 		choice4.setVisible(true);
 
 
-			choiceButtonPanel.setVisible(false);
+		choiceButtonPanel.setVisible(false);
 	}
 	
 	// //ENCAPSULATION
@@ -314,17 +315,28 @@ public class UI{
 		}
 	}
 
-
     public class MapScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			story.Map();
 		}
 	}
 
+	// public class HealerScreenHandler implements ActionListener{
+	// 	public void actionPerformed(ActionEvent event){
+	// 		story.character = "healer";
+	// 		story.playerSetup();
+	// 	}
+	// }
     
 	private void handleChoiceButtonClick(ActionEvent event) {
 		String yourChoice = event.getActionCommand();
 		switch (story.position) {
+			case "dead":
+				switch (yourChoice) {
+					case "c1": Gameplay("start"); break;
+					case "c2": Gameplay("continue"); break;
+				}
+				break;
 			case "map":
 				switch (yourChoice) {
 					case "c1": story.townn(); break;
@@ -461,7 +473,7 @@ public class UI{
 			case "saveRiver":
 				switch(yourChoice){
 					case "c1":  break; //player dies
-					case "c2": break;  //switch to healer
+					case "c2": story.healerSetup(); break;  //switch to healer
 					case "c3": story.saveBoy(); break;
 					case "c4": story.NosaveBoy(); break;
 				}

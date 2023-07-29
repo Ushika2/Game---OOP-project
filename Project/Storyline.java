@@ -26,7 +26,7 @@ public class Storyline{
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	
     String playerName, weapon, position, location, goblinName, character;
-    int playerHP,goblinHP, gold;
+    int playerHP=100, goblinHP, gold;
 
 	int numOfTimesChestOpened = 0, villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount;
 
@@ -67,16 +67,24 @@ public class Storyline{
 	}
 
     public void playerSetup(){ 
-
 		location = "Town";
-        
+        character = "warrior";
 		ui.weaponLabelName.setText(knife.getName());
 		playerHP = warrior.getHP();
 		ui.hpLabelNumber.setText("" + playerHP);
 		ui.locationName.setText(location);
 		playerName = warrior.getName();
-		ui.characterLabelName.setText("" + warrior.getName());
 		ui.goldLabelNumber.setText(""+ gold);
+		ui.characterLabelName.setText("" + warrior.getName());
+		
+	}
+
+	public void healerSetup(){
+		character = "healer";
+		ui.characterLabelName.setText("" + healer.getName());
+		if(location == "River"){
+			saveRiver();
+		}
 	}
 
 	// Goblin setup
@@ -106,6 +114,8 @@ public class Storyline{
 			bw.newLine();
 			bw.write(""+villageCount);
 			bw.newLine();
+			bw.write(""+healerCount);
+			bw.newLine();
 			bw.write(""+ riverCount);
 
 			bw.close();
@@ -129,6 +139,7 @@ public class Storyline{
 			goblinHP = Integer.parseInt(br.readLine());
             goblin.setHP(goblinHP);
 			villageCount = Integer.parseInt(br.readLine());
+			healerCount = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
@@ -155,6 +166,8 @@ public class Storyline{
     public void intro(){
 		// Begining of story - town
 		position = "intro";
+		ui.choice1.setVisible(false);
+		ui.choice2.setVisible(false);
 		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
 		ui.mainTextArea.setBounds(100, 100, 600, 250);
 		ui.mainTextPanel.setBackground(Color.black);
@@ -183,42 +196,54 @@ public class Storyline{
 	}
 
 	public void Map() {
-     position = "map";
+		position = "map";
 
-	ui.choiceButtonPanel.setVisible(true);
-    ui.mainTextPanel.setVisible(false); // Hide the main text panel
-	ui.mapButtonPanel.setVisible(false); //hide the view map button when on the map
-	ui.monsterPanel.setVisible(false);
+		ui.choiceButtonPanel.setVisible(true);
+		ui.mainTextPanel.setVisible(false); // Hide the main text panel
+		ui.mapButtonPanel.setVisible(false); //hide the view map button when on the map
+		ui.monsterPanel.setVisible(false);
 
-    mapPanel = new JPanel();
-    mapPanel.setBounds(100, 100, 600, 250);
-    mapPanel.setBackground(Color.black);
-    con.add(mapPanel);
+		mapPanel = new JPanel();
+		mapPanel.setBounds(100, 100, 600, 250);
+		mapPanel.setBackground(Color.black);
+		con.add(mapPanel);
 
-    ui.mapTextArea = new JTextArea("Choose where to go.");
-    ui.mapTextArea.setBounds(100, 150, 600, 250);
-    ui.mapTextArea.setBackground(Color.red);
-    ui.mapTextArea.setForeground(Color.white);
-    ui.mapTextArea.setFont(normalFont);
-    ui.mapTextArea.setLineWrap(true);
-    ui.mapTextArea.setWrapStyleWord(true);
-    ui.mapTextArea.setEditable(false);
+		ui.mapTextArea = new JTextArea("Choose where to go.");
+		ui.mapTextArea.setBounds(100, 150, 600, 250);
+		ui.mapTextArea.setBackground(Color.red);
+		ui.mapTextArea.setForeground(Color.white);
+		ui.mapTextArea.setFont(normalFont);
+		ui.mapTextArea.setLineWrap(true);
+		ui.mapTextArea.setWrapStyleWord(true);
+		ui.mapTextArea.setEditable(false);
 
-    mapPanel.add(ui.mapTextArea);
-    mapPanel.setVisible(true); // Show the map panel
+		mapPanel.add(ui.mapTextArea);
+		mapPanel.setVisible(true); // Show the map panel
 
-	ui.choice1.setText("Town");
-	ui.choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
-	ui.choice3.setText("Village");
-	ui.choice4.setText("River");
-	// choice 5 for moauntain
-    
-	//ensure that all choices appear when map is called
-	ui.choice1.setVisible(true);
-	ui.choice2.setVisible(true);
-	ui.choice3.setVisible(true);
-	ui.choice4.setVisible(true);
-	//choice.story.position = position;
+		ui.choice1.setText("Town");
+		ui.choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
+		ui.choice3.setText("Village");
+		ui.choice4.setText("River");
+		// choice 5 for moauntain
+		
+		//ensure that all choices appear when map is called
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(true);
+		ui.choice4.setVisible(true);
+		//choice.story.position = position;
+	}
+
+	public void dead(){
+		position = "dead";
+		ui.mainTextArea.setText("Game Over! You died.");		
+		ui.choice1.setText("Restart");
+		ui.choice2.setText("Load game");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
 	}
 
 	// Going to town for 1st time
@@ -280,7 +305,7 @@ public class Storyline{
 
 			warrior.takeDamage(damage);
 
-			// // update hp of player
+			// update hp of player
 			// ui.hpLabelNumber.setText(""+warrior.getHP());
 			 // Update playerHP based on the damage taken
 			 playerHP -= damage;
@@ -303,7 +328,7 @@ public class Storyline{
 			int damage = new java.util.Random().nextInt(1,10);
 			ui.mainTextArea.setText("You try to block the attack, but failed. You stumble back and receives " + damage + " damage.");
 			warrior.takeDamage(damage);
-		//	ui.hpLabelNumber.setText(""+warrior.getHP());
+			//ui.hpLabelNumber.setText(""+warrior.getHP());
 			 //Update playerHP based on the damage taken
 			 playerHP -= damage;
 			 // Ensure playerHP doesn't go below 0
@@ -334,6 +359,7 @@ public class Storyline{
 		ui.choice2.setVisible(false);
 
 		//gain healer
+		healerCount = 1;
 		ui.healerButtonPanel.setVisible(true);
 	}
 
@@ -368,6 +394,7 @@ public class Storyline{
 		ui.choice2.setVisible(true);
 
 		//gain healer
+		healerCount = 1;
 		ui.healerButtonPanel.setVisible(true);
 	}
 
@@ -701,6 +728,7 @@ public class Storyline{
 				ui.choice4.setText("Leave him be");
 				ui.choice1.setVisible(false);
 				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(true);
 				ui.choice4.setVisible(true);
 			}
 		}
@@ -831,35 +859,37 @@ public class Storyline{
 
 		int damage = new java.util.Random().nextInt(1,20);
 
-
 		ui.mainTextArea.setText("The goblin attacked you giving " + damage + " damage.");
 
 		warrior.takeDamage(damage);    //decrease HP of warrior
 
-
-
-		 // Update playerHP based on the damage taken
-		 playerHP -= damage;
-		 // Ensure playerHP doesn't go below 0
-		 if (playerHP < 0) {
-			 playerHP = 0;
-		 }
-	 
-		 // Update hp of player in the UI
-		 ui.hpLabelNumber.setText("" + playerHP);
-
-		ui.choice1.setText("Attack goblin");
-		if(location == "Forest"){
-			ui.choice2.setText("Retreat");
-			ui.choice2.setVisible(true);
+		// Update playerHP based on the damage taken
+		playerHP -= damage;
+		// Ensure playerHP doesn't go below 0
+		if (playerHP < 0) {
+			playerHP = 0;
 		}
-		else{
-			ui.choice2.setVisible(false);
+	
+		// Update hp of player in the UI
+		ui.hpLabelNumber.setText("" + playerHP);
+
+		if(playerHP > 0){
+			ui.choice1.setText("Attack goblin");
+			if(location == "Forest"){
+				ui.choice2.setText("Retreat");
+				ui.choice2.setVisible(true);
+			}
+			else{
+				ui.choice2.setVisible(false);
+			}
+			ui.choice3.setText("");
+			ui.choice4.setText("");
+			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
 		}
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
+		else if(playerHP == 0){
+			dead();
+		}
 		
 	}
 

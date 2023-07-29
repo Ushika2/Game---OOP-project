@@ -28,6 +28,7 @@ import User_input.User_input.InputHandler;
 import character.*;
 import spell.*;
 import weapon.*;
+import monster.*;
 
 public class Game{
     JFrame window;
