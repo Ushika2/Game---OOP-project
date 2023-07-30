@@ -1,5 +1,6 @@
 package character;
 import weapon.*;
+import monster.Monster;
 
 public class Warrior extends Character {
     public static Object player;
@@ -28,7 +29,7 @@ public class Warrior extends Character {
         this.rightHandWeapon = rightHandWeapon;
     }
 
-    public void attack(Character target) {
+    public void attack(Monster target) {
         int totalDamage = leftHandWeapon.getDamage() + rightHandWeapon.getDamage();
         target.takeDamage(totalDamage);
         //System.out.println(getName() + " attacks " + target.getName() + " for " + totalDamage + " damage.");
@@ -38,4 +39,16 @@ public class Warrior extends Character {
         setHP(getHP() - damage);
         //System.out.println(getName() + " takes " + damage + " damage.");
     }
+
+    public int damage(){
+        int damage = 0;
+        if(getRightHandWeapon() == null){
+            damage = leftHandWeapon.getDamage();
+        }
+        else{
+            damage = leftHandWeapon.getDamage() + rightHandWeapon.getDamage();
+        }
+        return damage;
+    }
+
 }

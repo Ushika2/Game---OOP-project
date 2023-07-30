@@ -563,21 +563,40 @@ public class UI{
 				break;
 			case "orgre":   
 				switch(yourChoice){     
-					case "c1": story.monsterAttack("orgre"); break;
+					case "c1": story.attackMonster("orgre"); break;
 					case "c2": story.Map(); break;
+				}
+				break;
+			case "attackOrgre":
+				switch(yourChoice){     
+					case "c1": story.monsterAttack("orgre"); break;
+					case "c2": story.Mountain(); break;
+					case "c3": story.Map(); break;
+					case "c4": story.heal(); break;
+				}
+				break;
+			case "orgreAttack":
+				switch(yourChoice){     
+					case "c1": story.attackMonster("orgre"); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "heal":
+				switch(yourChoice){     
+					case "c1": story.heal(); story.turn=0; break;
 				}
 				break;
 			// after fighting orgre then proceed to mountainTop
 			case "left":   
 				switch(yourChoice){     
 					case "c1": story.goldchest(); break;
-					case "c2": story.waterfall(); break;
+					case "c2": if(story.waterfallCount == 0){story.waterfall();} else{story.waterfall2();} break;
 					case "c3": story.forest2(); break;
 				}
 				break;
 			case "goldchest":   
 				switch(yourChoice){     
-					case "c1": story.waterfall(); break;
+					case "c1": if(story.waterfallCount == 0){story.waterfall();} else{story.waterfall2();} break;
 					case "c2": story.forest2(); break;
 				}
 				break;
@@ -587,7 +606,25 @@ public class UI{
 					case "c2": story.forest2(); break;
 				}
 				break;
-			case "mountainFoot":
+			case "waterfallfight":   
+				switch(yourChoice){     
+					case "c1": story.attackMonster("wraith"); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "attackWraith":
+				switch(yourChoice){     
+					case "c1": story.monsterAttack("wraith"); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "wraithAttack":
+				switch(yourChoice){     
+					case "c1": story.attackMonster("wraith"); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "mountainTop":
 				switch(yourChoice){
 					case "c1": story.torch=1; story.cave(); break;
 					case "c2": story.cave(); break;
@@ -602,12 +639,42 @@ public class UI{
 				break;
 			case "puzzle":
 				switch(yourChoice){
-					case "c1": story.monsterAttack("dragon"); break;
+					case "c1": story.inside(); break;
 				}
 				break;
 			case "puzzleAttack":
 				switch(yourChoice){
 					case "c1": story.monsterAttack("wolf"); break;
+				}
+				break;
+			case "attackWolf":
+				switch(yourChoice){     
+					case "c1": story.monsterAttack("wolf"); break;
+					case "c2": story.inside(); break;
+					case "c3":  break;  //advance in forest
+					case "c4": story.heal(); break;
+				}
+				break;
+			case "wolfAttack":
+				switch(yourChoice){     
+					case "c1": story.attackMonster("wolf"); break;
+					case "c2": story.forest2(); break;
+				}
+				break;
+			case "inside":
+				switch(yourChoice){     
+					case "c1": story.attackMonster("dragon"); break;
+				}
+				break;
+			case "attackDragon":
+				switch(yourChoice){     
+					case "c1": story.monsterAttack("dragon"); break;
+					case "c2": story.end(); break;
+				}
+				break;
+			case "dragonAttack":
+				switch(yourChoice){     
+					case "c1": story.attackMonster("dragon"); break;
 				}
 				break;
 			// Add other cases as needed for different positions

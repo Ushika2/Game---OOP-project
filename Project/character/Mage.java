@@ -1,6 +1,7 @@
 package character;
 import spell.*;
 import weapon.*;
+import monster.Monster;
 
 public class Mage extends Character{
     private Spell spell;
@@ -33,9 +34,14 @@ public class Mage extends Character{
         System.out.println(getName() + "takes" + damage + "damage.");
     }
 
-    public void attack(Character target){
+    public void attack(Monster target){
         int totalDamage = spell.getDamage() + weapon.getDamage();
         target.takeDamage(totalDamage);
         System.out.println(getName() + "cast spell on" + target.getName() + "causing" + totalDamage + "damage.");
+    }
+
+    public int damage(){
+        int damage = weapon.getDamage();
+        return damage;
     }
 }

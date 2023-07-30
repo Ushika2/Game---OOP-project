@@ -1,4 +1,5 @@
 package character;
+import monster.Monster;
 
 // Character 
 public abstract class Character{
@@ -22,8 +23,10 @@ public abstract class Character{
         this.HP = HP;
     }
 
-    public abstract void attack(Character taget);
+    public abstract void attack(Monster taget);
     public abstract void takeDamage(int damage);
+    public abstract int damage();
+    
 }
 
 // Character:

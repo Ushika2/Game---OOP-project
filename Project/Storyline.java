@@ -26,9 +26,9 @@ public class Storyline{
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	
     String playerName, weapon, position, location, goblinName, character;
-    int playerHP=100, goblinHP, gold;
+    int playerHP=100, goblinHP, gold, turn=0;
 
-	int chestForest = 0, villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
+	int chestForest = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
 	int swordCount = 0, axeCount = 0, bowCount = 0;
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
@@ -57,6 +57,7 @@ public class Storyline{
 	Orgre orgre = new Orgre("orgre", 30);
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
+	Dragon dragon = new Dragon("dragon",150);
 
     public UI ui;          
 
@@ -92,6 +93,12 @@ public class Storyline{
 		if(location == "River"){
 			saveRiver();
 		}
+	}
+
+	public void heal(){
+		playerHP += healer.getHealingPower();
+		ui.hpLabelNumber.setText("" + playerHP);
+		warrior.setHP(playerHP);
 	}
 
 	public void mageSetup(){
@@ -452,6 +459,7 @@ public class Storyline{
 		ui.choice3.setText("View Map");
 		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(true);
+		ui.choice4.setVisible(false);
 	}
 
 	public void sell(){
@@ -908,6 +916,7 @@ public class Storyline{
 		// Ensure playerHP doesn't go below 0
 		if (playerHP < 0) {
 			playerHP = 0;
+			dead();
 		}
 	
 		// Update hp of player in the UI
@@ -926,9 +935,6 @@ public class Storyline{
 			ui.choice4.setText("");
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
-		}
-		else if(playerHP == 0){
-			dead();
 		}
 		
 	}
@@ -1037,6 +1043,49 @@ public class Storyline{
 
 	}
 
+	public void waterfall(){
+		position = "waterfallfight";
+		ui.mainTextArea.setText("You arrived at a waterfall and the place is filled with wraith.");
+		ui.choice1.setText("Attack");
+		ui.choice2.setText("Turn back");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+	}
+
+    public void waterfall2(){
+		position = "waterfall";
+		ui.mapButtonPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+		ui.mainTextArea.setText("You arrived at the waterfall.");
+
+		ui.choice1.setText("Go for a swim");
+		ui.choice2.setText("Turn back");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+
+	}
+
+    public void swim(){
+		position = "swim";
+		ui.mapButtonPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+		ui.mainTextArea.setText("You decide to go for a swim. However, the water was too deep and you drowned.");
+       ui. choice1.setVisible(false);
+		ui.choice2.setVisible(false);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+	}
+
 	public void right(){
 		position = "right";
 		ui.mainTextArea.setText("While venturing deep in the forest, you arrived at the foot of a mountain. The path to the summit appears treacherous, windy through the rocky terrain.Its shadowy twists hinting at the dangers that lie ahead.");
@@ -1052,6 +1101,8 @@ public class Storyline{
 	}
 
 	public void orgre(){
+		location = "Mountain";
+		ui.locationName.setText(location);
 		position = "orgre";
 		ui.mainTextArea.setText("On your way up, you find yourself face to face with an enormous orgre.");
 		ui.choice1.setText("Attack");
@@ -1060,8 +1111,7 @@ public class Storyline{
 
 	public void Mountain(){
 		position = "mountainTop";
-		location = "Mountain";
-		ui.locationName.setText(location);
+		//ui.monsterPanel.setVisible(false);
 		ui.mainTextArea.setText("Breathless, you arrive at the top and notice a small dark cave. At the entrance, you find a dirty old torch, but still usable.\r\n(Danger: Proceeding to the mountain will not allow you to go back/open your map. Adventurers are advised to be fully prepared.)");
 		ui.choice1.setText("Take the torch");
 		ui.choice2.setText("Leave torch");
@@ -1075,6 +1125,8 @@ public class Storyline{
 	}
 
 	public void cave(){
+		location = "Cave";
+		ui.locationName.setText(location);
 		position = "cave";
 		if(torch == 0){
 			ui.mainTextArea.setText("You leave the torch on the ground and go into the cave trying to make out the path in the dark. You were not able to avoid the obstacles along the way and took some damage. Eventually you find yourself at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
@@ -1090,29 +1142,357 @@ public class Storyline{
 
 	public void statueRight(){ //puzzle solved
 		position = "puzzle";
-		ui.mainTextArea.setText("You put the statue in place and hear rumbling sound, opening a door infront of you. You move forward and see a girl trapped in a cage. You rush to free her. Unkowingly, you woke up the dragon and it charges at you.");
-		ui.choice1.setText("Attack");
+		ui.mainTextArea.setText("You put the statue in place and hear rumbling sound, opening a door infront of you.");
+		ui.choice1.setText("Advance");
+		ui.choice2.setVisible(false);
+		ui.choice3.setVisible(false);
 	}
 
 	public void statueLeft(){
 		position = "puzzleAttack";
 		ui.mainTextArea.setText("You push the statue the wrong way. A door opens and out comes, a ferocious wolf");
-		ui.choice1.setText("Attack");
+		ui.choice1.setText(">");
+		ui.choice2.setVisible(false);
+		ui.choice3.setVisible(false);
 	}
 
+	public void inside(){
+		position = "inside";
+		ui.mainTextArea.setText("Once inside, you see a girl trapped in a cage. You rush to free her. Unkowingly, you woke up the dragon and it charges at you.");
+		ui.choice1.setText("Attack");
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(false);
+		ui.choice3.setVisible(false);
+	}
+	
 	public void monsterAttack(String name){
-		if(name == "wolf"){  //forest & in cave - puzzle failed
+		if(name == "wolf"){ //forest & in cave
+			position = "wolfAttack";
+			ui.monsterPanel.setVisible(true);
+			ui.monsterName.setText(wolf.getName());
+			ui.monsterHP.setText("" + wolf.getHP());
 
+			int damage = new java.util.Random().nextInt(2,11);
+
+			ui.mainTextArea.setText("The wolf attacked you giving " + damage + " damage.");
+
+			warrior.takeDamage(damage);    //decrease HP of warrior
+			//healer.takeDamage(damage);
+
+			// Update playerHP based on the damage taken
+			playerHP -= damage;
+			// Ensure playerHP doesn't go below 0
+			if (playerHP < 0) {
+				playerHP = 0;
+				dead();
+			}
+	
+			// Update hp of player in the UI
+			ui.hpLabelNumber.setText("" + playerHP);
+
+			if(location == "Forest"){
+				ui.choice1.setText("Attack wolf");
+				ui.choice2.setText("Retreat");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+			}
+			else{
+				ui.choice1.setText("Attack wolf");
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+			}
 		}
-		else if(name == "orgre"){  // on the way to mountain
 
+		else if(name == "orgre"){  // path mountain
+			position = "orgreAttack";
+			int damage = new java.util.Random().nextInt(4,25);
+
+			ui.mainTextArea.setText("The orgre attacked you giving " + damage + " damage.");
+
+			warrior.takeDamage(damage);    //decrease HP of warrior
+			//healer.takeDamage(damage);
+
+			// Update playerHP based on the damage taken
+			playerHP -= damage;
+			// Ensure playerHP doesn't go below 0
+			if (playerHP < 0) {
+				playerHP = 0;
+				dead();
+			}
+	
+			// Update hp of player in the UI
+			ui.hpLabelNumber.setText("" + playerHP);
+
+			if(playerHP > 0){
+				ui.choice1.setText("Attack orgre");
+				ui.choice2.setText("Retreat");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+			}
 		}
 		else if(name == "wraith"){  //waterfall
+			position = "wraithAttack";
+			int damage = new java.util.Random().nextInt(10,30);
 
+			ui.mainTextArea.setText("The wraith attacked you giving " + damage + " damage.");
+
+			warrior.takeDamage(damage);    //decrease HP of warrior
+			//healer.takeDamage(damage);
+
+			// Update playerHP based on the damage taken
+			playerHP -= damage;
+			// Ensure playerHP doesn't go below 0
+			if (playerHP < 0) {
+				playerHP = 0;
+				dead();
+			}
+	
+			// Update hp of player in the UI
+			ui.hpLabelNumber.setText("" + playerHP);
+
+			if(playerHP > 0){
+				ui.choice1.setText("Attack wraith");
+				ui.choice2.setText("Retreat");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+				ui.choice2.setVisible(true);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+			}
 		}
 		else if(name == "dragon"){  // final boss
+			position = "dragonAttack";
+			int damage = new java.util.Random().nextInt(10,30);
 
+			ui.mainTextArea.setText("The orgre attacked you giving " + damage + " damage.");
+
+			warrior.takeDamage(damage);    //decrease HP of warrior
+			//healer.takeDamage(damage);
+
+			// Update playerHP based on the damage taken
+			playerHP -= damage;
+			// Ensure playerHP doesn't go below 0
+			if (playerHP < 0) {
+				playerHP = 0;
+				dead();
+			}
+	
+			// Update hp of player in the UI
+			ui.hpLabelNumber.setText("" + playerHP);
+
+			if(playerHP > 0){
+				ui.choice1.setText("Attack dragon");
+				ui.choice2.setText("");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+			}
 		}
+
+	}
+
+	public void attackMonster(String name){
+		if(name == "wolf"){  //forest & in cave - puzzle failed
+			position = "attackWolf";
+			turn += 1;
+			int damage=0;
+			if(character == "warrior"){
+				warrior.attack(wolf);
+				damage = warrior.damage();
+			}
+			else if(character == "healer"){
+				healer.attack(wolf);
+				damage = healer.damage();
+			}
+
+			ui.monsterHP.setText("" + wolf.getHP());
+
+			if (wolf.getHP() > 0){
+				ui.mainTextArea.setText("You attack the wolf back, giving it " + damage + " damage.");
+				ui.choice1.setText(">");
+				ui.choice2.setText("");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+	
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+				
+			}
+		
+			else{
+				ui.mainTextArea.setText("You attack the wolf, giving it " + damage + " damage, defeating it. You've acquired 4 wolf skin.");
+				wolfSkin = wolfSkin + 4;
+				wolf.setHP(0);
+				ui.monsterHP.setText("" + wolf.getHP());
+
+				ui.choice2.setText("Advance");
+				
+				ui.choice2.setVisible(true);
+				ui.choice1.setVisible(false);
+				ui.choice4.setVisible(false);
+			}
+		}
+
+		else if(name == "orgre"){  // on the way to mountain
+			position = "attackOrgre";
+			ui.monsterPanel.setVisible(true);
+			ui.monsterName.setText(orgre.getName());
+			ui.monsterHP.setText("" + orgre.getHP());
+			
+			turn += 1;
+			int damage=0;
+			if(character == "warrior"){
+				warrior.attack(orgre);
+				damage = warrior.damage();
+			}
+			else if(character == "healer"){
+				healer.attack(orgre);
+				damage = healer.damage();
+			}
+
+			ui.monsterHP.setText("" + orgre.getHP());
+
+			if (orgre.getHP() > 0){
+				ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage.");
+				ui.choice1.setText(">");
+				ui.choice2.setText("");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+	
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+				
+			}
+		
+			else{
+				ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage, defeating it. You've acquired 2 orgre claw.");
+				orgreClaw = orgreClaw + 2;
+				orgre.setHP(0);
+				ui.monsterHP.setText("" + orgre.getHP());
+				
+				ui.choice2.setText("Advance");
+				ui.choice3.setText("View map");
+
+				ui.choice2.setVisible(true);
+				ui.choice3.setVisible(true);
+				ui.choice1.setVisible(false);
+			}
+		}
+
+		else if(name == "wraith"){  //waterfall
+			position = "attackWraith";
+			ui.monsterPanel.setVisible(true);
+			ui.monsterName.setText(wraith.getName());
+			ui.monsterHP.setText("" + wraith.getHP());
+			
+			turn += 1;
+			int damage=0;
+			if(character == "warrior"){
+				warrior.attack(wraith);
+				damage = warrior.damage();
+			}
+			else if(character == "healer"){
+				healer.attack(wraith);
+				damage = healer.damage();
+			}
+
+			ui.monsterHP.setText("" + wraith.getHP());
+
+			if (wraith.getHP() > 0){
+				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage.");
+				ui.choice1.setText(">");
+				ui.choice2.setText("");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+	
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+				
+			}
+		
+			else{
+				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage, defeating it. You obtain 3 wraith cloth");
+				wraithCloth += wraithCloth + 3;
+				wraith.setHP(0);
+				ui.monsterHP.setText("" + wraith.getHP());
+				
+				ui.choice2.setText("Go back");
+
+				ui.choice2.setVisible(true);
+				ui.choice3.setVisible(false);
+				ui.choice1.setVisible(false);
+			}
+		}
+
+		else if(name == "dragon"){  // final boss
+			position = "attackDragon";
+			ui.monsterPanel.setVisible(true);
+			ui.monsterName.setText(dragon.getName());
+			ui.monsterHP.setText("" + dragon.getHP());
+			
+			turn += 1;
+			int damage=0;
+			if(character == "warrior"){
+				warrior.attack(dragon);
+				damage = warrior.damage();
+			}
+			else if(character == "healer"){
+				healer.attack(dragon);
+				damage = healer.damage();
+			}
+
+			ui.monsterHP.setText("" + dragon.getHP());
+
+			if (dragon.getHP() > 0){
+				ui.mainTextArea.setText("You attack the dragon, giving it " + damage + " damage.");
+				ui.choice1.setText(">");
+				ui.choice2.setText("");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+	
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+				
+			}
+		
+			else{
+				ui.mainTextArea.setText("You attack the dragon, giving it " + damage + " damage, defeating it. You free the girl and take her back to town.");
+				dragon.setHP(0);
+				ui.monsterHP.setText("" + dragon.getHP());
+				
+				ui.choice2.setText(">");
+
+				ui.choice2.setVisible(true);
+				ui.choice3.setVisible(false);
+				ui.choice1.setVisible(false);
+			}
+		}
+
+		// give option to heal 
+		if(character == "healer" && turn > 2){
+			ui.choice4.setText("Heal");
+			ui.choice4.setVisible(true);
+		}
+	}
+
+	public void end(){
+		ui.mainTextArea.setText("You won!\n\n The End.");
+		ui.choice1.setVisible(false);
+		ui.healerButtonPanel.setVisible(false);
+		ui.warriorButtonPanel.setVisible(false);
+		ui.mageButtonPanel.setVisible(false);
+		ui.monsterPanel.setVisible(false);
 	}
 
 	public void goldchest(){
@@ -1199,36 +1579,5 @@ public class Storyline{
 			return new Weapon(weapons[randomWeaponIndex]);
 		}
 	}
-
-    public void waterfall(){
-		position = "waterfall";
-		ui.mapButtonPanel.setVisible(false);
-		ui.mainTextPanel.setVisible(true);
-		ui.mainTextArea.setText("You advanced further in the forest and arrived at a waterfall.");
-
-		ui.choice1.setText("Go for a swim");
-		ui.choice2.setText("Turn back");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(true);
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
-
-
-	}
-    public void swim(){
-		position = "swim";
-		ui.mapButtonPanel.setVisible(false);
-		ui.mainTextPanel.setVisible(true);
-		ui.mainTextArea.setText("You decide to go for a swim. However, the water was too deep somethimng somethinmg idk BUT you drowned.");
-       ui. choice1.setVisible(false);
-		ui.choice2.setVisible(false);
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
-	}
-
-	
 
 }

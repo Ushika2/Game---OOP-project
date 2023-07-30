@@ -1,5 +1,6 @@
 package character;
 import weapon.*;
+import monster.Monster;
 
 public class Healer extends Character{
     private int healingPower;
@@ -27,7 +28,7 @@ public class Healer extends Character{
         this.weapon = weapon;
     }
 
-    public void attack(Character target){
+    public void attack(Monster target){
         int totalDamage = weapon.getDamage();
         target.takeDamage(totalDamage);
         System.out.println(getName() + "attacks" + target.getName() + "for" + totalDamage + "damage.");
@@ -41,5 +42,10 @@ public class Healer extends Character{
     public void heal(Character target) {
         target.setHP(target.getHP() + healingPower);
         System.out.println(getName() + " heals " + target.getName() + " for " + healingPower + " health points.");
+    }
+
+    public int damage(){
+        int damage = weapon.getDamage();
+        return damage;
     }
 }

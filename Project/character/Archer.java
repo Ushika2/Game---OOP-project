@@ -1,5 +1,6 @@
 package character;
 import weapon.*;
+import monster.Monster;
 
 public class Archer extends Character{
     private Weapon weapon;
@@ -17,7 +18,7 @@ public class Archer extends Character{
         this.weapon = weapon;
     }
 
-    public void attack(Character target){
+    public void attack(Monster target){
         int totalDamage = weapon.getDamage();
         target.takeDamage(totalDamage);
         System.out.println(getName() + "attacks" + target.getName() + "for" + totalDamage + "damage.");
@@ -26,5 +27,10 @@ public class Archer extends Character{
     public void takeDamage(int damage){
         setHP(getHP() - damage);
         System.out.println(getName() + "takes" + damage + "damage.");
+    }
+
+    public int damage(){
+        int damage = weapon.getDamage();
+        return damage;
     }
 }
