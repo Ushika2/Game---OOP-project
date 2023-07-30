@@ -18,19 +18,21 @@ public class UI{
 
     JFrame window;
 	Container con;
-    JPanel titleNamePanel, startButtonPanel, choiceButtonPanel, mapButtonPanel, mainTextPanel, playerPanel,textPanel,inputPanel, monsterPanel, healerButtonPanel, mageButtonPanel; //panel to display text;
+    JPanel titleNamePanel, startButtonPanel, choiceButtonPanel, mapButtonPanel, mainTextPanel, playerPanel,textPanel,inputPanel, monsterPanel, healerButtonPanel, mageButtonPanel, warriorButtonPanel; //panel to display text;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font-
-	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton, mageButton; //add button
+	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton, mageButton, warriorButton; //add button
 	JTextArea mainTextArea,mapTextArea;
 
 	
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ContinueScreenHandler conHandler = new ContinueScreenHandler();
     MapScreenHandler mapHandler = new MapScreenHandler();
-	//HealerScreenHandler healerHandler = new HealerScreenHandler();
+	HealerScreenHandler healerHandler = new HealerScreenHandler();
+	MageScreenHandler mageHandler = new MageScreenHandler();
+	WarriorScreenHandler warriorHandler = new WarriorScreenHandler();
 
 	Storyline story;
 
@@ -264,7 +266,7 @@ public class UI{
 		healerButton.setBackground(Color.black);
 		healerButton.setForeground(Color.white);
 		healerButton.setFont(normalFont);
-		healerButton.addActionListener(mapHandler);
+		healerButton.addActionListener(healerHandler);
 		healerButton.setFocusPainted(false);
 		healerButtonPanel.add(healerButton);
 		con.add(healerButtonPanel);
@@ -280,12 +282,28 @@ public class UI{
 		mageButton.setBackground(Color.black);
 		mageButton.setForeground(Color.white);
 		mageButton.setFont(normalFont);
-		mageButton.addActionListener(mapHandler);
+		mageButton.addActionListener(mageHandler);
 		mageButton.setFocusPainted(false);
 		mageButtonPanel.add(mageButton);
 		con.add(mageButtonPanel);
 		window.setVisible(true);
 		mageButtonPanel.setVisible(false);
+
+		// Warrior button panel
+		warriorButtonPanel = new JPanel();
+		warriorButtonPanel.setBounds(600, 350, 200, 50);
+		warriorButtonPanel.setBackground(Color.black);
+
+		warriorButton = new JButton("Warrior");
+		warriorButton.setBackground(Color.black);
+		warriorButton.setForeground(Color.white);
+		warriorButton.setFont(normalFont);
+		warriorButton.addActionListener(warriorHandler);
+		warriorButton.setFocusPainted(false);
+		warriorButtonPanel.add(warriorButton);
+		con.add(warriorButtonPanel);
+		window.setVisible(true);
+		warriorButtonPanel.setVisible(true);
 
 		if(startOrContinue.equals("continue")) {
 										 
@@ -321,12 +339,26 @@ public class UI{
 		}
 	}
 
-	// public class HealerScreenHandler implements ActionListener{
-	// 	public void actionPerformed(ActionEvent event){
-	// 		story.character = "healer";
-	// 		story.playerSetup();
-	// 	}
-	// }
+	public class HealerScreenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			story.character = "healer";
+			story.healerSetup();
+		}
+	}
+
+	public class MageScreenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			story.character = "mage";
+			story.mageSetup();
+		}
+	}
+
+	public class WarriorScreenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			story.character = "warrior";
+			story.playerSetup();
+		}
+	}
     
 	private void handleChoiceButtonClick(ActionEvent event) {
 		String yourChoice = event.getActionCommand();

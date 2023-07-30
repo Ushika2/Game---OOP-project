@@ -28,7 +28,8 @@ public class Storyline{
     String playerName, weapon, position, location, goblinName, character;
     int playerHP=100, goblinHP, gold;
 
-	int numOfTimesChestOpened = 0, villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount;
+	int chestForest = 0, villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0;
+	int swordCount = 0, axeCount = 0, bowCount = 0;
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
 
@@ -70,6 +71,9 @@ public class Storyline{
 		location = "Town";
         character = "warrior";
 		ui.weaponLabelName.setText(knife.getName());
+		if(swordCount == 1){
+			ui.weaponLabelName.setText(knife.getName() +""+ sword.getName());
+		}
 		playerHP = warrior.getHP();
 		ui.hpLabelNumber.setText("" + playerHP);
 		ui.locationName.setText(location);
@@ -82,10 +86,20 @@ public class Storyline{
 	public void healerSetup(){
 		character = "healer";
 		ui.characterLabelName.setText("" + healer.getName());
+		if(axeCount == 1){
+			ui.weaponLabelName.setText(""+ axe.getName());
+		}
 		if(location == "River"){
 			saveRiver();
 		}
 	}
+
+	public void mageSetup(){
+		character = "mage";
+		ui.characterLabelName.setText("" + mage.getName());
+		ui.weaponLabelName.setText(grimoire.getName());
+	}
+
 
 	// Goblin setup
 	public void goblinSetup(){
@@ -117,6 +131,8 @@ public class Storyline{
 			bw.write(""+healerCount);
 			bw.newLine();
 			bw.write(""+ riverCount);
+			bw.newLine();
+			bw.write(""+ chestForest);
 
 			bw.close();
 		}
@@ -140,6 +156,7 @@ public class Storyline{
             goblin.setHP(goblinHP);
 			villageCount = Integer.parseInt(br.readLine());
 			healerCount = Integer.parseInt(br.readLine());
+			chestForest  = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
@@ -150,7 +167,7 @@ public class Storyline{
 		 ui.mainTextArea.setText("Failed to load the game. Please check your save file and try again.");
 		   
 		}
-		
+		character = "warrior";
 		ui.hpLabelNumber.setText("" + playerHP);
 		ui.characterLabelName.setText("" + warrior.getName());
 		ui.weaponLabelName.setText(weapon);
@@ -159,6 +176,15 @@ public class Storyline{
 		ui.monsterName.setText(""+ goblin.getName());
 		ui.monsterHP.setText("" + goblin.getHP());
 
+		if(healerCount == 1){
+			ui.healerButton.setVisible(true);
+			ui.healerButtonPanel.setVisible(true);
+		}
+		if(mageCount == 1){
+			ui.mageButton.setVisible(true);
+			ui.mageButtonPanel.setVisible(true);
+		}
+
 	    loadgame();
 		
 	}
@@ -166,8 +192,6 @@ public class Storyline{
     public void intro(){
 		// Begining of story - town
 		position = "intro";
-		ui.choice1.setVisible(false);
-		ui.choice2.setVisible(false);
 		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
 		ui.mainTextArea.setBounds(100, 100, 600, 250);
 		ui.mainTextPanel.setBackground(Color.black);
@@ -520,6 +544,15 @@ public class Storyline{
 		ui.choice3.setText("Bow - 80 gold");
 		ui.choice4.setText("Back");
 		ui.choice4.setVisible(true);
+		if(swordCount == 1){
+			ui.choice1.setVisible(false);
+		}
+		if(axeCount == 1){
+			ui.choice2.setVisible(false);
+		}
+		if(bowCount == 1){
+			ui.choice3.setVisible(false);
+		}
 	}
 
 	public void buyWeapons(String item){
@@ -533,9 +566,12 @@ public class Storyline{
 			}
 			else{
 				ui.mainTextArea.setText("You have acquired a sword.\nDamage: "+ sword.getDamage());
+				swordCount = 1;
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
-				//weaponLabelName.setText(""+ sword.getName());
+				if(character == "warrior"){
+					ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
+				}
 				warrior.setRightHandWeapon(sword);
 			}
 		}
@@ -545,9 +581,12 @@ public class Storyline{
 			}
 			else{
 				ui.mainTextArea.setText("You have acquired an axe.\nDamage: "+ axe.getDamage());
+				axeCount = 1;
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
-				//weaponLabelName.setText(""+ axe.getName());
+				if(character == "healer"){
+					ui.weaponLabelName.setText(""+ axe.getName());
+				}
 				healer.setWeapon(axe);
 			}
 		}
@@ -560,6 +599,7 @@ public class Storyline{
 			}
 			else{
 				ui.mainTextArea.setText("You have acquired a bow.\nDamage: "+ bow.getDamage());
+				bowCount = 1;
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
 				//weaponLabelName.setText(""+ bow.getName());
@@ -1009,14 +1049,20 @@ public class Storyline{
 	public void left(){
 		position = "left";
 		
-		ui.mainTextArea.setText("Dialogue");	
+		if(chestForest == 0){
+			ui.mainTextArea.setText("You find a hidden chest.");
+			ui.choice1.setVisible(true);
+		}
+		else{
+			ui.mainTextArea.setText("You already opened the chest.");
+			ui.choice1.setVisible(false);
+		}
 
 		ui.choice1.setText("Open Chest");
 		ui.choice2.setText("Advanced in forest");
 		ui.choice3.setText("Turn back");
 		ui.choice4.setText("");
 
-		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(true);
 		ui.choice4.setVisible(false);
@@ -1024,52 +1070,40 @@ public class Storyline{
 	}
 	public void goldchest(){
 		position = "goldchest";
+		chestForest = 1;
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 
-		
-        boolean chestOpened = false;
+		Reward reward = generateRandomReward();
 
-		if (!chestOpened) {
-            if (numOfTimesChestOpened < 1) {   
-
-				Reward reward = generateRandomReward();
-
-				if (reward instanceof Gold) {
-					Gold goldReward = (Gold) reward;
-					int addGold = goldReward.getAmount();
-				// int addgold = new java.util.Random().nextInt(1000) + 1;
-				 gold = gold + addGold;
-				// // update gold of player
-				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You opened the chest and found " + addGold + " gold.");
-				}
-			    else if (reward instanceof Weapon) {
-                Weapon weaponReward = (Weapon) reward;
-                String weaponName = weaponReward.getName();
-                ui.mainTextArea.setText("You opened the chest and found a " + weaponName + ".");
-                // Your code to handle the weapon goes here
-                // For example, you can equip the weapon to the player or add it to their inventory
-            }
-
-                numOfTimesChestOpened++;
-            
-		} 
-			else {
-                ui.mainTextArea.setText("The chest is empty...");
-                chestOpened = true;
-            }
+		if (reward instanceof Gold) {
+			Gold goldReward = (Gold) reward;
+			int addGold = goldReward.getAmount();
+			// int addgold = new java.util.Random().nextInt(1000) + 1;
+			gold = gold + addGold;
+			// update gold of player
+			ui.goldLabelNumber.setText(""+ gold);
+			ui.mainTextArea.setText("You opened the chest and found " + addGold + " gold.");
+		}
+		else if (reward instanceof Weapon) {
+			Weapon weaponReward = (Weapon) reward;
+			String weaponName = weaponReward.getName();
+			ui.mainTextArea.setText("You opened the chest and found a " + weaponName + ".");
+			// Your code to handle the weapon goes here
+			// For example, you can equip the weapon to the player or add it to their inventory
 		}
 
-     	ui.choice1.setText("Advance in forest");
-		ui.choice2.setText("Turn back");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
+		if(location == "Forest"){
+			ui.choice1.setText("Advance in forest");
+			ui.choice2.setText("Turn back");
+			ui.choice3.setText("");
+			ui.choice4.setText("");
 
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(true);
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
+			ui.choice1.setVisible(true);
+			ui.choice2.setVisible(true);
+			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
+		}
 
 	}
 
