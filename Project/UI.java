@@ -557,11 +557,17 @@ public class UI{
 				break;
 			case "right":   
 				switch(yourChoice){     
-					case "c1": story.Mountain(); break;
-					//case "c2": left(); break;
+					case "c1": story.orgre(); break;
 					case "c2": story.forest2(); break;
 				}
 				break;
+			case "orgre":   
+				switch(yourChoice){     
+					case "c1": story.monsterAttack("orgre"); break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			// after fighting orgre then proceed to mountainTop
 			case "left":   
 				switch(yourChoice){     
 					case "c1": story.goldchest(); break;
@@ -583,11 +589,27 @@ public class UI{
 				break;
 			case "mountainFoot":
 				switch(yourChoice){
-					//case "c1": 
-					case "c2": story.Map(); break;
+					case "c1": story.torch=1; story.cave(); break;
+					case "c2": story.cave(); break;
+					case "c3": story.Map(); break;
 				}
 				break;
-
+			case "cave":
+				switch(yourChoice){
+					case "c1": story.statueRight(); break;
+					case "c2": story.statueLeft(); break;
+				}
+				break;
+			case "puzzle":
+				switch(yourChoice){
+					case "c1": story.monsterAttack("dragon"); break;
+				}
+				break;
+			case "puzzleAttack":
+				switch(yourChoice){
+					case "c1": story.monsterAttack("wolf"); break;
+				}
+				break;
 			// Add other cases as needed for different positions
 		}
 	}

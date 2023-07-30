@@ -28,7 +28,7 @@ public class Storyline{
     String playerName, weapon, position, location, goblinName, character;
     int playerHP=100, goblinHP, gold;
 
-	int chestForest = 0, villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0;
+	int chestForest = 0, villageCount = 0, riverCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
 	int swordCount = 0, axeCount = 0, bowCount = 0;
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
@@ -941,12 +941,11 @@ public class Storyline{
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblin.getHP() + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
-		// //warrior.attack(goblin);
+		//warrior.attack(goblin);
 		goblin.takeDamage(damage);
-		// // update hp of goblin
+		// update hp of goblin
 		// ui.monsterHP.setText("" + goblin.getHP());
-		// //goblinAttack();
-
+		//goblinAttack();
 
 		goblinHP -= damage;
 		 // Ensure playerHP doesn't go below 0
@@ -1015,37 +1014,6 @@ public class Storyline{
 		ui.choice4.setVisible(false);
 	}
 
-	public void right(){
-		position = "right";
-		ui.mainTextArea.setText("While venturing deep in the forest, you arrived at the foot of a mountain. The path to the summit appears treacherous, windy through the rocky terrain.Its shadowy twists hinting at the dangers that lie ahead.\r\n" + 
-				"(Danger: Proceeding to the mountain will not allow you to go back/open your map. Adventurers are advised to be fully prepared.)\r\n");
-		ui.choice1.setText("Climb the mountain");
-		ui.choice2.setText("Turn back");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(true);
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
-	}
-
-	public void Mountain(){
-		position = "mountainFoot";
-		location = "Mountain";
-		ui.locationName.setText(location);
-		ui.mainTextArea.setText("Breathless, you arrive at the top and notice a small dark cave. At the entrance, you find a dirty old torch, but still usable.\r\n");
-		ui.choice1.setText("Take the torch");
-		ui.choice2.setText("Leave torch");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(true);
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
-	}
-
 	public void left(){
 		position = "left";
 		
@@ -1068,6 +1036,85 @@ public class Storyline{
 		ui.choice4.setVisible(false);
 
 	}
+
+	public void right(){
+		position = "right";
+		ui.mainTextArea.setText("While venturing deep in the forest, you arrived at the foot of a mountain. The path to the summit appears treacherous, windy through the rocky terrain.Its shadowy twists hinting at the dangers that lie ahead.");
+		ui.choice1.setText("Climb the mountain");
+		ui.choice2.setText("Turn back");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+	}
+
+	public void orgre(){
+		position = "orgre";
+		ui.mainTextArea.setText("On your way up, you find yourself face to face with an enormous orgre.");
+		ui.choice1.setText("Attack");
+		ui.choice2.setText("View map");
+	}
+
+	public void Mountain(){
+		position = "mountainTop";
+		location = "Mountain";
+		ui.locationName.setText(location);
+		ui.mainTextArea.setText("Breathless, you arrive at the top and notice a small dark cave. At the entrance, you find a dirty old torch, but still usable.\r\n(Danger: Proceeding to the mountain will not allow you to go back/open your map. Adventurers are advised to be fully prepared.)");
+		ui.choice1.setText("Take the torch");
+		ui.choice2.setText("Leave torch");
+		ui.choice3.setText("View map");
+		ui.choice4.setText("");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(true);
+		ui.choice4.setVisible(false);
+	}
+
+	public void cave(){
+		position = "cave";
+		if(torch == 0){
+			ui.mainTextArea.setText("You leave the torch on the ground and go into the cave trying to make out the path in the dark. You were not able to avoid the obstacles along the way and took some damage. Eventually you find yourself at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
+			playerHP -= 10;
+			ui.hpLabelNumber.setText("" + playerHP);
+		}
+		else{
+			ui.mainTextArea.setText("You pick it up, pull a lighter from your pockets and try to ignite the worn fabric. Its flickering flame casting a feeble glow was able to provide some light as you walk in the darkness. After evading some obstacle along the way, you arrive at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
+		}
+		ui.choice1.setText("Turn the second statue to the right");
+		ui.choice2.setText("Turn the second statue to the left");
+	}
+
+	public void statueRight(){ //puzzle solved
+		position = "puzzle";
+		ui.mainTextArea.setText("You put the statue in place and hear rumbling sound, opening a door infront of you. You move forward and see a girl trapped in a cage. You rush to free her. Unkowingly, you woke up the dragon and it charges at you.");
+		ui.choice1.setText("Attack");
+	}
+
+	public void statueLeft(){
+		position = "puzzleAttack";
+		ui.mainTextArea.setText("You push the statue the wrong way. A door opens and out comes, a ferocious wolf");
+		ui.choice1.setText("Attack");
+	}
+
+	public void monsterAttack(String name){
+		if(name == "wolf"){  //forest & in cave - puzzle failed
+
+		}
+		else if(name == "orgre"){  // on the way to mountain
+
+		}
+		else if(name == "wraith"){  //waterfall
+
+		}
+		else if(name == "dragon"){  // final boss
+
+		}
+	}
+
 	public void goldchest(){
 		position = "goldchest";
 		chestForest = 1;

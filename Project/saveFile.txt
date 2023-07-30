@@ -1,11 +1,11 @@
-100
+81
 warrior
 knife
 Town
-1750
+0
 goblin
 0
 0
 0
 0
-1
+0
