@@ -124,9 +124,11 @@ public class Storyline{
 	// Goblin setup
 	public void goblinSetup(){
 		ui.monsterName.setText(goblin.getName());
-		ui.monsterHP.setText("" + goblin.getHP());
+		goblinHP = 13;
+		ui.monsterHP.setText("" + goblinHP);
+		//ui.monsterHP.setText("" + goblin.getHP());
 		goblinName = goblin.getName();
-		goblinHP = goblin.getHP();
+		//goblinHP = goblin.getHP();
 	}
 
 	 public void villagegoblinSetup(){
@@ -1035,16 +1037,34 @@ public class Storyline{
 			ui.choice4.setVisible(false);
 			System.out.println(""+goblinHP);
 		}
-		else{
-			ui.mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
-			ui.choice3.setText("Advance in forest");
-		    ui.choice4.setText("View map");
+		// else{
+		// 	ui.mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
+		// 	ui.choice3.setText("Advance in forest");
+		//     ui.choice4.setText("View map");
 
-			ui.choice1.setVisible(false);
-		    ui.choice2.setVisible(false);	
-			System.out.println("else "+goblinHP);
+		// 	ui.choice1.setVisible(false);
+		//     ui.choice2.setVisible(false);	
+		// 	System.out.println("else "+goblinHP);
 			
-		}
+		// }
+	}
+
+	public void endForest1(){
+		position = "endforest1";
+		location = "Forest";
+		ui.locationName.setText(location);
+		mapPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+		ui.choiceButtonPanel.setVisible(true); // Set the choiceButtonPanel to visible
+
+		ui.mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
+			ui.choice1.setText("Advance in forest");
+		    ui.choice2.setText("View map");
+
+			ui.choice3.setVisible(false);
+		    ui.choice4.setVisible(false);	
+			System.out.println("else "+goblinHP);
+
 	}
 
 	//Gobin Attack
@@ -1075,9 +1095,9 @@ public class Storyline{
 
 		if(playerHP > 0){
 			ui.choice1.setText("Attack goblin");
-			if(location == "Forest"){
+			if(location == "Forest" && goblinHP == 13){
 				ui.choice2.setText("Retreat");
-				ui.choice2.setVisible(true);
+				ui.choice2.setVisible(false);
 			}
 			else{
 				ui.choice2.setVisible(false);
@@ -1641,21 +1661,7 @@ public class Storyline{
 		}
 	}
 
-	public void gameOver(){
-		position = "gameOver";
-		
-		ui.mainTextArea.setText("You decide to go take a look at the forlorn village. Upon arrival, you find the village under attack by a horde of goblins. Amidst the chaos, you catch sight of a solitary figure battling the malignant goblins.");		
-		ui.choice1.setText("Join him in the fight");
-		ui.choice2.setText("Hide and watch");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
-
-
-	}
-
+	
 	public void dead(){
 		position = "dead";
 		ui.mapButtonPanel.setVisible(false);
