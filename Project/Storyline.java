@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.io.*;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 import character.*;
 import spell.*;
@@ -279,19 +282,6 @@ public class Storyline{
 		//choice.story.position = position;
 	}
 
-	// public void dead(){
-	// 	position = "dead";
-	// 	ui.mainTextPanel.setVisible(true);
-	// 	ui.mainTextArea.setText("You died. Game Over!");		
-	// 	ui.choice1.setText("Restart");
-	// 	ui.choice2.setText("Load game");
-	// 	ui.choice3.setText("");
-	// 	ui.choice4.setText("");
-	// 	ui.choice1.setVisible(true);
-	// 	ui.choice2.setVisible(true);
-	// 	ui.choice3.setVisible(false);
-	// 	ui.choice4.setVisible(false);
-	// }
 
 	// Going to town for 1st time
 	public void townn(){
@@ -304,38 +294,14 @@ public class Storyline{
 		ui.mainTextArea.setText("You are at the town.\nYou see a checkpoint to save the game.");		
 		ui.choice1.setText("Save game");
 		ui.choice2.setText("View map");
-		ui.choice3.setText("");
+		ui.choice3.setText("end");
 		ui.choice4.setText("");
 
-		ui.choice3.setVisible(false);
+		ui.choice3.setVisible(true);
 		ui.choice4.setVisible(false);
 	}
 
-	public void dead(){
-		position = "dead";
-		mapPanel.setVisible(false);
-		ui.mainTextPanel.setVisible(true);
-
-		 playerHP = 0;
-		
-		 // Update hp of player in the UI
-		ui.hpLabelNumber.setText("" + playerHP);
-
-		ui.mainTextArea.setText("You died. Game Over!");		
-		ui.choice1.setText("Restart");
-		ui.choice2.setText("Load game");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(true);
-
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
 	
-	}
-
-
 	// Going to village for 1st time
 	public void village1(){
 		villageCount = 1;
@@ -813,12 +779,16 @@ public class Storyline{
 			ui.choice1.setVisible(true);
 			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
 		}
 		else{
 			if(character == "warrior" || character == "archer"){
 				ui.mainTextArea.setText("Having a good expertise, Brook tells you that he will be able to remove the poison and heal the people.");
+			
 				ui.choice2.setText("Switch to Brook");
+				ui.choice1.setVisible(false);
 				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
 			}
 			else if(character == "healer"){
 				ui.mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
@@ -1546,6 +1516,70 @@ public class Storyline{
 			ui.choice4.setVisible(true);
 		}
 	}
+
+	public void gameOver(){
+		position = "gameOver";
+		
+		ui.mainTextArea.setText("You decide to go take a look at the forlorn village. Upon arrival, you find the village under attack by a horde of goblins. Amidst the chaos, you catch sight of a solitary figure battling the malignant goblins.");		
+		ui.choice1.setText("Join him in the fight");
+		ui.choice2.setText("Hide and watch");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+
+
+	}
+
+	public void dead(){
+		position = "dead";
+		ui.mapButtonPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+        ui.mainTextArea.setVisible(true);
+		ui.choiceButtonPanel.setVisible(true);
+		 playerHP = 0;
+		
+		 // Update hp of player in the UI
+		ui.hpLabelNumber.setText("" + playerHP);
+
+		ui.mainTextArea.setText("Game Over!");
+
+			
+		ui.choice1.setText("Restart");
+		ui.choice2.setText("Load game");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+	
+	}
+
+	public void Restart(){
+		ui.titleUI();
+		ui.choices();
+		ui.titleNamePanel.setVisible(false);
+		ui.startButtonPanel.setVisible(false);
+		ui.Gameplay("start");
+
+
+}
+
+	
+
+	public void continueGame(){
+		ui.titleUI();
+		ui.choices();
+		ui.titleNamePanel.setVisible(false);
+		ui.startButtonPanel.setVisible(false);
+		ui.Gameplay("continue");
+
+	}
+
 
 	public void end(){
 		ui.mainTextArea.setText("You won!\n\n The End.");

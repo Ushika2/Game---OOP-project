@@ -366,8 +366,8 @@ public class UI{
 		switch (story.position) {
 			case "dead":
 				switch (yourChoice) {
-					case "c1": Gameplay("start"); break;
-					case "c2": Gameplay("continue"); break;
+					case "c1": story.Restart();break; 
+					case "c2": story.continueGame(); break;
 				}
 				break;
 			case "map":
@@ -382,6 +382,7 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.saveGame();break;
 					case "c2": story.Map(); break;
+					case "c3": story.dead();break;
 				}
 				break;
 			case "village1":
