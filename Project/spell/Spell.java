@@ -1,8 +1,8 @@
 package spell;
 
 // Spell
-public interface Spell{
-    String getName();
+public interface Spell{  // interface
+    String getName();   // abstract methods
     int getDamage();
 }
 
