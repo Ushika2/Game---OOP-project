@@ -378,15 +378,22 @@ public class Storyline{
 			ui.mainTextArea.setText("You raise your weapon and block the attack.");
 		}
 		position = "attackGoblin";
-		ui.choice1.setText("Attack");
+		ui.choice1.setText(">");
 		ui.choice2.setVisible(false);
 	}
 
 	public void villageFightEnd(){
 		position = "endQuest1";
-		ui.mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
+		ui.monsterPanel.setVisible(false);
+		ui.mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYour HP increases by 25.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
 		//playerHP = warrior.getHP() + 25;
 		playerHP = playerHP + 25;
+
+		 if (playerHP > 100) {
+				 playerHP = 100;
+		
+		}
+
 		warrior.setHP(playerHP);
 		ui.hpLabelNumber.setText(""+playerHP);
 
@@ -458,6 +465,7 @@ public class Storyline{
 
 	public void shop(){
 		position = "shop";
+		ui.monsterPanel.setVisible(false);
 		ui.mainTextArea.setText("Greeted by the old lady, she offers you a look at her goods.\n'Anything that interests you lad?'");
 		ui.choice1.setText("Sell");
 		ui.choice2.setText("Buy");
@@ -724,6 +732,7 @@ public class Storyline{
 		location = "River";
 		ui.locationName.setText(location);
 		mapPanel.setVisible(false);
+		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		ui.mapButtonPanel.setVisible(false);
 
@@ -743,6 +752,7 @@ public class Storyline{
 		position = "investigate";
 		location = "River";
 		ui.locationName.setText(location);
+		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 
 		ui.mainTextArea.setText("You move towards a person lying on the grounds, hoping to get some informations from him. Feebly, he said:\n 'The water, it's bad. Got poisoned by some witch. We need a cure, please. A cure.'");		
@@ -758,6 +768,7 @@ public class Storyline{
 
 	public void saveRiver(){
 		position = "saveRiver";
+		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		if(healerCount == 0){
 			ui.mainTextArea.setText("You get in the water, but end up getting poisoned. The poison started to infect your whole body until you feel numb. And without much help, you die in your own suffering.");
@@ -772,7 +783,7 @@ public class Storyline{
 				ui.choice3.setVisible(false);
 			}
 			else if(character == "healer"){
-				ui.mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you some Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
+				ui.mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
 				playerHP = healer.getHP() - 35;	
 				healer.setHP(playerHP);
 				ui.hpLabelNumber.setText("" + playerHP);
@@ -813,6 +824,7 @@ public class Storyline{
 	public void saveRiver2(){
 		riverCount = 1;
 		position = "endRiver";
+		ui.healerButtonPanel.setVisible(true);
 		ui.mainTextArea.setText("You decide that saving the river would be the best choice and you empty the flask into the river. The boy was left in anguish. Unable to fight against the poison, he succumbs to his death.");
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
@@ -824,6 +836,7 @@ public class Storyline{
 	public void saveBoy(){  // acquire mage
 		riverCount = 1;
 		position = "endRiver";
+		ui.healerButtonPanel.setVisible(true);
 		ui.mainTextArea.setText("Feeling pity for the boy, he decide to save him and in less than a minute, he's completely back to normal. Out of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.");
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
@@ -841,6 +854,7 @@ public class Storyline{
 		position = "endRiver";
 		location = "River";
 		ui.locationName.setText(location);
+		ui.healerButtonPanel.setVisible(true);
 		ui.mainTextPanel.setVisible(true);
 
 		ui.mainTextArea.setText("You move away from him, leaving him in anguish. Unable to fight against the poison, he succumbs to his death.");		
@@ -857,6 +871,7 @@ public class Storyline{
 		position = "endRiver";
 		location = "River";
 		ui.locationName.setText(location);
+		ui.healerButtonPanel.setVisible(true);
 		ui.mainTextPanel.setVisible(true);
 
 		ui.mainTextArea.setText("You went back to the river. Nothing in view except from the peaceful stream.");		
@@ -1085,7 +1100,7 @@ public class Storyline{
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		ui.mainTextArea.setText("You decide to go for a swim. However, the water was too deep and you drowned.");
-       ui. choice1.setVisible(false);
+        ui. choice1.setVisible(false);
 		ui.choice2.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
@@ -1132,6 +1147,7 @@ public class Storyline{
 	public void cave(){
 		location = "Cave";
 		ui.locationName.setText(location);
+		ui.healerButtonPanel.setVisible(true);
 		position = "cave";
 		if(torch == 0){
 			ui.mainTextArea.setText("You leave the torch on the ground and go into the cave trying to make out the path in the dark. You were not able to avoid the obstacles along the way and took some damage. Eventually you find yourself at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
@@ -1155,6 +1171,7 @@ public class Storyline{
 
 	public void statueLeft(){
 		position = "puzzleAttack";
+		
 		ui.mainTextArea.setText("You push the statue the wrong way. A door opens and out comes, a ferocious wolf");
 		ui.choice1.setText(">");
 		ui.choice2.setVisible(false);
@@ -1163,6 +1180,7 @@ public class Storyline{
 
 	public void inside(){
 		position = "inside";
+		
 		ui.mainTextArea.setText("Once inside, you see a girl trapped in a cage. You rush to free her. Unkowingly, you woke up the dragon and it charges at you.");
 		ui.choice1.setText("Attack");
 		ui.choice1.setVisible(true);

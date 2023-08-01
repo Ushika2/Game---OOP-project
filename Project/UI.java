@@ -440,10 +440,13 @@ public class UI{
 					case "c4": story.sellItem("OrgreClaw"); break;
 				}
 				break;
+
 			case "sellItem":
 				switch(yourChoice){
-					case "c1": story.sell(); break;
+					case "c1": story.shop(); break;
 				}
+				break;
+
 				case "buy":
 				switch(yourChoice){
 					case "c1": story.weapons(); break;
@@ -452,17 +455,18 @@ public class UI{
 					case "c4": story.shop(); break;
 				}
 				break;
+				
 			case "chooseWeapon":
 				switch(yourChoice){
 					case "c1": story.buyWeapons("Sword"); break;
 					case "c2": story.buyWeapons("Axe");  break;
 					case "c3": story.buyWeapons("Bow");  break;
-					case "c4": story.buy(); break;
+					case "c4": story.shop(); break;
 				}
 				break;
 			case "buyWeapon":
 				switch(yourChoice){
-					case "c1": story.buy(); break;
+					case "c1": story.shop(); break;
 				}
 				break;
 			case "buySpell":
@@ -470,24 +474,24 @@ public class UI{
 					case "c1": story.buySpells("Fire"); break;
 					case "c2": story.buySpells("Lightning");  break;
 					case "c3": story.buySpells("Frost"); break;
-					case "c4": story.buy(); break;
+					case "c4": story.shop(); break;
 				}
 				break;
 			case "chooseSpell":
 				switch(yourChoice){
-					case "c1": story.buy(); break;
+					case "c1": story.shop(); break;
 				}
 				break;
 			case "buyPotion":
 				switch(yourChoice){
 					case "c1": story.buyPotions("HealingPotion"); break;
 					case "c2": story.buyPotions("CuringPotion"); break;
-					case "c4": story.buy(); break;
+					case "c4": story.shop(); break;
 				}
 				break;
 			case "choosePotion":
 				switch(yourChoice){
-					case "c1": story.buy(); break;
+					case "c1": story.shop(); break;
 				}
 				break;
 			case "river1":
@@ -505,7 +509,7 @@ public class UI{
 				break;
 			case "saveRiver":
 				switch(yourChoice){
-					case "c1":  break; //player dies
+					case "c1": story.dead(); //player dies
 					case "c2": story.healerSetup(); break;  //switch to healer
 					case "c3": story.saveBoy(); break;
 					case "c4": story.NosaveBoy(); break;
@@ -588,6 +592,8 @@ public class UI{
 				}
 				break;
 			// after fighting orgre then proceed to mountainTop
+
+			//if choice is left
 			case "left":   
 				switch(yourChoice){     
 					case "c1": story.goldchest(); break;
