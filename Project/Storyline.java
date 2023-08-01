@@ -107,6 +107,16 @@ public class Storyline{
 		ui.weaponLabelName.setText(grimoire.getName());
 	}
 
+	public void warriorSetup(){
+		character = "warrior";
+		ui.characterLabelName.setText("" + warrior.getName());
+		ui.weaponLabelName.setText(knife.getName());
+		if(swordCount == 1){
+			ui.weaponLabelName.setText(knife.getName() +""+ sword.getName());
+		}
+		
+	}
+
 
 	// Goblin setup
 	public void goblinSetup(){
@@ -269,17 +279,19 @@ public class Storyline{
 		//choice.story.position = position;
 	}
 
-	public void dead(){
-		position = "dead";
-		ui.mainTextArea.setText("Game Over! You died.");		
-		ui.choice1.setText("Restart");
-		ui.choice2.setText("Load game");
-		ui.choice3.setText("");
-		ui.choice4.setText("");
-		ui.choice2.setVisible(true);
-		ui.choice3.setVisible(false);
-		ui.choice4.setVisible(false);
-	}
+	// public void dead(){
+	// 	position = "dead";
+	// 	ui.mainTextPanel.setVisible(true);
+	// 	ui.mainTextArea.setText("You died. Game Over!");		
+	// 	ui.choice1.setText("Restart");
+	// 	ui.choice2.setText("Load game");
+	// 	ui.choice3.setText("");
+	// 	ui.choice4.setText("");
+	// 	ui.choice1.setVisible(true);
+	// 	ui.choice2.setVisible(true);
+	// 	ui.choice3.setVisible(false);
+	// 	ui.choice4.setVisible(false);
+	// }
 
 	// Going to town for 1st time
 	public void townn(){
@@ -298,6 +310,31 @@ public class Storyline{
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	}
+
+	public void dead(){
+		position = "dead";
+		mapPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+
+		 playerHP = 0;
+		
+		 // Update hp of player in the UI
+		ui.hpLabelNumber.setText("" + playerHP);
+
+		ui.mainTextArea.setText("You died. Game Over!");		
+		ui.choice1.setText("Restart");
+		ui.choice2.setText("Load game");
+		ui.choice3.setText("");
+		ui.choice4.setText("");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+	
+	}
+
 
 	// Going to village for 1st time
 	public void village1(){
@@ -385,7 +422,7 @@ public class Storyline{
 	public void villageFightEnd(){
 		position = "endQuest1";
 		ui.monsterPanel.setVisible(false);
-		ui.mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYour HP increases by 25.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
+		ui.mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
 		//playerHP = warrior.getHP() + 25;
 		playerHP = playerHP + 25;
 
@@ -772,7 +809,8 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
 		if(healerCount == 0){
 			ui.mainTextArea.setText("You get in the water, but end up getting poisoned. The poison started to infect your whole body until you feel numb. And without much help, you die in your own suffering.");
-			ui.choice1.setText(" ");
+			ui.choice1.setText(">");
+			ui.choice1.setVisible(true);
 			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
 		}

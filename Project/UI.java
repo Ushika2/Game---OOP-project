@@ -357,7 +357,7 @@ public class UI{
 	public class WarriorScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			story.character = "warrior";
-			story.playerSetup();
+			story.warriorSetup();
 		}
 	}
     
@@ -455,7 +455,7 @@ public class UI{
 					case "c4": story.shop(); break;
 				}
 				break;
-				
+
 			case "chooseWeapon":
 				switch(yourChoice){
 					case "c1": story.buyWeapons("Sword"); break;
