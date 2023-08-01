@@ -235,7 +235,8 @@ public class UI{
 			 
 			story.playerSetup();
             story.intro();
-			story.goblinSetup();
+		//	story.goblinSetup();
+			
 		}
 		
         choices();
@@ -373,8 +374,8 @@ public class UI{
 			case "map":
 				switch (yourChoice) {
 					case "c1": story.townn(); break;
-					case "c2": story.forest1();break;
-					case "c3": if(story.villageCount == 0){story.village1();} else{story.village2();}; break;
+					case "c2": if(story.forestCount == 0){story.goblinSetup();story.forest1();} else{story.forest2();}; break;//story.forest1();break;
+					case "c3": if(story.villageCount == 0){story.villagegoblinSetup();story.village1();} else{story.village2();}; break;
 					case "c4": if(story.riverCount == 0){story.river1();} else{story.river2();}; break;
 				}
 				break;
@@ -395,7 +396,18 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.dodge(); break;
 					case "c2": story.blockAttack(); break;
-					case "c3": story.AttackGoblin(); break;
+					case "c3": story.villageAttackGoblin(); break;
+				}
+				break;
+			case "villagegoblinAttack":
+				switch(yourChoice){
+					case "c1":story.villageAttackGoblin();break;
+					case "c2": story.Map(); break;
+				}
+				break;
+			case "villageattackGoblin":
+				switch(yourChoice){
+					case "c1":story.villagegoblinAttack(); break;
 				}
 				break;
 			case "endFightVillage":
@@ -531,7 +543,7 @@ public class UI{
 				break;
 			case "forest":   
 				    switch(yourChoice){     
-						case "c1": story.goblinAttack(); break;
+						case "c1": story.goblinAttack(); break; 
 						case "c2": story.Map(); break;
 						case "c3": story.forest2(); break;
 						case "c4": story.Map(); break;

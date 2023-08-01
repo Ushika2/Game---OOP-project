@@ -31,7 +31,7 @@ public class Storyline{
     String playerName, weapon, position, location, goblinName, character;
     int playerHP=100, goblinHP, gold, turn=0;
 
-	int chestForest = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
+	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
 	int swordCount = 0, axeCount = 0, bowCount = 0;
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
@@ -128,6 +128,17 @@ public class Storyline{
 		goblinName = goblin.getName();
 		goblinHP = goblin.getHP();
 	}
+
+	 public void villagegoblinSetup(){
+		ui.monsterName.setText(goblin.getName());
+		goblinHP = 13;
+		ui.monsterHP.setText("" + goblinHP);
+		goblinName = goblin.getName();
+		
+		
+	 }
+
+
 
 	public void saveGame(){
 		try{
@@ -355,12 +366,13 @@ public class Storyline{
 			 // Update hp of player in the UI
 			 ui.hpLabelNumber.setText("" + playerHP);
 		}
-		position = "attackGoblin";
+		position = "villageattackGoblin";
 		ui.choice1.setText("Attack");
 		ui.choice2.setVisible(false);
 	}
 
 	public void blockAttack(){
+		
 		if (warrior.getLeftHandWeapon().getDamage() < axe.getDamage()){
 
 			int damage = new java.util.Random().nextInt(1,10);
@@ -380,10 +392,120 @@ public class Storyline{
 		else{
 			ui.mainTextArea.setText("You raise your weapon and block the attack.");
 		}
-		position = "attackGoblin";
+		
+										 
+		position = "villageattackGoblin";
 		ui.choice1.setText(">");
 		ui.choice2.setVisible(false);
+		
 	}
+
+	//Gobin Attack
+	public void villagegoblinAttack(){
+		position = "villagegoblinAttack";
+		ui.monsterPanel.setVisible(true);
+		//goblin.setHP(13);
+		//goblinSetup();
+
+		ui.mapButtonPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+        
+		int damage = new java.util.Random().nextInt(1,20);
+
+		ui.mainTextArea.setText("The goblin attacked you giving " + damage + " damage.");
+
+		warrior.takeDamage(damage);    //decrease HP of warrior
+
+		// Update playerHP based on the damage taken
+		playerHP -= damage;
+		// Ensure playerHP doesn't go below 0
+		if (playerHP < 0) {
+			playerHP = 0;
+			dead();
+		}
+	
+		// Update hp of player in the UI
+		ui.hpLabelNumber.setText("" + playerHP);
+
+		if(playerHP > 0){
+			ui.choice1.setText("Attack goblin");
+			if(location == "Forest"){
+				ui.choice2.setText("Retreat");
+				ui.choice2.setVisible(true);
+			}
+			else{
+				ui.choice2.setVisible(false);
+			}
+			ui.choice3.setText("");
+			ui.choice4.setText("");
+			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
+		}
+		
+	}
+
+	public void villageAttackGoblin(){
+		position = "villageattackGoblin";
+		ui.mapButtonPanel.setVisible(false);
+		ui.mainTextPanel.setVisible(true);
+
+		int damage = knife.getDamage();
+
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
+		goblinTeeth = goblinTeeth + 3;
+		//warrior.attack(goblin);
+		goblin.takeDamage(damage);
+		// update hp of goblin
+		// ui.monsterHP.setText("" + goblin.getHP());
+		//goblinAttack();
+
+		goblinHP -= damage;
+		 // Ensure playerHP doesn't go below 0
+		 if (goblinHP < 0) {
+			 goblinHP = 0;
+		 }
+
+		 ui.monsterHP.setText("" + goblinHP);
+
+		if (goblinHP > 0){
+			//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
+		 	//goblinAttack();
+			ui.mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
+			ui.choice1.setText(">");
+			ui.choice2.setText("");
+			ui.choice3.setText("");
+			ui.choice4.setText("");
+			//goblinAttack();
+			ui.choice2.setVisible(false);
+			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
+			
+		}
+		
+		else{
+			goblin.setHP(0);
+			ui.monsterHP.setText("" + goblin.getHP());
+			
+			if(location == "Forest"){
+				position = "endFightForest";
+
+				ui.choice1.setText("Advance in the forest");
+				ui.choice2.setText("View map");
+				ui.choice2.setVisible(true);
+			}
+			else if(location == "Village"){
+				position = "endFightVillage";
+				ui.choice1.setText(">");
+				ui.choice2.setVisible(false);
+			}
+			
+			ui.choice1.setVisible(true);
+			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
+		}
+	}
+
+
 
 	public void villageFightEnd(){
 		position = "endQuest1";
@@ -401,7 +523,8 @@ public class Storyline{
 		ui.hpLabelNumber.setText(""+playerHP);
 
 		ui.choice1.setText("Enter shop");
-		ui.choice2.setVisible(false);
+		ui.choice2.setText("View Map");
+		ui.choice2.setVisible(true);
 
 		//gain healer
 		healerCount = 1;
@@ -436,6 +559,7 @@ public class Storyline{
 		ui.mainTextArea.setText("You offer him some water and after a few minutes, he sits up, feeling better.'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?' You introduce yourself and while chatting. You tell him about your quest and he offers to join you. He then guides you to a small shady shop at the corner.\n\nYou found yourself a healer. Brook can fight alongside you and can heal you in case of serious injuries.");
 		ui.choice1.setText("Enter shop");
 		ui.choice2.setText("View map");
+		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(true);
 
 		//gain healer
@@ -735,7 +859,6 @@ public class Storyline{
 		location = "River";
 		ui.locationName.setText(location);
 		mapPanel.setVisible(false);
-		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		ui.mapButtonPanel.setVisible(false);
 
@@ -755,7 +878,6 @@ public class Storyline{
 		position = "investigate";
 		location = "River";
 		ui.locationName.setText(location);
-		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 
 		ui.mainTextArea.setText("You move towards a person lying on the grounds, hoping to get some informations from him. Feebly, he said:\n 'The water, it's bad. Got poisoned by some witch. We need a cure, please. A cure.'");		
@@ -893,6 +1015,7 @@ public class Storyline{
 
 	// Going to forest for the 1st time
 	public void forest1(){
+		forestCount = 1;
 		position = "forest";
 		location = "Forest";
 		ui.locationName.setText(location);
@@ -901,7 +1024,7 @@ public class Storyline{
 		ui.choiceButtonPanel.setVisible(true); // Set the choiceButtonPanel to visible
 
 
-		if(goblin.getHP() > 0){
+		if(goblinHP > 0){
 			ui.mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
 			ui.choice1.setText("Fight the goblin");
 			ui.choice2.setText("view map");
@@ -972,6 +1095,7 @@ public class Storyline{
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		int damage = knife.getDamage();
+
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblin.getHP() + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
