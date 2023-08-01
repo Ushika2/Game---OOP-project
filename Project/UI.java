@@ -259,7 +259,7 @@ public class UI{
         
 		// Healer button panel
 		healerButtonPanel = new JPanel();
-		healerButtonPanel.setBounds(600, 450, 200, 50);
+		healerButtonPanel.setBounds(500, 450, 300, 150);
 		healerButtonPanel.setBackground(Color.black);
 
 		healerButton = new JButton("Healer");
@@ -275,7 +275,7 @@ public class UI{
 
 		// Mage button panel
 		mageButtonPanel = new JPanel();
-		mageButtonPanel.setBounds(600, 400, 200, 50);
+		mageButtonPanel.setBounds(500, 400, 300, 150);
 		mageButtonPanel.setBackground(Color.black);
 
 		mageButton = new JButton("Mage");
@@ -291,7 +291,8 @@ public class UI{
 
 		// Warrior button panel
 		warriorButtonPanel = new JPanel();
-		warriorButtonPanel.setBounds(600, 350, 200, 50);
+		//warriorButtonPanel.setBounds(600, 350, 200, 50);
+	    warriorButtonPanel.setBounds(500, 500, 300, 150);
 		warriorButtonPanel.setBackground(Color.black);
 
 		warriorButton = new JButton("Warrior");

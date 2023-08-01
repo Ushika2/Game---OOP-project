@@ -137,6 +137,8 @@ public class Storyline{
 			bw.newLine();
 			bw.write(""+healerCount);
 			bw.newLine();
+			bw.write(""+ mageCount);
+			bw.newLine();
 			bw.write(""+ riverCount);
 			bw.newLine();
 			bw.write(""+ chestForest);
@@ -163,6 +165,8 @@ public class Storyline{
             goblin.setHP(goblinHP);
 			villageCount = Integer.parseInt(br.readLine());
 			healerCount = Integer.parseInt(br.readLine());
+			mageCount = Integer.parseInt(br.readLine());
+			riverCount = Integer.parseInt(br.readLine());
 			chestForest  = Integer.parseInt(br.readLine());
 
 			br.close();
@@ -426,7 +430,8 @@ public class Storyline{
 
 		//gain healer
 		healerCount = 1;
-		ui.healerButtonPanel.setVisible(true);
+		ui.healerButtonPanel.setVisible(true);	
+
 	}
 
 	public void walkPast(){
