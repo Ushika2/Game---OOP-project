@@ -57,7 +57,7 @@ public class Storyline{
 
 	// Creating monsters
 	Goblin goblin = new Goblin("goblin",13);
-	Orgre orgre = new Orgre("orgre", 20);
+	Orgre orgre = new Orgre("orgre", 60);
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
 	Dragon dragon = new Dragon("dragon",150);
@@ -219,6 +219,8 @@ public class Storyline{
 			bw.write(""+ waterfallCount);
 			bw.newLine();
 			bw.write(""+wraithHP);
+			bw.newLine();
+			bw.write(""+orgreHP);
 			
 
 			bw.close();
@@ -251,6 +253,8 @@ public class Storyline{
 			waterfallCount = Integer.parseInt(br.readLine());
 			wraithHP = Integer.parseInt(br.readLine());
 			wraith.setHP(wraithHP);
+			orgreHP = Integer.parseInt(br.readLine());
+			orgre.setHP(orgreHP);
 
 			br.close();
 		}
@@ -1497,7 +1501,11 @@ public class Storyline{
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				dead();
+				//dead();
+				ui.choice3.setText(">");
+				ui.choice3.setVisible(true);
+				ui.choice1.setVisible(false);
+				ui.choice2.setVisible(false);
 			}
 	
 			// Update hp of player in the UI
@@ -1508,6 +1516,9 @@ public class Storyline{
 				ui.choice2.setText("Retreat");
 				ui.choice3.setText("");
 				ui.choice4.setText("");
+
+				ui.choice1.setVisible(true);
+				ui.choice2.setVisible(true);
 				ui.choice3.setVisible(false);
 				ui.choice4.setVisible(false);
 			}
