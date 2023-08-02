@@ -211,6 +211,11 @@ public class Storyline{
 			bw.write(""+ riverCount);
 			bw.newLine();
 			bw.write(""+ chestForest);
+			bw.newLine();
+			bw.write(""+ axeCount);
+			bw.newLine();
+			bw.write(""+ forestCount);
+			
 
 			bw.close();
 		}
@@ -231,12 +236,14 @@ public class Storyline{
 			gold = Integer.parseInt(br.readLine());
 			goblinName = br.readLine();
 			goblinHP = Integer.parseInt(br.readLine());
-            goblin.setHP(goblinHP);
+           // goblin.setHP(goblinHP);
 			villageCount = Integer.parseInt(br.readLine());
 			healerCount = Integer.parseInt(br.readLine());
 			mageCount = Integer.parseInt(br.readLine());
 			riverCount = Integer.parseInt(br.readLine());
 			chestForest  = Integer.parseInt(br.readLine());
+			axeCount = Integer.parseInt(br.readLine());
+			forestCount = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
