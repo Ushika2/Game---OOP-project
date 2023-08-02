@@ -62,6 +62,8 @@ public class Storyline{
 	Wraith wraith = new Wraith("wraith", 35);
 	Dragon dragon = new Dragon("dragon",150);
 
+	
+
     public UI ui;          
 
     public Storyline(Container container,UI ui) {     ///to avoid the null pointer exception
@@ -1154,6 +1156,7 @@ public class Storyline{
 			
 			if(location == "Forest"){
 				position = "endFightForest";
+				ui.monsterPanel.setVisible(false);
 
 				ui.choice1.setText("Advance in the forest");
 				ui.choice2.setText("View map");
@@ -1177,6 +1180,7 @@ public class Storyline{
 		location = "Forest";
 		ui.locationName.setText(location);
 		mapPanel.setVisible(false);
+		ui.monsterPanel.setVisible(false);	
 		ui.mainTextPanel.setVisible(true);
 		ui.mapButtonPanel.setVisible(false);
 
@@ -1217,7 +1221,8 @@ public class Storyline{
 
 	public void waterfall(){
 		position = "waterfallfight";
-		ui.mainTextArea.setText("You arrived at a waterfall and the place is filled with wraith.");
+		ui.monsterPanel.setVisible(false);
+		ui.mainTextArea.setText("You arrived at a river and the place is filled with wraith.");
 		ui.choice1.setText("Attack");
 		ui.choice2.setText("Turn back");
 		ui.choice3.setText("");
@@ -1231,9 +1236,10 @@ public class Storyline{
 
     public void waterfall2(){
 		position = "waterfall";
+		ui.monsterPanel.setVisible(false);
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
-		ui.mainTextArea.setText("You arrived at the waterfall.");
+		ui.mainTextArea.setText("You go upstream and arrived at the waterfall.");
 
 		ui.choice1.setText("Go for a swim");
 		ui.choice2.setText("Turn back");
@@ -1565,17 +1571,49 @@ public class Storyline{
 
 		else if(name == "wraith"){  //waterfall
 			position = "attackWraith";
-			ui.monsterPanel.setVisible(true);
 			ui.monsterName.setText(wraith.getName());
 			ui.monsterHP.setText("" + wraith.getHP());
+			
+			ui.monsterPanel.setVisible(true);
+			// ui.monsterName.setText(wraith.getName());
+			// ui.monsterHP.setText("" + wraith.getHP());
 			
 			turn += 1;
 			int damage=0;
 			if(character == "warrior"){
+				
 				warrior.attack(wraith);
-				damage = warrior.damage();
+				wraith.takeDamage(damage);
+				//damage = warrior.damage();
+		
+		//wraithHP -= damage;
+		 // Ensure playerHP doesn't go below 0
+		 //if (wraithHP < 0) {
+			// wraithHP = 0;
+		// }
+
+		// ui.monsterHP.setText("" + wraithHP);
+				//damage = warrior.damage();
+
+				//warrior.attack(goblin);
+		//goblin.takeDamage(damage);
+		// update hp of goblin
+		ui.monsterHP.setText("" + wraith.getHP());
+		//goblinAttack();
+
+		// goblinHP -= damage;
+		//  // Ensure playerHP doesn't go below 0
+		//  if (goblinHP < 0) {
+		// 	 goblinHP = 0;
+		//  }
+
+		//  ui.monsterHP.setText("" + goblinHP);
+
+
+
 			}
 			else if(character == "healer"){
+				
 				healer.attack(wraith);
 				damage = healer.damage();
 			}
