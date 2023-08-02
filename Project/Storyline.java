@@ -1987,18 +1987,26 @@ public class Storyline{
 	}
 
 	public void Restart(){
+
+		// To close the JFrame programmatically:
+        ui.window.dispose();
+
 		ui.titleUI();
 		ui.choices();
 		ui.titleNamePanel.setVisible(false);
 		ui.startButtonPanel.setVisible(false);
 		ui.Gameplay("start");
-
+		
 
 }
 
 	
 
 	public void continueGame(){
+
+		// To close the JFrame programmatically:
+        ui.window.dispose();
+		
 		ui.titleUI();
 		ui.choices();
 		ui.titleNamePanel.setVisible(false);

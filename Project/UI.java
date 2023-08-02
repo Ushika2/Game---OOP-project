@@ -41,7 +41,8 @@ public class UI{
         //WINDOW
         window = new JFrame();
 		window.setSize(800, 600);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
         //window.setIconImage(logo.getImage());
