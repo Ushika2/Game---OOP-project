@@ -655,6 +655,7 @@ public class UI{
 				switch(yourChoice){     
 					case "c1": story.attackMonster("wraith"); break;
 					case "c2": story.forest2(); break;
+					case "c3": story.dead();
 				}
 				break;
 			case "mountainTop":

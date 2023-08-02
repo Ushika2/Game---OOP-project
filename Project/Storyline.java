@@ -1526,7 +1526,11 @@ public class Storyline{
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				dead();
+				//dead();
+				ui.choice3.setText(">");
+				ui.choice3.setVisible(true);
+				ui.choice1.setVisible(false);
+				ui.choice2.setVisible(false);
 			}
 	
 			// Update hp of player in the UI
@@ -1537,6 +1541,7 @@ public class Storyline{
 				ui.choice2.setText("Retreat");
 				ui.choice3.setText("");
 				ui.choice4.setText("");
+				ui.choice1.setVisible(true);
 				ui.choice2.setVisible(true);
 				ui.choice3.setVisible(false);
 				ui.choice4.setVisible(false);
@@ -1839,68 +1844,6 @@ public class Storyline{
 				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
 			}
-
-		// 	position = "villageattackGoblin";
-		// ui.mapButtonPanel.setVisible(false);
-		// ui.mainTextPanel.setVisible(true);
-
-		//int damage = knife.getDamage();
-
-		// ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
-		// goblinTeeth = goblinTeeth + 3;
-		// //warrior.attack(goblin);
-		// goblin.takeDamage(damage);
-		// // update hp of goblin
-		// // ui.monsterHP.setText("" + goblin.getHP());
-		// //goblinAttack();
-
-		// goblinHP -= damage;
-		//  // Ensure playerHP doesn't go below 0
-		//  if (goblinHP < 0) {
-		// 	 goblinHP = 0;
-		//  }
-
-		//  ui.monsterHP.setText("" + goblinHP);
-
-		// if (goblinHP > 0){
-		// 	//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
-		//  	//goblinAttack();
-		// 	ui.mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
-		// 	ui.choice1.setText(">");
-		// 	ui.choice2.setText("");
-		// 	ui.choice3.setText("");
-		// 	ui.choice4.setText("");
-		// 	//goblinAttack();
-		// 	ui.choice2.setVisible(false);
-		// 	ui.choice3.setVisible(false);
-		// 	ui.choice4.setVisible(false);
-			
-		// }
-		
-		// else{
-		// 	goblin.setHP(0);
-		// 	ui.monsterHP.setText("" + goblin.getHP());
-			
-		// 	if(location == "Forest"){
-		// 		position = "endFightForest";
-
-		// 		ui.choice1.setText("Advance in the forest");
-		// 		ui.choice2.setText("View map");
-		// 		ui.choice2.setVisible(true);
-		// 	}
-		// 	else if(location == "Village"){
-		// 		position = "endFightVillage";
-		// 		ui.choice1.setText(">");
-		// 		ui.choice2.setVisible(false);
-		// 	}
-			
-		// 	ui.choice1.setVisible(true);
-		// 	ui.choice3.setVisible(false);
-		// 	ui.choice4.setVisible(false);
-		
-	//}
-
-
 
 		}
 
