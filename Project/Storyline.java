@@ -1305,9 +1305,13 @@ public class Storyline{
     public void swim(){
 		position = "swim";
 		ui.mapButtonPanel.setVisible(false);
+		ui.healerButtonPanel.setVisible(false);
+		ui.warriorButtonPanel.setVisible(false);
+		ui.mageButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		ui.mainTextArea.setText("You decide to go for a swim. However, the water was too deep and you drowned.");
-        ui. choice1.setVisible(false);
+		ui.choice1.setText(">");
+        ui. choice1.setVisible(true);
 		ui.choice2.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
@@ -1828,6 +1832,9 @@ public class Storyline{
 		position = "dead";
 		ui.mapButtonPanel.setVisible(false);
 		ui.monsterPanel.setVisible(false);
+		ui.healerButtonPanel.setVisible(false);
+		ui.warriorButtonPanel.setVisible(false);
+		ui.mageButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
         ui.mainTextArea.setVisible(true);
 		ui.choiceButtonPanel.setVisible(true);

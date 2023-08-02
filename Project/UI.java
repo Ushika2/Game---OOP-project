@@ -632,6 +632,12 @@ public class UI{
 					case "c2": story.forest2(); break;
 				}
 				break;
+
+			case "swim":   
+				switch(yourChoice){     
+					case "c1": story.dead(); break;
+				}
+				break;
 			case "waterfallfight":   
 				switch(yourChoice){     
 					case "c1": story.attackMonster("wraith"); break;
