@@ -155,14 +155,14 @@ public class Storyline{
 		
 	}
 
-	//  //Wolf setup
-	//  public void WolfSetup(){
-	// 	ui.monsterName.setText(wolf.getName());
-	// 	wolfName = wolf.getName();
-	// 	ui.monsterHP.setText("" + wolf.getHP());
-	// 	wolfHP = wolf.getHP();
+	 //Wolf setup
+	 public void WolfSetup(){
+		ui.monsterName.setText(wolf.getName());
+		wolfName = wolf.getName();
+		ui.monsterHP.setText("" + wolf.getHP());
+		wolfHP = wolf.getHP();
 		
-	//  }
+	 }
 
 	//Wraith setup
 	public void WraithSetup(){
@@ -1411,7 +1411,7 @@ public class Storyline{
 
 	public void statueLeft(){
 		position = "puzzleAttack";
-		
+		ui.monsterPanel.setVisible(true);
 		ui.mainTextArea.setText("You push the statue the wrong way. A door opens and out comes, a ferocious wolf");
 		ui.choice1.setText(">");
 		ui.choice2.setVisible(false);
@@ -1567,20 +1567,69 @@ public class Storyline{
 	public void attackMonster(String name){
 		if(name == "wolf"){  //forest & in cave - puzzle failed
 			position = "attackWolf";
-			turn += 1;
+
+			turn += 1;  //TO COMMENT WHAT TURN DOES
+
 			int damage=0;
+
+			// if(character == "warrior"){
+			// 	warrior.attack(wolf);
+			// 	damage = warrior.damage();
+			// }
+			// else if(character == "healer"){
+			// 	healer.attack(wolf);
+			// 	damage = healer.damage();
+			// }
+
+			// ui.monsterHP.setText("" + wolf.getHP());
+
 			if(character == "warrior"){
-				warrior.attack(wolf);
-				damage = warrior.damage();
+
+				if(swordCount == 0){
+					damage = knife.getDamage();
+				}
+
+				else if(axeCount == 1){
+					damage = axe.getDamage();
+				}
+
+				else if(swordCount == 1){
+
+					warrior.attack(wolf);
+					damage = warrior.damage();
+				}
+				
 			}
 			else if(character == "healer"){
-				healer.attack(wolf);
-				damage = healer.damage();
+
+				if(swordCount == 0 && axeCount == 0){
+					damage = knife.getDamage();
+				}
+				else if(swordCount == 0 && axeCount == 1){
+					damage = axe.getDamage();
+				}
+				else if(swordCount == 1){
+			
+					damage = knife.getDamage();
+				
+				}
 			}
 
-			ui.monsterHP.setText("" + wolf.getHP());
+			ui.mainTextArea.setText("You attack the wolf, giving it " + wolfHP + " damage, defeating it. You've acquired 4 wolf skin.");
+			wolfSkin = wolfSkin + 4;
 
-			if (wolf.getHP() > 0){
+			wolf.takeDamage(damage);
+
+			wolfHP -= damage;
+
+			// Ensure playerHP doesn't go below 0
+			if (wolfHP < 0) {
+				wolfHP = 0;
+			}
+
+			ui.monsterHP.setText("" + wolfHP);
+
+			if (wolfHP > 0){
 				ui.mainTextArea.setText("You attack the wolf back, giving it " + damage + " damage.");
 				ui.choice1.setText(">");
 				ui.choice2.setText("");
@@ -1594,10 +1643,10 @@ public class Storyline{
 			}
 		
 			else{
-				ui.mainTextArea.setText("You attack the wolf, giving it " + damage + " damage, defeating it. You've acquired 4 wolf skin.");
-				wolfSkin = wolfSkin + 4;
+				//ui.mainTextArea.setText("You attack the wolf, giving it " + damage + " damage, defeating it. You've acquired 4 wolf skin.");
+				//wolfSkin = wolfSkin + 4;
 				wolf.setHP(0);
-				ui.monsterHP.setText("" + wolf.getHP());
+				ui.monsterHP.setText("" + wolfHP);
 
 				ui.choice2.setText("Advance");
 				

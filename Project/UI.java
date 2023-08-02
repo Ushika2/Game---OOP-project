@@ -667,7 +667,7 @@ public class UI{
 			case "cave":
 				switch(yourChoice){
 					case "c1": story.DragonSetup();story.statueRight(); break;
-					case "c2": story.statueLeft(); break;
+					case "c2": story.WolfSetup();story.statueLeft(); break;
 				}
 				break;
 			case "puzzle":
@@ -683,7 +683,7 @@ public class UI{
 			case "attackWolf":
 				switch(yourChoice){     
 					case "c1": story.monsterAttack("wolf"); break;
-					case "c2": story.inside(); break;
+					case "c2": story.DragonSetup();story.inside(); break;
 					case "c3":  break;  //advance in forest
 					case "c4": story.heal(); break;
 				}
