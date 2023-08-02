@@ -581,7 +581,7 @@ public class UI{
 				break;
 			case "right":   
 				switch(yourChoice){     
-					case "c1": story.OrgreSetup();story.orgre(); break;
+					case "c1": story.OrgreSetup();story.orgre(); break;  //Orgre setup
 					case "c2": story.forest2(); break;
 				}
 				break;
@@ -616,7 +616,7 @@ public class UI{
 			case "left":   
 				switch(yourChoice){     
 					case "c1": story.goldchest(); break;
-					case "c2": if(story.waterfallCount == 0){story.WraithSetup();story.waterfall();} else{story.waterfall2();} break;
+					case "c2": if(story.waterfallCount == 0){story.WraithSetup();story.waterfall();} else{story.waterfall2();} break; //Wraith setup
 					case "c3": story.forest2(); break;
 				}
 				break;
@@ -666,7 +666,7 @@ public class UI{
 				break;
 			case "cave":
 				switch(yourChoice){
-					case "c1": story.statueRight(); break;
+					case "c1": story.DragonSetup();story.statueRight(); break;
 					case "c2": story.statueLeft(); break;
 				}
 				break;
@@ -696,7 +696,7 @@ public class UI{
 				break;
 			case "inside":
 				switch(yourChoice){     
-					case "c1": story.attackMonster("dragon"); break;
+					case "c1": story.attackMonster("dragon"); break; 
 				}
 				break;
 			case "attackDragon":
@@ -706,8 +706,9 @@ public class UI{
 				}
 				break;
 			case "dragonAttack":
-				switch(yourChoice){     
+				switch(yourChoice){   
 					case "c1": story.attackMonster("dragon"); break;
+					case "c2": story.dead(); break;  
 				}
 				break;
 			// Add other cases as needed for different positions
