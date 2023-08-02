@@ -95,6 +95,9 @@ public class Storyline{
 		if(axeCount == 1){
 			ui.weaponLabelName.setText(""+ axe.getName());
 		}
+		else if (swordCount == 1){
+			ui.weaponLabelName.setText(""+ knife.getName());
+		}
 		if(location == "River"){
 			saveRiver();
 		}
@@ -1126,7 +1129,43 @@ public class Storyline{
 		position = "attackGoblin";
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
-		int damage = knife.getDamage();
+		//int damage = knife.getDamage();
+         int damage = 0;
+
+
+		if(character == "warrior"){
+				
+				if(swordCount == 0){
+				//warrior.attack(wraith);
+					damage = knife.getDamage();
+				}
+
+				else if(axeCount == 1){
+					damage = axe.getDamage();
+				}
+
+				else if(swordCount == 1){
+					warrior.attack(goblin);
+					damage = warrior.damage();
+				}
+				
+			}
+
+			else if(character == "healer"){
+
+				if(swordCount == 0 && axeCount == 0){
+				//warrior.attack(wraith);
+				damage = knife.getDamage();
+				}
+				else if(swordCount == 0 && axeCount == 1){
+					damage = axe.getDamage();
+				}
+				else if(swordCount == 1){
+				// healer.attack(wraith);
+				// damage = healer.damage();
+				damage = knife.getDamage();
+				}
+			}
 
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
@@ -1619,8 +1658,9 @@ public class Storyline{
 					damage = axe.getDamage();
 				}
 				else if(swordCount == 1){
-				healer.attack(wraith);
-				damage = healer.damage();
+				// healer.attack(wraith);
+				// damage = healer.damage();
+				damage = knife.getDamage();
 				}
 			}
 
