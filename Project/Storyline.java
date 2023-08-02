@@ -28,8 +28,8 @@ public class Storyline{
 
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	
-    String playerName, weapon, position, location, goblinName, character;
-    int playerHP=100, goblinHP, gold, turn=0;
+    String playerName, weapon, position, location, goblinName, character, wraithName;
+    int playerHP=100, goblinHP, gold, turn=0, wraithHP;
 
 	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
 	int swordCount = 0, axeCount = 0, bowCount = 0;
@@ -133,14 +133,24 @@ public class Storyline{
 		//goblinHP = goblin.getHP();
 	}
 
+	//Village Goblin setup
 	 public void villagegoblinSetup(){
 		ui.monsterName.setText(goblin.getName());
 		goblinHP = 13;
 		ui.monsterHP.setText("" + goblinHP);
 		goblinName = goblin.getName();
 		
+	 }
+
+	 //Wraith setup
+	 public void WraithSetup(){
+		ui.monsterName.setText(wraith.getName());
+		wraithName = wraith.getName();
+		ui.monsterHP.setText("" + wraith.getHP());
+		wraithHP = wraith.getHP();
 		
 	 }
+
 
 
 
@@ -1119,7 +1129,7 @@ public class Storyline{
 		int damage = knife.getDamage();
 
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblin.getHP() + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
 		//warrior.attack(goblin);
 		goblin.takeDamage(damage);
@@ -1156,7 +1166,7 @@ public class Storyline{
 			
 			if(location == "Forest"){
 				position = "endFightForest";
-				ui.monsterPanel.setVisible(false);
+				
 
 				ui.choice1.setText("Advance in the forest");
 				ui.choice2.setText("View map");
@@ -1221,7 +1231,7 @@ public class Storyline{
 
 	public void waterfall(){
 		position = "waterfallfight";
-		ui.monsterPanel.setVisible(false);
+		ui.monsterPanel.setVisible(true);
 		ui.mainTextArea.setText("You arrived at a river and the place is filled with wraith.");
 		ui.choice1.setText("Attack");
 		ui.choice2.setText("Turn back");
@@ -1571,54 +1581,63 @@ public class Storyline{
 
 		else if(name == "wraith"){  //waterfall
 			position = "attackWraith";
+
 			ui.monsterName.setText(wraith.getName());
-			ui.monsterHP.setText("" + wraith.getHP());
+			// ui.monsterHP.setText("" + wraith.getHP());
 			
 			ui.monsterPanel.setVisible(true);
-			// ui.monsterName.setText(wraith.getName());
-			// ui.monsterHP.setText("" + wraith.getHP());
 			
 			turn += 1;
 			int damage=0;
+
+			
 			if(character == "warrior"){
 				
-				warrior.attack(wraith);
-				wraith.takeDamage(damage);
-				//damage = warrior.damage();
-		
-		//wraithHP -= damage;
-		 // Ensure playerHP doesn't go below 0
-		 //if (wraithHP < 0) {
-			// wraithHP = 0;
-		// }
+				if(swordCount == 0){
+				//warrior.attack(wraith);
+					damage = knife.getDamage();
+				}
 
-		// ui.monsterHP.setText("" + wraithHP);
-				//damage = warrior.damage();
+				else if(axeCount == 1){
+					damage = axe.getDamage();
+				}
 
-				//warrior.attack(goblin);
-		//goblin.takeDamage(damage);
-		// update hp of goblin
-		ui.monsterHP.setText("" + wraith.getHP());
-		//goblinAttack();
-
-		// goblinHP -= damage;
-		//  // Ensure playerHP doesn't go below 0
-		//  if (goblinHP < 0) {
-		// 	 goblinHP = 0;
-		//  }
-
-		//  ui.monsterHP.setText("" + goblinHP);
-
-
-
-			}
-			else if(character == "healer"){
+				else if(swordCount == 1){
+					warrior.attack(wraith);
+					damage = warrior.damage();
+				}
 				
+			}
+
+			else if(character == "healer"){
+
+				if(swordCount == 0 && axeCount == 0){
+				//warrior.attack(wraith);
+				damage = knife.getDamage();
+				}
+				else if(swordCount == 0 && axeCount == 1){
+					damage = axe.getDamage();
+				}
+				else if(swordCount == 1){
 				healer.attack(wraith);
 				damage = healer.damage();
+				}
 			}
 
-			ui.monsterHP.setText("" + wraith.getHP());
+		   ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 3 wraith cloth.");
+		
+           wraithCloth += wraithCloth + 3;
+			wraith.takeDamage(damage);
+			
+
+			wraithHP -= damage;
+		 // Ensure playerHP doesn't go below 0
+		 if (wraithHP < 0) {
+			 wraithHP = 0;
+		 }
+
+			ui.monsterHP.setText("" + wraithHP);
+
 
 			if (wraith.getHP() > 0){
 				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage.");
@@ -1634,17 +1653,82 @@ public class Storyline{
 			}
 		
 			else{
-				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage, defeating it. You obtain 3 wraith cloth");
-				wraithCloth += wraithCloth + 3;
+			//	ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage, defeating it. You obtain 3 wraith cloth");
+			//	wraithCloth += wraithCloth + 3;
 				wraith.setHP(0);
-				ui.monsterHP.setText("" + wraith.getHP());
+				ui.monsterHP.setText("" + wraithHP);
 				
-				ui.choice2.setText("Go back");
+				
+				ui.choice2.setText("Advance in forest");
+				ui.choice3.setText("Go back");
 
 				ui.choice2.setVisible(true);
-				ui.choice3.setVisible(false);
+				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
 			}
+
+		// 	position = "villageattackGoblin";
+		// ui.mapButtonPanel.setVisible(false);
+		// ui.mainTextPanel.setVisible(true);
+
+		//int damage = knife.getDamage();
+
+		// ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
+		// goblinTeeth = goblinTeeth + 3;
+		// //warrior.attack(goblin);
+		// goblin.takeDamage(damage);
+		// // update hp of goblin
+		// // ui.monsterHP.setText("" + goblin.getHP());
+		// //goblinAttack();
+
+		// goblinHP -= damage;
+		//  // Ensure playerHP doesn't go below 0
+		//  if (goblinHP < 0) {
+		// 	 goblinHP = 0;
+		//  }
+
+		//  ui.monsterHP.setText("" + goblinHP);
+
+		// if (goblinHP > 0){
+		// 	//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
+		//  	//goblinAttack();
+		// 	ui.mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
+		// 	ui.choice1.setText(">");
+		// 	ui.choice2.setText("");
+		// 	ui.choice3.setText("");
+		// 	ui.choice4.setText("");
+		// 	//goblinAttack();
+		// 	ui.choice2.setVisible(false);
+		// 	ui.choice3.setVisible(false);
+		// 	ui.choice4.setVisible(false);
+			
+		// }
+		
+		// else{
+		// 	goblin.setHP(0);
+		// 	ui.monsterHP.setText("" + goblin.getHP());
+			
+		// 	if(location == "Forest"){
+		// 		position = "endFightForest";
+
+		// 		ui.choice1.setText("Advance in the forest");
+		// 		ui.choice2.setText("View map");
+		// 		ui.choice2.setVisible(true);
+		// 	}
+		// 	else if(location == "Village"){
+		// 		position = "endFightVillage";
+		// 		ui.choice1.setText(">");
+		// 		ui.choice2.setVisible(false);
+		// 	}
+			
+		// 	ui.choice1.setVisible(true);
+		// 	ui.choice3.setVisible(false);
+		// 	ui.choice4.setVisible(false);
+		
+	//}
+
+
+
 		}
 
 		else if(name == "dragon"){  // final boss
@@ -1703,6 +1787,7 @@ public class Storyline{
 	public void dead(){
 		position = "dead";
 		ui.mapButtonPanel.setVisible(false);
+		ui.monsterPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
         ui.mainTextArea.setVisible(true);
 		ui.choiceButtonPanel.setVisible(true);
@@ -1831,12 +1916,12 @@ public class Storyline{
 		Random random = new Random();
 		int chance = random.nextInt(100); // Generating a random number between 0 and 99 (inclusive)
 	
-		if (chance < 70) {
-			// 70% chance to get gold
+		if (chance < 80) {
+			// 80% chance to get gold
 			int randomGold = random.nextInt(1000) + 1; // Generates a random number between 1 and 1000 (inclusive)
 			return new Gold(randomGold);
 		} else {
-			// 30% chance to get a weapon
+			// 20% chance to get a weapon
 			String[] weapons = {"Sword", "Axe", "Bow", "Staff", "Dagger"};
 			int randomWeaponIndex = random.nextInt(weapons.length);
 			return new Weapon(weapons[randomWeaponIndex]);
