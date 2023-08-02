@@ -28,8 +28,8 @@ public class Storyline{
 
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	
-    String playerName, weapon, position, location, goblinName, character, wraithName;
-    int playerHP=100, goblinHP, gold, turn=0, wraithHP;
+    String playerName, weapon, position, location, goblinName,  wraithName, orgreName, wolfName, dragonName, character;
+    int playerHP=100, goblinHP, orgreHP, wolfHP, wraithHP, dradonHP, gold, turn=0;
 
 	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
 	int swordCount = 0, axeCount = 0, bowCount = 0;
@@ -57,7 +57,7 @@ public class Storyline{
 
 	// Creating monsters
 	Goblin goblin = new Goblin("goblin",13);
-	Orgre orgre = new Orgre("orgre", 30);
+	Orgre orgre = new Orgre("orgre", 60);
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
 	Dragon dragon = new Dragon("dragon",150);
@@ -72,6 +72,8 @@ public class Storyline{
         this.ui = ui;
 		
 	}
+
+	//CHARACTER SETUP
 
     public void playerSetup(){ 
 		location = "Town";
@@ -125,15 +127,14 @@ public class Storyline{
 		
 	}
 
+	//MONSTER SETUP
 
 	// Goblin setup
 	public void goblinSetup(){
 		ui.monsterName.setText(goblin.getName());
 		goblinHP = 13;
 		ui.monsterHP.setText("" + goblinHP);
-		//ui.monsterHP.setText("" + goblin.getHP());
 		goblinName = goblin.getName();
-		//goblinHP = goblin.getHP();
 	}
 
 	//Village Goblin setup
@@ -145,6 +146,24 @@ public class Storyline{
 		
 	 }
 
+	 //Orgre setup
+	 public void OrgreSetup(){
+		ui.monsterName.setText(orgre.getName());
+		orgreName = orgre.getName();
+		ui.monsterHP.setText("" + orgre.getHP());
+		orgreHP = orgre.getHP();
+		
+	 }
+
+	//  //Wolf setup
+	//  public void WolfSetup(){
+	// 	ui.monsterName.setText(wolf.getName());
+	// 	wolfName = wolf.getName();
+	// 	ui.monsterHP.setText("" + wolf.getHP());
+	// 	wolfHP = wolf.getHP();
+		
+	//  }
+
 	 //Wraith setup
 	 public void WraithSetup(){
 		ui.monsterName.setText(wraith.getName());
@@ -153,8 +172,6 @@ public class Storyline{
 		wraithHP = wraith.getHP();
 		
 	 }
-
-
 
 
 	public void saveGame(){
@@ -1334,6 +1351,7 @@ public class Storyline{
 	public void orgre(){
 		location = "Mountain";
 		ui.locationName.setText(location);
+	    ui.monsterPanel.setVisible(true);
 		position = "orgre";
 		ui.mainTextArea.setText("On your way up, you find yourself face to face with an enormous orgre.");
 		ui.choice1.setText("Attack");
@@ -1578,23 +1596,62 @@ public class Storyline{
 		else if(name == "orgre"){  // on the way to mountain
 			position = "attackOrgre";
 			ui.monsterPanel.setVisible(true);
-			ui.monsterName.setText(orgre.getName());
-			ui.monsterHP.setText("" + orgre.getHP());
+			// ui.monsterName.setText(orgre.getName());
+			// ui.monsterHP.setText("" + orgre.getHP());
 			
 			turn += 1;
 			int damage=0;
+
 			if(character == "warrior"){
-				warrior.attack(orgre);
-				damage = warrior.damage();
+
+				if(swordCount == 0){
+				//warrior.attack(wraith);
+					damage = knife.getDamage();
+				}
+
+				else if(axeCount == 1){
+					damage = axe.getDamage();
+				}
+
+				else if(swordCount == 1){
+					warrior.attack(orgre);
+					damage = warrior.damage();
+				}
+				// warrior.attack(orgre);
+				// damage = warrior.damage();
 			}
 			else if(character == "healer"){
-				healer.attack(orgre);
-				damage = healer.damage();
+				if(swordCount == 0 && axeCount == 0){
+				//warrior.attack(wraith);
+				damage = knife.getDamage();
+				}
+				else if(swordCount == 0 && axeCount == 1){
+					damage = axe.getDamage();
+				}
+				else if(swordCount == 1){
+				// healer.attack(wraith);
+				// damage = healer.damage();
+				damage = knife.getDamage();
+				}
+				// healer.attack(orgre);
+				// damage = healer.damage();
 			}
 
-			ui.monsterHP.setText("" + orgre.getHP());
+			ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 2 orgre claw.");
+			orgreClaw = orgreClaw + 2;
 
-			if (orgre.getHP() > 0){
+			orgre.takeDamage(damage);
+
+			orgreHP -= damage;
+		 // Ensure playerHP doesn't go below 0
+		 if (orgreHP < 0) {
+			 orgreHP = 0;
+		 }
+
+
+			ui.monsterHP.setText("" + orgreHP);
+
+			if (orgreHP > 0){
 				ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage.");
 				ui.choice1.setText(">");
 				ui.choice2.setText("");
@@ -1608,10 +1665,10 @@ public class Storyline{
 			}
 		
 			else{
-				ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage, defeating it. You've acquired 2 orgre claw.");
-				orgreClaw = orgreClaw + 2;
+				// ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage, defeating it. You've acquired 2 orgre claw.");
+				// orgreClaw = orgreClaw + 2;
 				orgre.setHP(0);
-				ui.monsterHP.setText("" + orgre.getHP());
+				ui.monsterHP.setText("" + orgreHP);
 				
 				ui.choice2.setText("Advance");
 				ui.choice3.setText("View map");
