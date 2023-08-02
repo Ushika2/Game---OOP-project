@@ -215,6 +215,10 @@ public class Storyline{
 			bw.write(""+ axeCount);
 			bw.newLine();
 			bw.write(""+ forestCount);
+			bw.newLine();
+			bw.write(""+ waterfallCount);
+			bw.newLine();
+			bw.write(""+wraithHP);
 			
 
 			bw.close();
@@ -244,6 +248,9 @@ public class Storyline{
 			chestForest  = Integer.parseInt(br.readLine());
 			axeCount = Integer.parseInt(br.readLine());
 			forestCount = Integer.parseInt(br.readLine());
+			waterfallCount = Integer.parseInt(br.readLine());
+			wraithHP = Integer.parseInt(br.readLine());
+			wraith.setHP(wraithHP);
 
 			br.close();
 		}
