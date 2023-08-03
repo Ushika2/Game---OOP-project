@@ -137,9 +137,8 @@ public class UI{
 
 		// choices panel
 		choiceButtonPanel = new JPanel();
-		choiceButtonPanel.setBounds(250, 350, 300, 150);
-		//choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
-		choiceButtonPanel.setBackground(Color.black);
+		choiceButtonPanel.setBounds(250, 370, 300, 150);
+		choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 		//Container con;
 		
 		backgroundPanel.add(choiceButtonPanel);
@@ -244,7 +243,7 @@ public class UI{
 
 		//monster panel
 		monsterPanel = new JPanel();
-		monsterPanel.setBounds(70, 500, 500, 50);
+		monsterPanel.setBounds(70, 500, 250, 50);
 		monsterPanel.setBackground(Color.black);
 		//monsterPanel.setBackground(new Color(0, 0, 0, 0)); 
 		monsterPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
@@ -283,8 +282,8 @@ public class UI{
 		mapButtonPanel = new JPanel();
 		mapButtonPanel.setToolTipText(null);
 		mapButtonPanel.setBounds(500, 500, 300, 150);
-		mapButtonPanel.setBackground(Color.black); 
-		//mapButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		//mapButtonPanel.setBackground(Color.black); 
+		mapButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		mapButton = new JButton("View MAP");
 		mapButton.setToolTipText(null);
@@ -304,7 +303,8 @@ public class UI{
 		healerButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		healerButton = new JButton("Healer");
-		healerButton.setBackground(new Color(0, 0, 0, 0)); 
+		healerButton.setBackground(Color.black);
+		//healerButton.setBackground(new Color(0, 0, 0, 0)); 
 		healerButton.setForeground(Color.white);
 		healerButton.setFont(normalFont);
 		healerButton.addActionListener(healerHandler);
@@ -320,7 +320,8 @@ public class UI{
 		mageButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		mageButton = new JButton("Mage");
-		mageButton.setBackground(new Color(0, 0, 0, 0)); 
+		mageButton.setBackground(Color.black);
+		//mageButton.setBackground(new Color(0, 0, 0, 0)); 
 		mageButton.setForeground(Color.white);
 		mageButton.setFont(normalFont);
 		mageButton.addActionListener(mageHandler);
@@ -337,7 +338,8 @@ public class UI{
 		warriorButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		warriorButton = new JButton("Warrior");
-		warriorButton.setBackground(new Color(0, 0, 0, 0)); 
+		warriorButton.setBackground(Color.black);
+		//warriorButton.setBackground(new Color(0, 0, 0, 0)); 
 		warriorButton.setForeground(Color.white);
 		warriorButton.setFont(normalFont);
 		warriorButton.addActionListener(warriorHandler);

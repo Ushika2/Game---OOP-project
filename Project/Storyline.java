@@ -292,7 +292,8 @@ public class Storyline{
 		position = "intro";
 		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
 		ui.mainTextArea.setBounds(100, 100, 600, 250);
-		ui.mainTextPanel.setBackground(Color.black);
+		ui.mainTextPanel.setBackground(new Color(0, 0, 0, 0)); 
+		//ui.mainTextPanel.setBackground(Color.black);
 		ui.mainTextArea.setForeground(Color.black);  //maybe to change later
 		//startButton.setFont(normalFont);
 		ui.mainTextArea.setLineWrap(true);
