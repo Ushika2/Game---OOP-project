@@ -90,13 +90,16 @@ public class UI{
         // Start button panel
 		startButtonPanel = new JPanel();
 		startButtonPanel.setBounds(300, 400, 200, 50);
-		startButtonPanel.setBackground(new Color(0, 0, 0, 0));
+		startButtonPanel.setBackground(Color.black);
+		//startButtonPanel.setBackground(new Color(0, 0, 0, 0));
+
         //startButtonPanel.setLayout(new BorderLayout());
         //startButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
        
 		startButton = new JButton("START  ");
 		startButton.setToolTipText(null);
-		startButton.setBackground(new Color(0, 0, 0, 0)); // Set the button background to be transparent
+		startButton.setBackground(Color.black);
+		//startButton.setBackground(new Color(0, 0, 0, 0)); // Set the button background to be transparent
 		startButton.setForeground(Color.white);
 		startButton.setFont(normalFont);
 		startButton.setBorder(null);
@@ -106,8 +109,8 @@ public class UI{
 		// CONTINUE BUTTON
 		continueButton = new JButton("CONTINUE");
 		continueButton.setToolTipText(null);
-		continueButton.setBackground(new Color(0, 0, 0, 0)); 
-		//continueButton.setBackground(Color.black);
+		//continueButton.setBackground(new Color(0, 0, 0, 0)); 
+		continueButton.setBackground(Color.black);
 		continueButton.setForeground(Color.white);
 		continueButton.setBorder(null);
 		continueButton.setFont(normalFont);
@@ -135,8 +138,8 @@ public class UI{
 		// choices panel
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 350, 300, 150);
-		choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
-		//choiceButtonPanel.setBackground(Color.black);
+		//choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		choiceButtonPanel.setBackground(Color.black);
 		//Container con;
 		
 		backgroundPanel.add(choiceButtonPanel);
@@ -171,8 +174,8 @@ public class UI{
 	private JButton createChoiceButton(String text) {
 		JButton button = new JButton(text);
 		button.setToolTipText(null);
-		button.setBackground(new Color(0, 0, 0, 0));
-		//button.setBackground(Color.black);
+		//button.setBackground(new Color(0, 0, 0, 0));
+		button.setBackground(Color.black);
 		button.setForeground(Color.white);
 		button.setFont(normalFont);
 		button.setFocusPainted(false);
@@ -242,7 +245,8 @@ public class UI{
 		//monster panel
 		monsterPanel = new JPanel();
 		monsterPanel.setBounds(70, 500, 500, 50);
-		monsterPanel.setBackground(new Color(0, 0, 0, 0)); 
+		monsterPanel.setBackground(Color.black);
+		//monsterPanel.setBackground(new Color(0, 0, 0, 0)); 
 		monsterPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
 		backgroundPanel.add(monsterPanel);
 		monsterHPLabel = new JLabel("HP:");  // adding Hp
@@ -279,11 +283,13 @@ public class UI{
 		mapButtonPanel = new JPanel();
 		mapButtonPanel.setToolTipText(null);
 		mapButtonPanel.setBounds(500, 500, 300, 150);
-		mapButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		mapButtonPanel.setBackground(Color.black); 
+		//mapButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		mapButton = new JButton("View MAP");
 		mapButton.setToolTipText(null);
-		mapButton.setBackground(new Color(0, 0, 0, 0)); 
+		//mapButton.setBackground(new Color(0, 0, 0, 0)); 
+		mapButton.setBackground(Color.black); 
 		mapButton.setForeground(Color.white);
 		mapButton.setFont(normalFont);
 		mapButton.addActionListener(mapHandler);
