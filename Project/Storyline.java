@@ -281,6 +281,9 @@ public class Storyline{
 			wraith.setHP(wraithHP);
 			orgreHP = Integer.parseInt(br.readLine());
 			orgre.setHP(orgreHP);
+			fireC = Integer.parseInt(br.readLine());
+			frostC = Integer.parseInt(br.readLine());
+			lightC = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
