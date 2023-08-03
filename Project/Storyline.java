@@ -242,7 +242,12 @@ public class Storyline{
 			bw.write(""+wraithHP);
 			bw.newLine();
 			bw.write(""+orgreHP);
-			
+			bw.newLine();
+			bw.write(""+fireC);
+			bw.newLine();
+			bw.write(""+frostC);
+			bw.newLine();
+			bw.write(""+lightC);
 
 			bw.close();
 		}
