@@ -1,3 +1,4 @@
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,6 +9,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +27,6 @@ public class UI{
 	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font-
 	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton, mageButton, warriorButton; //add button
 	JTextArea mainTextArea,mapTextArea;
-
 	
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ContinueScreenHandler conHandler = new ContinueScreenHandler();
@@ -35,6 +36,19 @@ public class UI{
 	WarriorScreenHandler warriorHandler = new WarriorScreenHandler();
 
 	Storyline story;
+
+	// Create a custom JPanel for the background
+	JPanel backgroundPanel = new JPanel() {
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			ImageIcon backgroundImage = new ImageIcon("C:\\Users\\ushik\\OneDrive\\Desktop\\Project\\Game---OOP-project\\Project\\image\\chief.png");
+			g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+		}
+		// Setter method for changing the background image
+		public void setBackgroundImage(ImageIcon backgroundImage) {
+			repaint(); // Repaint the panel to reflect the new background image
+		}
+	};
 
     public void titleUI(){
 
@@ -56,11 +70,15 @@ public class UI{
         con = window.getContentPane();
 
 		story = new Storyline(con,this);
+
+        backgroundPanel.setLayout(null);
+
+        window.setContentPane(backgroundPanel);
 		
 	    //TITLE SCREEN
         titleNamePanel = new JPanel();
 		titleNamePanel.setBounds(100, 100, 600, 150);
-		titleNamePanel.setBackground(Color.black);
+		titleNamePanel.setBackground(new Color(0, 0, 0, 0));
 		titleNameLabel = new JLabel("ADVENTURE");
 		titleNameLabel.setForeground(Color.white);
 		titleNameLabel.setFont(titleFont);	
@@ -71,13 +89,14 @@ public class UI{
 
         // Start button panel
 		startButtonPanel = new JPanel();
-		startButtonPanel.setBounds(300, 400, 200, 100);
-		startButtonPanel.setBackground(Color.black);
+		startButtonPanel.setBounds(300, 400, 200, 50);
+		startButtonPanel.setBackground(new Color(0, 0, 0, 0));
         //startButtonPanel.setLayout(new BorderLayout());
         //startButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
        
-		startButton = new JButton("START");
-		startButton.setBackground(Color.black);
+		startButton = new JButton("START  ");
+		startButton.setToolTipText(null);
+		startButton.setBackground(new Color(0, 0, 0, 0)); // Set the button background to be transparent
 		startButton.setForeground(Color.white);
 		startButton.setFont(normalFont);
 		startButton.setBorder(null);
@@ -86,7 +105,9 @@ public class UI{
 
 		// CONTINUE BUTTON
 		continueButton = new JButton("CONTINUE");
-		continueButton.setBackground(Color.black);
+		continueButton.setToolTipText(null);
+		continueButton.setBackground(new Color(0, 0, 0, 0)); 
+		//continueButton.setBackground(Color.black);
 		continueButton.setForeground(Color.white);
 		continueButton.setBorder(null);
 		continueButton.setFont(normalFont);
@@ -99,8 +120,11 @@ public class UI{
 		startButtonPanel.add(startButton);
 		startButtonPanel.add(continueButton);
 		
-		con.add(titleNamePanel);
-		con.add(startButtonPanel);
+		// con.add(titleNamePanel);
+		// con.add(startButtonPanel);
+
+		backgroundPanel.add(titleNamePanel);
+		backgroundPanel.add(startButtonPanel);
 
         window.setVisible(true);
 
@@ -111,10 +135,11 @@ public class UI{
 		// choices panel
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 350, 300, 150);
-		choiceButtonPanel.setBackground(Color.black);
+		choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		//choiceButtonPanel.setBackground(Color.black);
 		//Container con;
 		
-		con.add(choiceButtonPanel);
+		backgroundPanel.add(choiceButtonPanel);
 
 		choice1 = createChoiceButton("");
 		choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
@@ -145,7 +170,9 @@ public class UI{
 	// //ENCAPSULATION
 	private JButton createChoiceButton(String text) {
 		JButton button = new JButton(text);
-		button.setBackground(Color.black);
+		button.setToolTipText(null);
+		button.setBackground(new Color(0, 0, 0, 0));
+		//button.setBackground(Color.black);
 		button.setForeground(Color.white);
 		button.setFont(normalFont);
 		button.setFocusPainted(false);
@@ -161,15 +188,16 @@ public class UI{
 
 		mainTextPanel = new JPanel();
 		mainTextPanel.setBounds(100,100, 600, 250);
-		mainTextPanel.setBackground(Color.white);
-		con.add(mainTextPanel);
+		mainTextPanel.setBackground(new Color(0, 0, 0, 0)); 
+		//mainTextPanel.setBackground(Color.white);
+		backgroundPanel.add(mainTextPanel);
 
 		//player panel
 		playerPanel = new JPanel();
 		playerPanel.setBounds(70, 5, 600, 50);
-		playerPanel.setBackground(Color.black);
+		playerPanel.setBackground(new Color(0, 0, 0, 0)); 
 		playerPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
-		con.add(playerPanel);
+		backgroundPanel.add(playerPanel);
 		hpLabel = new JLabel("HP:");  // adding Hp
 		hpLabel.setFont(normalFont);
 		hpLabel.setForeground(Color.white);
@@ -189,7 +217,6 @@ public class UI{
 		weaponLabel = new JLabel(" |Weapon:");  // adding weapon
 		weaponLabel.setFont(normalFont);
 		weaponLabel.setForeground(Color.white);
-		weaponLabel.setBackground(Color.red);
 		playerPanel.add(weaponLabel);
 		weaponLabelName = new JLabel();
 		weaponLabelName.setFont(normalFont);
@@ -198,7 +225,6 @@ public class UI{
 		locationLabel = new JLabel(" |Location:");  // adding location
 		locationLabel.setFont(normalFont);
 		locationLabel.setForeground(Color.white);
-		locationLabel.setBackground(Color.red);
 		playerPanel.add(locationLabel);
 		locationName = new JLabel();
 		locationName.setFont(normalFont);
@@ -216,9 +242,9 @@ public class UI{
 		//monster panel
 		monsterPanel = new JPanel();
 		monsterPanel.setBounds(70, 500, 500, 50);
-		monsterPanel.setBackground(Color.black);
+		monsterPanel.setBackground(new Color(0, 0, 0, 0)); 
 		monsterPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
-		con.add(monsterPanel);
+		backgroundPanel.add(monsterPanel);
 		monsterHPLabel = new JLabel("HP:");  // adding Hp
 		monsterHPLabel.setFont(normalFont);
 		monsterHPLabel.setForeground(Color.white);
@@ -251,48 +277,50 @@ public class UI{
 
 		// Map button panel
 		mapButtonPanel = new JPanel();
+		mapButtonPanel.setToolTipText(null);
 		mapButtonPanel.setBounds(500, 500, 300, 150);
-		mapButtonPanel.setBackground(Color.black);
+		mapButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		mapButton = new JButton("View MAP");
-		mapButton.setBackground(Color.black);
+		mapButton.setToolTipText(null);
+		mapButton.setBackground(new Color(0, 0, 0, 0)); 
 		mapButton.setForeground(Color.white);
 		mapButton.setFont(normalFont);
 		mapButton.addActionListener(mapHandler);
 		mapButton.setFocusPainted(false);
 		mapButtonPanel.add(mapButton);
-		con.add(mapButtonPanel);
+		backgroundPanel.add(mapButtonPanel);
 		window.setVisible(true);
         
 		// Healer button panel
 		healerButtonPanel = new JPanel();
 		healerButtonPanel.setBounds(500, 450, 300, 150);
-		healerButtonPanel.setBackground(Color.black);
+		healerButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		healerButton = new JButton("Healer");
-		healerButton.setBackground(Color.black);
+		healerButton.setBackground(new Color(0, 0, 0, 0)); 
 		healerButton.setForeground(Color.white);
 		healerButton.setFont(normalFont);
 		healerButton.addActionListener(healerHandler);
 		healerButton.setFocusPainted(false);
 		healerButtonPanel.add(healerButton);
-		con.add(healerButtonPanel);
+		backgroundPanel.add(healerButtonPanel);
 		window.setVisible(true);
 		healerButtonPanel.setVisible(false);
 
 		// Mage button panel
 		mageButtonPanel = new JPanel();
 		mageButtonPanel.setBounds(500, 400, 300, 150);
-		mageButtonPanel.setBackground(Color.black);
+		mageButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		mageButton = new JButton("Mage");
-		mageButton.setBackground(Color.black);
+		mageButton.setBackground(new Color(0, 0, 0, 0)); 
 		mageButton.setForeground(Color.white);
 		mageButton.setFont(normalFont);
 		mageButton.addActionListener(mageHandler);
 		mageButton.setFocusPainted(false);
 		mageButtonPanel.add(mageButton);
-		con.add(mageButtonPanel);
+		backgroundPanel.add(mageButtonPanel);
 		window.setVisible(true);
 		mageButtonPanel.setVisible(false);
 
@@ -300,21 +328,20 @@ public class UI{
 		warriorButtonPanel = new JPanel();
 		//warriorButtonPanel.setBounds(600, 350, 200, 50);
 	    warriorButtonPanel.setBounds(500, 500, 300, 150);
-		warriorButtonPanel.setBackground(Color.black);
+		warriorButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 
 		warriorButton = new JButton("Warrior");
-		warriorButton.setBackground(Color.black);
+		warriorButton.setBackground(new Color(0, 0, 0, 0)); 
 		warriorButton.setForeground(Color.white);
 		warriorButton.setFont(normalFont);
 		warriorButton.addActionListener(warriorHandler);
 		warriorButton.setFocusPainted(false);
 		warriorButtonPanel.add(warriorButton);
-		con.add(warriorButtonPanel);
+		backgroundPanel.add(warriorButtonPanel);
 		window.setVisible(true);
 		warriorButtonPanel.setVisible(true);
 
-		if(startOrContinue.equals("continue")) {
-										 
+		if(startOrContinue.equals("continue")) {				 
 			story.loadData();
 
 		}
@@ -324,7 +351,6 @@ public class UI{
 	
     public class TitleScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-		
 		   Gameplay("start");
         
 		}
