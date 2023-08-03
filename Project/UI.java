@@ -42,7 +42,12 @@ public class UI{
         window = new JFrame();
 		window.setSize(800, 600);
 		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//disable the default behavior of the close button. 
+		//allow to manually call the dispose() method whenever you want to close the window programmatically.
+
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
         //window.setIconImage(logo.getImage());
