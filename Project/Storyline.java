@@ -977,7 +977,7 @@ public class Storyline{
 			}
 			else if(character == "healer"){
 				ui.mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
-				playerHP = healer.getHP() - 35;	
+				playerHP = warrior.getHP() - 35;	
 				healer.setHP(playerHP);
 				ui.hpLabelNumber.setText("" + playerHP);
 
