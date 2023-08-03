@@ -138,7 +138,8 @@ public class UI{
 		// choices panel
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 370, 300, 150);
-		choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		//choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		choiceButtonPanel.setBackground(Color.black);
 		//Container con;
 		
 		backgroundPanel.add(choiceButtonPanel);
@@ -597,7 +598,7 @@ public class UI{
 					break;
 			case "goblinAttack":
 				switch(yourChoice){
-					case "c1":story.AttackGoblin();break;
+					case "c1":if(story.character == "mage"){story.mageAttack();}else{story.AttackGoblin();};break;
 					case "c2": story.Map(); break;
 				}
 				break;
@@ -627,7 +628,7 @@ public class UI{
 				break;
 			case "orgre":   
 				switch(yourChoice){     
-					case "c1": story.attackMonster("orgre"); break;
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("orgre");}; break;
 					case "c2": story.Map(); break;
 				}
 				break;
@@ -641,7 +642,7 @@ public class UI{
 				break;
 			case "orgreAttack":
 				switch(yourChoice){     
-					case "c1": story.attackMonster("orgre"); break;
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("orgre");}; break;
 					case "c2": story.forest2(); break;
 					case "c3": story.dead(); break;
 				}
@@ -651,8 +652,6 @@ public class UI{
 					case "c1": story.heal(); story.turn=0; break;
 				}
 				break;
-			// after fighting orgre then proceed to mountainTop
-
 			//if choice is left
 			case "left":   
 				switch(yourChoice){     
@@ -681,7 +680,7 @@ public class UI{
 				break;
 			case "waterfallfight":   
 				switch(yourChoice){     
-					case "c1": story.attackMonster("wraith"); break;
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("wraith");}; break;
 					case "c2": story.forest2(); break;
 				}
 				break;
@@ -694,7 +693,7 @@ public class UI{
 				break;
 			case "wraithAttack":
 				switch(yourChoice){     
-					case "c1": story.attackMonster("wraith"); break;
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("wraith");}; break;
 					case "c2": story.forest2(); break;
 					case "c3": story.dead();break;
 				}
@@ -732,13 +731,13 @@ public class UI{
 				break;
 			case "wolfAttack":
 				switch(yourChoice){     
-					case "c1": story.attackMonster("wolf"); break;
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("wolf");}; break;
 					case "c2": story.forest2(); break;
 				}
 				break;
 			case "inside":
 				switch(yourChoice){     
-					case "c1": story.attackMonster("dragon"); break; 
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("dragon");}; break; 
 				}
 				break;
 			case "attackDragon":
@@ -749,8 +748,43 @@ public class UI{
 				break;
 			case "dragonAttack":
 				switch(yourChoice){   
-					case "c1": story.attackMonster("dragon"); break;
+					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("dragon");}; break;
 					case "c2": story.dead(); break;  
+				}
+				break;
+			case "mageAttack":
+				switch(yourChoice){   
+					case "c1": 
+						story.attack = "blast";
+						if(story.location == "Forest"){story.AttackGoblin(); break;}
+						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
+						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
+						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
+						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}
+
+					case "c2": 
+						story.attack = "fire";
+						if(story.location == "Forest"){story.AttackGoblin(); break;}
+						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
+						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
+						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
+						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}
+						 
+					case "c3": 
+						story.attack = "frost";
+						if(story.location == "Forest"){story.AttackGoblin(); break;}
+						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
+						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
+						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
+						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}
+						
+					case "c4": 
+						story.attack = "light";
+						if(story.location == "Forest"){story.AttackGoblin(); break;}
+						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
+						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
+						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
+						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}	
 				}
 				break;
 			// Add other cases as needed for different positions

@@ -35,6 +35,8 @@ public class Storyline{
 	int swordCount = 0, axeCount = 0, bowCount = 0;
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
+	int fireC = 0, frostC = 0, lightC = 0;
+	String attack;
 
     // Creating weapons
 	Axe axe = new Axe("axe",20);  //goblin weapon in village
@@ -124,6 +126,25 @@ public class Storyline{
 		if(swordCount == 1){
 			ui.weaponLabelName.setText(knife.getName() +""+ sword.getName());
 		}
+		
+	}
+
+	public void mageAttack(){
+		position = "mageAttack";
+		ui.choice1.setText("Blast");
+		if(fireC == 1){
+			ui.choice2.setText("Fire");
+			ui.choice2.setVisible(true);
+		}
+		if(frostC == 1){
+			ui.choice3.setText("Frost");
+			ui.choice3.setVisible(true);
+		}
+		if(lightC == 1){
+			ui.choice4.setText("Lightning");
+			ui.choice4.setVisible(true);
+		}
+		ui.choice1.setVisible(true);
 		
 	}
 
@@ -832,11 +853,20 @@ public class Storyline{
 		ui.choice3.setText("Frost - 40 gold");
 		ui.choice4.setText("Back");
 		ui.choice4.setVisible(true);
+		if(fireC == 1){
+			ui.choice1.setVisible(false);
+		}
+		if(lightC == 1){
+			ui.choice2.setVisible(false);
+		}
+		if(frostC == 1){
+			ui.choice3.setVisible(false);
+		}
 	}
 
 	public void buySpells(String item){
 		position = "chooseSpell";
-		if(item == "Fire spell"){
+		if(item == "Fire"){
 			if(gold < 40){
 				ui.mainTextArea.setText("You do not have enough gold to buy this spell.");
 			}
@@ -844,11 +874,11 @@ public class Storyline{
 				ui.mainTextArea.setText("You have acquired the fire spell.\nDamage: "+ fire.getDamage());
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
-				// add fire spell
+				fireC = 1;
 				
 			}
 		}
-		else if(item == "Lightning spell"){
+		else if(item == "Lightning"){
 			if(gold < 40){
 				ui.mainTextArea.setText("You do not have enough gold to buy this spell.");
 			}
@@ -856,10 +886,10 @@ public class Storyline{
 				ui.mainTextArea.setText("You have acquired the lightning spell.\nDamage: "+ lightning.getDamage());
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
-				// add lightning spell
+				lightC = 1;
 			}
 		}
-		else if(item == "Frost spell"){
+		else if(item == "Frost"){
 			if(gold < 40){
 				ui.mainTextArea.setText("You do not have enough gold to buy this spell.");
 			}
@@ -867,7 +897,7 @@ public class Storyline{
 				ui.mainTextArea.setText("You have acquired the frost spell.\nDamage: "+ frost.getDamage());
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
-				// add frost spell
+				frostC = 1;
 			}
 		}
 		ui.choice1.setText("Back");
@@ -1214,6 +1244,20 @@ public class Storyline{
 				}
 			}
 
+			else if(character == "mage"){
+				if(attack == "blast"){
+					damage = blast.getDamage();
+				}
+				if(attack == "fire"){
+					damage = fire.getDamage();
+				}
+				if(attack == "frost"){
+					damage = frost.getDamage();
+				}
+				if(attack == "light"){
+					damage = lightning.getDamage();
+				}
+			}
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
@@ -1316,6 +1360,7 @@ public class Storyline{
 	}
 
 	public void waterfall(){
+		location = "Waterfall";
 		position = "waterfallfight";
 		ui.monsterPanel.setVisible(true);
 		ui.mainTextArea.setText("You arrived at a river and the place is filled with wraith.");
@@ -1645,6 +1690,20 @@ public class Storyline{
 				
 				}
 			}
+			else if(character == "mage"){
+				if(attack == "blast"){
+					damage = blast.getDamage();
+				}
+				if(attack == "fire"){
+					damage = fire.getDamage();
+				}
+				if(attack == "frost"){
+					damage = frost.getDamage();
+				}
+				if(attack == "light"){
+					damage = lightning.getDamage();
+				}
+			}
 
 			ui.mainTextArea.setText("You attack the wolf, giving it " + wolfHP + " damage, defeating it. You've acquired 4 wolf skin.");
 			wolfSkin = wolfSkin + 4;
@@ -1726,6 +1785,20 @@ public class Storyline{
 				
 				}
 			}
+			else if(character == "mage"){
+				if(attack == "blast"){
+					damage = blast.getDamage();
+				}
+				if(attack == "fire"){
+					damage = fire.getDamage();
+				}
+				if(attack == "frost"){
+					damage = frost.getDamage();
+				}
+				if(attack == "light"){
+					damage = lightning.getDamage();
+				}
+			}
 
 			ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 2 orgre claw.");
 			orgreClaw = orgreClaw + 2;
@@ -1772,7 +1845,7 @@ public class Storyline{
 			position = "attackWraith";
 
 			ui.monsterName.setText(wraith.getName());
-			// ui.monsterHP.setText("" + wraith.getHP());
+			ui.monsterHP.setText("" + wraith.getHP());
 			
 			ui.monsterPanel.setVisible(true);
 			
@@ -1813,23 +1886,45 @@ public class Storyline{
 				damage = knife.getDamage();
 				}
 			}
+			else if(character == "mage"){
+				if(attack == "blast"){
+					damage = blast.getDamage();
+				}
+				if(attack == "fire"){
+					damage = fire.getDamage();
+				}
+				if(attack == "frost"){
+					damage = frost.getDamage();
+				}
+				if(attack == "light"){
+					damage = lightning.getDamage();
+				}
+			}
 
-		   ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 3 wraith cloth.");
+			if(wraith.getHP() <= damage){
+				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 3 wraith cloth.");
 		
-           wraithCloth += wraithCloth + 3;
-			wraith.takeDamage(damage);
-			
+				wraithCloth += wraithCloth + 3;
+				wraith.takeDamage(damage);
+				wraithHP -= damage;
+					
+				// Ensure playerHP doesn't go below 0
+				if (wraithHP < 0) {
+					wraithHP = 0;
+		 		}
+				//wraith.setHP(0);
+				ui.monsterHP.setText("" + wraithHP);
 
-			wraithHP -= damage;
-		 // Ensure playerHP doesn't go below 0
-		 if (wraithHP < 0) {
-			 wraithHP = 0;
-		 }
+				ui.choice2.setText("Advance in forest");
+				ui.choice3.setText("Go back");
 
-			ui.monsterHP.setText("" + wraithHP);
+				ui.choice2.setVisible(true);
+				ui.choice3.setVisible(true);
+				ui.choice1.setVisible(false);
+			}
 
 
-			if (wraith.getHP() > 0){
+			else if (wraith.getHP() > damage){
 				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage.");
 				ui.choice1.setText(">");
 				ui.choice2.setText("");
@@ -1839,22 +1934,11 @@ public class Storyline{
 				ui.choice2.setVisible(false);
 				ui.choice3.setVisible(false);
 				ui.choice4.setVisible(false);
-				
-			}
-		
-			else{
-			//	ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage, defeating it. You obtain 3 wraith cloth");
-			//	wraithCloth += wraithCloth + 3;
-				wraith.setHP(0);
+
+				wraith.takeDamage(damage);
+				wraithHP -= damage;
 				ui.monsterHP.setText("" + wraithHP);
 				
-				
-				ui.choice2.setText("Advance in forest");
-				ui.choice3.setText("Go back");
-
-				ui.choice2.setVisible(true);
-				ui.choice3.setVisible(true);
-				ui.choice1.setVisible(false);
 			}
 
 		}
@@ -1897,6 +1981,20 @@ public class Storyline{
 			
 					damage = knife.getDamage();
 				
+				}
+			}
+			else if(character == "mage"){
+				if(attack == "blast"){
+					damage = blast.getDamage();
+				}
+				if(attack == "fire"){
+					damage = fire.getDamage();
+				}
+				if(attack == "frost"){
+					damage = frost.getDamage();
+				}
+				if(attack == "light"){
+					damage = lightning.getDamage();
 				}
 			}
 
