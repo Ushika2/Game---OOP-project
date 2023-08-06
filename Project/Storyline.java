@@ -32,7 +32,7 @@ public class Storyline{
     int playerHP=100, goblinHP, orgreHP, wolfHP, wraithHP, dragonHP, gold, turn=0;
 
 	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
-	int swordCount = 0, axeCount = 0, bowCount = 0;
+	int swordCount = 0, axeCount = 0;
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
 	int fireC = 0, frostC = 0, lightC = 0;
@@ -61,8 +61,6 @@ public class Storyline{
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
 	Dragon dragon = new Dragon("dragon",150);
-
-	
 
     public UI ui;          
 

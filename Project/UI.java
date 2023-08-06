@@ -37,19 +37,6 @@ public class UI{
 
 	Storyline story;
 
-	// Create a custom JPanel for the background
-	JPanel backgroundPanel = new JPanel() {
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			ImageIcon backgroundImage = new ImageIcon("C:\\Users\\ushik\\OneDrive\\Desktop\\Project\\Game---OOP-project\\Project\\image\\chief.png");
-			g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-		}
-		// Setter method for changing the background image
-		public void setBackgroundImage(ImageIcon backgroundImage) {
-			repaint(); // Repaint the panel to reflect the new background image
-		}
-	};
-
     public void titleUI(){
 
         //WINDOW
@@ -64,16 +51,11 @@ public class UI{
 		
 		window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
-        //window.setIconImage(logo.getImage());
 		
         // Add container to the window
         con = window.getContentPane();
 
 		story = new Storyline(con,this);
-
-        backgroundPanel.setLayout(null);
-
-        window.setContentPane(backgroundPanel);
 		
 	    //TITLE SCREEN
         titleNamePanel = new JPanel();
@@ -91,7 +73,6 @@ public class UI{
 		startButtonPanel = new JPanel();
 		startButtonPanel.setBounds(300, 400, 200, 50);
 		startButtonPanel.setBackground(Color.black);
-		//startButtonPanel.setBackground(new Color(0, 0, 0, 0));
 
         //startButtonPanel.setLayout(new BorderLayout());
         //startButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -99,7 +80,6 @@ public class UI{
 		startButton = new JButton("START  ");
 		startButton.setToolTipText(null);
 		startButton.setBackground(Color.black);
-		//startButton.setBackground(new Color(0, 0, 0, 0)); // Set the button background to be transparent
 		startButton.setForeground(Color.white);
 		startButton.setFont(normalFont);
 		startButton.setBorder(null);
@@ -108,8 +88,7 @@ public class UI{
 
 		// CONTINUE BUTTON
 		continueButton = new JButton("CONTINUE");
-		continueButton.setToolTipText(null);
-		//continueButton.setBackground(new Color(0, 0, 0, 0)); 
+		continueButton.setToolTipText(null); 
 		continueButton.setBackground(Color.black);
 		continueButton.setForeground(Color.white);
 		continueButton.setBorder(null);
@@ -122,12 +101,9 @@ public class UI{
 		titleNamePanel.add(titleNameLabel);
 		startButtonPanel.add(startButton);
 		startButtonPanel.add(continueButton);
-		
-		// con.add(titleNamePanel);
-		// con.add(startButtonPanel);
 
-		backgroundPanel.add(titleNamePanel);
-		backgroundPanel.add(startButtonPanel);
+		con.add(titleNamePanel);
+		con.add(startButtonPanel);
 
         window.setVisible(true);
 
@@ -138,11 +114,10 @@ public class UI{
 		// choices panel
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 370, 300, 150);
-		//choiceButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
 		choiceButtonPanel.setBackground(Color.black);
 		//Container con;
 		
-		backgroundPanel.add(choiceButtonPanel);
+		con.add(choiceButtonPanel);
 
 		choice1 = createChoiceButton("");
 		choice1.setActionCommand("c1");  //to differentiate between the 4 choice button
@@ -174,7 +149,6 @@ public class UI{
 	private JButton createChoiceButton(String text) {
 		JButton button = new JButton(text);
 		button.setToolTipText(null);
-		//button.setBackground(new Color(0, 0, 0, 0));
 		button.setBackground(Color.black);
 		button.setForeground(Color.white);
 		button.setFont(normalFont);
@@ -191,16 +165,16 @@ public class UI{
 
 		mainTextPanel = new JPanel();
 		mainTextPanel.setBounds(100,100, 600, 250);
-		mainTextPanel.setBackground(new Color(0, 0, 0, 0)); 
+		mainTextPanel.setBackground(Color.black); 
 		//mainTextPanel.setBackground(Color.white);
-		backgroundPanel.add(mainTextPanel);
+		con.add(mainTextPanel);
 
 		//player panel
 		playerPanel = new JPanel();
 		playerPanel.setBounds(70, 5, 600, 50);
-		playerPanel.setBackground(new Color(0, 0, 0, 0)); 
+		playerPanel.setBackground(Color.black);
 		playerPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
-		backgroundPanel.add(playerPanel);
+		con.add(playerPanel);
 		hpLabel = new JLabel("HP:");  // adding Hp
 		hpLabel.setFont(normalFont);
 		hpLabel.setForeground(Color.white);
@@ -246,9 +220,8 @@ public class UI{
 		monsterPanel = new JPanel();
 		monsterPanel.setBounds(70, 500, 250, 50);
 		monsterPanel.setBackground(Color.black);
-		//monsterPanel.setBackground(new Color(0, 0, 0, 0)); 
 		monsterPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
-		backgroundPanel.add(monsterPanel);
+		con.add(monsterPanel);
 		monsterHPLabel = new JLabel("HP:");  // adding Hp
 		monsterHPLabel.setFont(normalFont);
 		monsterHPLabel.setForeground(Color.white);
@@ -283,52 +256,48 @@ public class UI{
 		mapButtonPanel = new JPanel();
 		mapButtonPanel.setToolTipText(null);
 		mapButtonPanel.setBounds(500, 500, 300, 150);
-		//mapButtonPanel.setBackground(Color.black); 
-		mapButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		mapButtonPanel.setBackground(Color.black); 
 
 		mapButton = new JButton("View MAP");
 		mapButton.setToolTipText(null);
-		//mapButton.setBackground(new Color(0, 0, 0, 0)); 
 		mapButton.setBackground(Color.black); 
 		mapButton.setForeground(Color.white);
 		mapButton.setFont(normalFont);
 		mapButton.addActionListener(mapHandler);
 		mapButton.setFocusPainted(false);
 		mapButtonPanel.add(mapButton);
-		backgroundPanel.add(mapButtonPanel);
+		con.add(mapButtonPanel);
 		window.setVisible(true);
         
 		// Healer button panel
 		healerButtonPanel = new JPanel();
 		healerButtonPanel.setBounds(500, 450, 300, 150);
-		healerButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		healerButtonPanel.setBackground(Color.black); 
 
 		healerButton = new JButton("Healer");
 		healerButton.setBackground(Color.black);
-		//healerButton.setBackground(new Color(0, 0, 0, 0)); 
 		healerButton.setForeground(Color.white);
 		healerButton.setFont(normalFont);
 		healerButton.addActionListener(healerHandler);
 		healerButton.setFocusPainted(false);
 		healerButtonPanel.add(healerButton);
-		backgroundPanel.add(healerButtonPanel);
+		con.add(healerButtonPanel);
 		window.setVisible(true);
 		healerButtonPanel.setVisible(false);
 
 		// Mage button panel
 		mageButtonPanel = new JPanel();
 		mageButtonPanel.setBounds(500, 400, 300, 150);
-		mageButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		mageButtonPanel.setBackground(Color.black);
 
 		mageButton = new JButton("Mage");
-		mageButton.setBackground(Color.black);
-		//mageButton.setBackground(new Color(0, 0, 0, 0)); 
+		mageButton.setBackground(Color.black); 
 		mageButton.setForeground(Color.white);
 		mageButton.setFont(normalFont);
 		mageButton.addActionListener(mageHandler);
 		mageButton.setFocusPainted(false);
 		mageButtonPanel.add(mageButton);
-		backgroundPanel.add(mageButtonPanel);
+		con.add(mageButtonPanel);
 		window.setVisible(true);
 		mageButtonPanel.setVisible(false);
 
@@ -336,17 +305,16 @@ public class UI{
 		warriorButtonPanel = new JPanel();
 		//warriorButtonPanel.setBounds(600, 350, 200, 50);
 	    warriorButtonPanel.setBounds(500, 500, 300, 150);
-		warriorButtonPanel.setBackground(new Color(0, 0, 0, 0)); 
+		warriorButtonPanel.setBackground(Color.black); 
 
 		warriorButton = new JButton("Warrior");
 		warriorButton.setBackground(Color.black);
-		//warriorButton.setBackground(new Color(0, 0, 0, 0)); 
 		warriorButton.setForeground(Color.white);
 		warriorButton.setFont(normalFont);
 		warriorButton.addActionListener(warriorHandler);
 		warriorButton.setFocusPainted(false);
 		warriorButtonPanel.add(warriorButton);
-		backgroundPanel.add(warriorButtonPanel);
+		con.add(warriorButtonPanel);
 		window.setVisible(true);
 		warriorButtonPanel.setVisible(true);
 
