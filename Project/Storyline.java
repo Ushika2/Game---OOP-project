@@ -42,7 +42,6 @@ public class Storyline{
 	Axe axe = new Axe("axe",20);  //goblin weapon in village
     Knife knife = new Knife("knife",10);
 	Sword sword = new Sword("sword", 25);
-	Bow bow = new Bow("Bow", 25);
 	Grimoire grimoire = new Grimoire("grimoire",20);
 
 	// Creating spells
@@ -54,7 +53,6 @@ public class Storyline{
 	// Creating characters
 	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
 	Healer healer = new Healer("healer", playerHP, 10, null);
-	Archer archer = new Archer("archer",playerHP,null);
 	Mage mage = new Mage("mage",playerHP,blast,grimoire);
 
 	// Creating monsters
@@ -82,7 +80,7 @@ public class Storyline{
         character = "warrior";
 		ui.weaponLabelName.setText(knife.getName());
 		if(swordCount == 1){
-			ui.weaponLabelName.setText(knife.getName() +""+ sword.getName());
+			ui.weaponLabelName.setText(knife.getName() +" "+ sword.getName());
 		}
 		playerHP = warrior.getHP();
 		ui.hpLabelNumber.setText("" + playerHP);
@@ -99,7 +97,7 @@ public class Storyline{
 		if(axeCount == 1){
 			ui.weaponLabelName.setText(""+ axe.getName());
 		}
-		else if (swordCount == 1){
+		else if (axeCount == 0){
 			ui.weaponLabelName.setText(""+ knife.getName());
 		}
 		if(location == "River"){
@@ -108,9 +106,12 @@ public class Storyline{
 	}
 
 	public void heal(){
-		playerHP += healer.getHealingPower();
-		ui.hpLabelNumber.setText("" + playerHP);
-		warrior.setHP(playerHP);
+		if(turn >3){
+			playerHP += healer.getHealingPower();
+			ui.hpLabelNumber.setText("" + playerHP);
+			warrior.setHP(playerHP);
+			turn = 0;
+		}
 	}
 
 	public void mageSetup(){
@@ -124,7 +125,7 @@ public class Storyline{
 		ui.characterLabelName.setText("" + warrior.getName());
 		ui.weaponLabelName.setText(knife.getName());
 		if(swordCount == 1){
-			ui.weaponLabelName.setText(knife.getName() +""+ sword.getName());
+			ui.weaponLabelName.setText(knife.getName() +" "+ sword.getName());
 		}
 		
 	}
@@ -398,10 +399,10 @@ public class Storyline{
 		ui.mainTextArea.setText("You are at the town.\nYou see a checkpoint to save the game.");		
 		ui.choice1.setText("Save game");
 		ui.choice2.setText("View map");
-		ui.choice3.setText("end");
+		ui.choice3.setText(" ");
 		ui.choice4.setText("");
 
-		ui.choice3.setVisible(true);
+		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	}
 
@@ -782,17 +783,15 @@ public class Storyline{
 		ui.mainTextArea.setText("Choose a weapon: ");
 		ui.choice1.setText("Sword - 80 gold");
 		ui.choice2.setText("Axe - 40 gold");
-		ui.choice3.setText("Bow - 80 gold");
+		ui.choice3.setText("");
 		ui.choice4.setText("Back");
+		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(true);
 		if(swordCount == 1){
 			ui.choice1.setVisible(false);
 		}
 		if(axeCount == 1){
 			ui.choice2.setVisible(false);
-		}
-		if(bowCount == 1){
-			ui.choice3.setVisible(false);
 		}
 	}
 
@@ -802,16 +801,13 @@ public class Storyline{
 			if(gold < 80){
 				ui.mainTextArea.setText("You do not have enough gold to buy the sword.");
 			}
-			else if(character == "archer"){
-				ui.mainTextArea.setText("Sword not compatible with archer. A bow is recommended.");
-			}
 			else{
 				ui.mainTextArea.setText("You have acquired a sword.\nDamage: "+ sword.getDamage());
 				swordCount = 1;
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
 				if(character == "warrior"){
-					ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
+					ui.weaponLabelName.setText(knife.getName() +" "+ sword.getName());
 				}
 				warrior.setRightHandWeapon(sword);
 			}
@@ -829,22 +825,6 @@ public class Storyline{
 					ui.weaponLabelName.setText(""+ axe.getName());
 				}
 				healer.setWeapon(axe);
-			}
-		}
-		else if(item == "Bow"){  // give to archer
-			if(gold < 80){
-				ui.mainTextArea.setText("You do not have enough gold to buy the bow.");
-			}
-			else if(character == "warrior"){
-				ui.mainTextArea.setText("Bow not compatible with warrior. A sword is recommended.");
-			}
-			else{
-				ui.mainTextArea.setText("You have acquired a bow.\nDamage: "+ bow.getDamage());
-				bowCount = 1;
-				gold = gold - 80;
-				ui.goldLabelNumber.setText(""+ gold);
-				//weaponLabelName.setText(""+ bow.getName());
-				archer.setWeapon(bow);
 			}
 		}
 		ui.choice1.setText("Back");
@@ -999,6 +979,9 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
 		if(healerCount == 0){
 			ui.mainTextArea.setText("You get in the water, but end up getting poisoned. The poison started to infect your whole body until you feel numb. And without much help, you die in your own suffering.");
+			playerHP = 0;
+			warrior.setHP(0);
+			ui.hpLabelNumber.setText("" + playerHP);
 			ui.choice1.setText(">");
 			ui.choice1.setVisible(true);
 			ui.choice2.setVisible(false);
@@ -1525,20 +1508,11 @@ public class Storyline{
 			// Update hp of player in the UI
 			ui.hpLabelNumber.setText("" + playerHP);
 
-			if(location == "Forest"){
-				ui.choice1.setText("Attack wolf");
-				ui.choice2.setText("Retreat");
-				ui.choice3.setText("");
-				ui.choice4.setText("");
-				ui.choice3.setVisible(false);
-				ui.choice4.setVisible(false);
-			}
-			else{
-				ui.choice1.setText("Attack wolf");
-				ui.choice2.setVisible(false);
-				ui.choice3.setVisible(false);
-				ui.choice4.setVisible(false);
-			}
+			ui.choice1.setText("Attack wolf");
+			ui.choice2.setVisible(false);
+			ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
+		
 		}
 
 		else if(name == "orgre"){  // path mountain
@@ -1652,7 +1626,7 @@ public class Storyline{
 		if(name == "wolf"){  //forest & in cave - puzzle failed
 			position = "attackWolf";
 
-			turn += 1;  //TO COMMENT WHAT TURN DOES
+			turn += 1;  //Turn = total number of attacks
 
 			int damage=0;
 
@@ -1758,7 +1732,7 @@ public class Storyline{
 			position = "attackOrgre";
 			ui.monsterPanel.setVisible(true);
 			
-			turn += 1;  //TO COMMENT WHAT TURN DOES
+			turn += 1;
 
 			int damage=0;
 
@@ -2103,11 +2077,7 @@ public class Storyline{
 		ui.titleNamePanel.setVisible(false);
 		ui.startButtonPanel.setVisible(false);
 		ui.Gameplay("start");
-		
-
-}
-
-	
+	}
 
 	public void continueGame(){
 
@@ -2211,7 +2181,7 @@ public class Storyline{
 			return new Gold(randomGold);
 		} else {
 			// 20% chance to get a weapon
-			String[] weapons = {"Sword", "Axe", "Bow", "Staff", "Dagger"};
+			String[] weapons = {"Sword", "Axe"};
 			int randomWeaponIndex = random.nextInt(weapons.length);
 			return new Weapon(weapons[randomWeaponIndex]);
 		}

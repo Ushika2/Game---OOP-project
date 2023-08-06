@@ -424,7 +424,6 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.saveGame();break;
 					case "c2": story.Map(); break;
-					case "c3": story.dead();break;
 				}
 				break;
 			case "village1":
@@ -514,7 +513,6 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.buyWeapons("Sword"); break;
 					case "c2": story.buyWeapons("Axe");  break;
-					case "c3": story.buyWeapons("Bow");  break;
 					case "c4": story.shop(); break;
 				}
 				break;
@@ -649,7 +647,7 @@ public class UI{
 				break;
 			case "heal":
 				switch(yourChoice){     
-					case "c1": story.heal(); story.turn=0; break;
+					case "c1": story.heal(); break;
 				}
 				break;
 			//if choice is left
