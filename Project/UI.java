@@ -60,7 +60,7 @@ public class UI{
 	    //TITLE SCREEN
         titleNamePanel = new JPanel();
 		titleNamePanel.setBounds(100, 100, 600, 150);
-		titleNamePanel.setBackground(new Color(0, 0, 0, 0));
+		titleNamePanel.setBackground(Color.black);
 		titleNameLabel = new JLabel("ADVENTURE");
 		titleNameLabel.setForeground(Color.white);
 		titleNameLabel.setFont(titleFont);	
@@ -566,11 +566,13 @@ public class UI{
 				switch(yourChoice){
 					case "c1":if(story.character == "mage"){story.mageAttack();}else{story.AttackGoblin();};break;
 					case "c2": story.Map(); break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "attackGoblin":
 				switch(yourChoice){
 					case "c1":story.goblinAttack(); break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "endFightForest":
@@ -611,6 +613,7 @@ public class UI{
 					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("orgre");}; break;
 					case "c2": story.forest2(); break;
 					case "c3": story.dead(); break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "heal":
@@ -655,6 +658,7 @@ public class UI{
 					case "c1": story.monsterAttack("wraith"); break;
 					case "c2": story.waterfall2();break;
 					case "c3": story.forest2(); break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "wraithAttack":
@@ -662,6 +666,7 @@ public class UI{
 					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("wraith");}; break;
 					case "c2": story.forest2(); break;
 					case "c3": story.dead();break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "mountainTop":
@@ -691,7 +696,6 @@ public class UI{
 				switch(yourChoice){     
 					case "c1": story.monsterAttack("wolf"); break;
 					case "c2": story.DragonSetup();story.inside(); break;
-					case "c3":  break;  //advance in forest
 					case "c4": story.heal(); break;
 				}
 				break;
@@ -699,6 +703,7 @@ public class UI{
 				switch(yourChoice){     
 					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("wolf");}; break;
 					case "c2": story.forest2(); break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "inside":
@@ -710,12 +715,14 @@ public class UI{
 				switch(yourChoice){     
 					case "c1": story.monsterAttack("dragon"); break;
 					case "c2": story.end(); break;
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "dragonAttack":
 				switch(yourChoice){   
 					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("dragon");}; break;
 					case "c2": story.dead(); break;  
+					case "c4": story.heal(); break;
 				}
 				break;
 			case "mageAttack":

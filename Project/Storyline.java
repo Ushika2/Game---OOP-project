@@ -52,7 +52,7 @@ public class Storyline{
 
 	// Creating characters
 	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
-	Healer healer = new Healer("healer", playerHP, 10, null);
+	Healer healer = new Healer("healer", playerHP, 10, knife);
 	Mage mage = new Mage("mage",playerHP,blast,grimoire);
 
 	// Creating monsters
@@ -104,12 +104,13 @@ public class Storyline{
 	}
 
 	public void heal(){
-		if(turn >3){
+		if(character == "healer" && turn >3){
 			playerHP += healer.getHealingPower();
 			ui.hpLabelNumber.setText("" + playerHP);
 			warrior.setHP(playerHP);
 			turn = 0;
 		}
+		ui.choice4.setVisible(false);
 	}
 
 	public void mageSetup(){
@@ -123,7 +124,7 @@ public class Storyline{
 		ui.characterLabelName.setText("" + warrior.getName());
 		ui.weaponLabelName.setText(knife.getName());
 		if(swordCount == 1){
-			ui.weaponLabelName.setText(knife.getName() +" "+ sword.getName());
+			ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
 		}
 		
 	}
@@ -218,31 +219,33 @@ public class Storyline{
 			bw.newLine();
 			bw.write(""+gold);
 			bw.newLine();	
-			bw.write(goblinName);			
+			bw.write(goblinName);			//save goblin Hp
 			bw.newLine();
 			bw.write(""+goblin.getHP());	
 			bw.newLine();
-			bw.write(""+villageCount);
+			bw.write(""+villageCount);  // save village quest
 			bw.newLine();
-			bw.write(""+healerCount);
+			bw.write(""+healerCount);  // save if acquired healer or not
 			bw.newLine();
-			bw.write(""+ mageCount);
+			bw.write(""+ mageCount);  //save if acquired mage or not
 			bw.newLine();
-			bw.write(""+ riverCount);
+			bw.write(""+ riverCount);  // save river side quest
 			bw.newLine();
-			bw.write(""+ chestForest);
+			bw.write(""+ chestForest);  // save if chest has been opened
 			bw.newLine();
-			bw.write(""+ axeCount);
+			bw.write(""+ axeCount);  // save weapon - axe if acquired
+			bw.newLine();
+			bw.write(""+ swordCount);  // save weapon - sword if acquired
 			bw.newLine();
 			bw.write(""+ forestCount);
 			bw.newLine();
 			bw.write(""+ waterfallCount);
 			bw.newLine();
-			bw.write(""+wraithHP);
+			bw.write(""+wraithHP);  //save wraith Hp
 			bw.newLine();
-			bw.write(""+orgreHP);
+			bw.write(""+orgreHP);  // save orgre Hp
 			bw.newLine();
-			bw.write(""+fireC);
+			bw.write(""+fireC);  // save acquired spell
 			bw.newLine();
 			bw.write(""+frostC);
 			bw.newLine();
@@ -274,12 +277,13 @@ public class Storyline{
 			riverCount = Integer.parseInt(br.readLine());
 			chestForest  = Integer.parseInt(br.readLine());
 			axeCount = Integer.parseInt(br.readLine());
+			swordCount = Integer.parseInt(br.readLine());
 			forestCount = Integer.parseInt(br.readLine());
 			waterfallCount = Integer.parseInt(br.readLine());
 			wraithHP = Integer.parseInt(br.readLine());
-			wraith.setHP(wraithHP);
+			//wraith.setHP(wraithHP);
 			orgreHP = Integer.parseInt(br.readLine());
-			orgre.setHP(orgreHP);
+			//orgre.setHP(orgreHP);
 			fireC = Integer.parseInt(br.readLine());
 			frostC = Integer.parseInt(br.readLine());
 			lightC = Integer.parseInt(br.readLine());
@@ -297,6 +301,9 @@ public class Storyline{
 		ui.hpLabelNumber.setText("" + playerHP);
 		ui.characterLabelName.setText("" + warrior.getName());
 		ui.weaponLabelName.setText(weapon);
+		if(swordCount == 1){
+			ui.weaponLabelName.setText(weapon + "," + sword.getName());
+		}
 		ui.locationName.setText(location);
 		ui.goldLabelNumber.setText(""+ gold);
 		ui.monsterName.setText(""+ goblin.getName());
@@ -305,6 +312,9 @@ public class Storyline{
 		if(healerCount == 1){
 			ui.healerButton.setVisible(true);
 			ui.healerButtonPanel.setVisible(true);
+		}
+		if(axeCount == 1){
+			healer.setWeapon(axe);
 		}
 		if(mageCount == 1){
 			ui.mageButton.setVisible(true);
@@ -319,9 +329,8 @@ public class Storyline{
 		// Begining of story - town
 		position = "intro";
 		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
-		ui.mainTextArea.setBounds(100, 100, 600, 250);
-		ui.mainTextPanel.setBackground(new Color(0, 0, 0, 0)); 
-		//ui.mainTextPanel.setBackground(Color.black);
+		ui.mainTextArea.setBounds(100, 100, 600, 250); 
+		ui.mainTextPanel.setBackground(Color.black);
 		ui.mainTextArea.setForeground(Color.black);  //maybe to change later
 		//startButton.setFont(normalFont);
 		ui.mainTextArea.setLineWrap(true);
@@ -607,7 +616,7 @@ public class Storyline{
 		playerHP = playerHP + 25;
 
 		 if (playerHP > 100) {
-				 playerHP = 100;
+			playerHP = 100;
 		
 		}
 
@@ -804,9 +813,7 @@ public class Storyline{
 				swordCount = 1;
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
-				if(character == "warrior"){
-					ui.weaponLabelName.setText(knife.getName() +" "+ sword.getName());
-				}
+				ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
 				warrior.setRightHandWeapon(sword);
 			}
 		}
@@ -814,14 +821,15 @@ public class Storyline{
 			if(gold < 40){
 				ui.mainTextArea.setText("You do not have enough gold to buy the axe.");
 			}
+			else if(healerCount == 0){
+				ui.mainTextArea.setText("Axe can only be used by healer.");
+			}
 			else{
 				ui.mainTextArea.setText("You have acquired an axe.\nDamage: "+ axe.getDamage());
 				axeCount = 1;
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
-				if(character == "healer"){
-					ui.weaponLabelName.setText(""+ axe.getName());
-				}
+				ui.weaponLabelName.setText(""+ axe.getName());
 				healer.setWeapon(axe);
 			}
 		}
@@ -899,21 +907,34 @@ public class Storyline{
 		ui.choice2.setText("Curing potion - 80 gold");
 		ui.choice3.setText(" ");
 		ui.choice4.setText("Back");
+
+		if(HealPotionCount == 1){
+			ui.choice1.setVisible(false);
+		}
+		if(CurePotionCount == 1){
+			ui.choice2.setVisible(false);
+		}
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(true);
 	}
 
 	public void buyPotions(String item){
 		position = "choosePotion";
-		int healingPotionHP = 50;
+		int healingPotionHP = 30;
 		if(item == "HealingPotion"){
 			if(gold < 80){
 				ui.mainTextArea.setText("You do not have enough gold to buy healing potion.");
+			}
+			else if(playerHP > 70){
+				ui.mainTextArea.setText("Hp is already above 70. Buy potion later");
 			}
 			else{
 				ui.mainTextArea.setText("You have acquired the healing potion.\nRecover: " + healingPotionHP+ "Hp");
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
+				playerHP = playerHP + healingPotionHP;
+				warrior.setHP(playerHP);
+				ui.hpLabelNumber.setText("" + playerHP);
 				HealPotionCount = 1;
 			}
 		}
@@ -1028,9 +1049,6 @@ public class Storyline{
 				ui.choice1.setVisible(false);
 				ui.choice3.setVisible(true);
 			}
-		}
-		else if(name == "HealingPotion"){
-
 		}
 	}
 
@@ -1198,55 +1216,26 @@ public class Storyline{
 		//int damage = knife.getDamage();
          int damage = 0;
 
-
 		if(character == "warrior"){
-				
-				if(swordCount == 0){
-				//warrior.attack(wraith);
-					damage = knife.getDamage();
-				}
-
-				else if(axeCount == 1){
-					damage = axe.getDamage();
-				}
-
-				else if(swordCount == 1){
-					warrior.attack(goblin);
-					damage = warrior.damage();
-				}
-				
+			damage = warrior.damage();  //method identifies weapon/s of warrior and calculate its total damage.
+		}
+		else if(character == "healer"){
+			damage = healer.damage();   //method identifies weapon of healer and calculate its total damage.
+		}
+		else if(character == "mage"){
+			if(attack == "blast"){
+				damage = blast.getDamage();  //method to get damage of each spell
 			}
-
-			else if(character == "healer"){
-
-				if(swordCount == 0 && axeCount == 0){
-				//warrior.attack(wraith);
-				damage = knife.getDamage();
-				}
-				else if(swordCount == 0 && axeCount == 1){
-					damage = axe.getDamage();
-				}
-				else if(swordCount == 1){
-				// healer.attack(wraith);
-				// damage = healer.damage();
-				damage = knife.getDamage();
-				}
+			if(attack == "fire"){
+				damage = fire.getDamage();
 			}
-
-			else if(character == "mage"){
-				if(attack == "blast"){
-					damage = blast.getDamage();
-				}
-				if(attack == "fire"){
-					damage = fire.getDamage();
-				}
-				if(attack == "frost"){
-					damage = frost.getDamage();
-				}
-				if(attack == "light"){
-					damage = lightning.getDamage();
-				}
+			if(attack == "frost"){
+				damage = frost.getDamage();
 			}
+			if(attack == "light"){
+				damage = lightning.getDamage();
+			}
+		}
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
@@ -1286,7 +1275,6 @@ public class Storyline{
 			if(location == "Forest"){
 				position = "endFightForest";
 				
-
 				ui.choice1.setText("Advance in the forest");
 				ui.choice2.setText("View map");
 				ui.choice2.setVisible(true);
@@ -1620,59 +1608,24 @@ public class Storyline{
 
 	}
 
+	// Method for attacking monster, taking the attribute monster name (to know which monster we are attacking). 
 	public void attackMonster(String name){
-		if(name == "wolf"){  //forest & in cave - puzzle failed
+		if(name == "wolf"){  //in cave - puzzle failed
 			position = "attackWolf";
 
 			turn += 1;  //Turn = total number of attacks
 
 			int damage=0;
 
-			// if(character == "warrior"){
-			// 	warrior.attack(wolf);
-			// 	damage = warrior.damage();
-			// }
-			// else if(character == "healer"){
-			// 	healer.attack(wolf);
-			// 	damage = healer.damage();
-			// }
-
-			// ui.monsterHP.setText("" + wolf.getHP());
-
 			if(character == "warrior"){
-
-				if(swordCount == 0){
-					damage = knife.getDamage();
-				}
-
-				else if(axeCount == 1){
-					damage = axe.getDamage();
-				}
-
-				else if(swordCount == 1){
-
-					warrior.attack(wolf);
-					damage = warrior.damage();
-				}
-				
+				damage = warrior.damage();  //method identifies weapon/s of warrior and calculate its total damage.
 			}
 			else if(character == "healer"){
-
-				if(swordCount == 0 && axeCount == 0){
-					damage = knife.getDamage();
-				}
-				else if(swordCount == 0 && axeCount == 1){
-					damage = axe.getDamage();
-				}
-				else if(swordCount == 1){
-			
-					damage = knife.getDamage();
-				
-				}
+				damage = healer.damage();   //method identifies weapon of healer and calculate its total damage.
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();
+					damage = blast.getDamage();  //method to get damage of each spell
 				}
 				if(attack == "fire"){
 					damage = fire.getDamage();
@@ -1685,22 +1638,31 @@ public class Storyline{
 				}
 			}
 
-			ui.mainTextArea.setText("You attack the wolf, giving it " + wolfHP + " damage, defeating it. You've acquired 4 wolf skin.");
-			wolfSkin = wolfSkin + 4;
+			if(wolf.getHP() <= damage){
+				ui.mainTextArea.setText("You attack the wolf, giving it " + wolfHP + " damage, defeating it. You've acquired 4 wolf skin.");
+				wolfSkin = wolfSkin + 4;
+				wolf.takeDamage(damage);  //method updates and set hp of wolf
+				wolfHP -= damage;
+					
+				// Ensure HP doesn't go below 0
+				if (wolfHP < 0) {
+					wolfHP = 0;
+		 		}
+				wolf.setHP(0);
+				ui.monsterHP.setText("" + wolfHP);  //method hp of wolf in monster panel
 
-			wolf.takeDamage(damage);
+				ui.choice2.setText("Advance");
 
-			wolfHP -= damage;
-
-			// Ensure playerHP doesn't go below 0
-			if (wolfHP < 0) {
-				wolfHP = 0;
+				ui.choice2.setVisible(true);
+				ui.choice1.setVisible(false);
+				ui.choice4.setVisible(false);
 			}
+			else if (wolf.getHP() > damage){
+				ui.mainTextArea.setText("You attack the wolf, giving it " + damage + " damage.");
+				wolf.takeDamage(damage); //method update & set hp of wolf
+				wolfHP -= damage;
+				ui.monsterHP.setText("" + wolfHP);  //method hp of wolf in monster panel
 
-			ui.monsterHP.setText("" + wolfHP);
-
-			if (wolfHP > 0){
-				ui.mainTextArea.setText("You attack the wolf back, giving it " + damage + " damage.");
 				ui.choice1.setText(">");
 				ui.choice2.setText("");
 				ui.choice3.setText("");
@@ -1708,21 +1670,7 @@ public class Storyline{
 	
 				ui.choice2.setVisible(false);
 				ui.choice3.setVisible(false);
-				ui.choice4.setVisible(false);
-				
-			}
-		
-			else{
-				//ui.mainTextArea.setText("You attack the wolf, giving it " + damage + " damage, defeating it. You've acquired 4 wolf skin.");
-				//wolfSkin = wolfSkin + 4;
-				wolf.setHP(0);
-				ui.monsterHP.setText("" + wolfHP);
-
-				ui.choice2.setText("Advance");
-				
-				ui.choice2.setVisible(true);
-				ui.choice1.setVisible(false);
-				ui.choice4.setVisible(false);
+				ui.choice4.setVisible(false);	
 			}
 		}
 
@@ -1730,44 +1678,19 @@ public class Storyline{
 			position = "attackOrgre";
 			ui.monsterPanel.setVisible(true);
 			
-			turn += 1;
+			turn += 1; //total number of attacks
 
 			int damage=0;
 
 			if(character == "warrior"){
-
-				if(swordCount == 0){
-					damage = knife.getDamage();
-				}
-
-				else if(axeCount == 1){
-					damage = axe.getDamage();
-				}
-
-				else if(swordCount == 1){
-
-					warrior.attack(orgre);
-					damage = warrior.damage();
-				}
-				
+				damage = warrior.damage();  //method identifies weapon/s of warrior and calculate its total damage.
 			}
 			else if(character == "healer"){
-
-				if(swordCount == 0 && axeCount == 0){
-					damage = knife.getDamage();
-				}
-				else if(swordCount == 0 && axeCount == 1){
-					damage = axe.getDamage();
-				}
-				else if(swordCount == 1){
-			
-					damage = knife.getDamage();
-				
-				}
+				damage = healer.damage();   //method identifies weapon of healer and calculate its total damage.
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();
+					damage = blast.getDamage();  //method to get damage of each spell
 				}
 				if(attack == "fire"){
 					damage = fire.getDamage();
@@ -1780,38 +1703,19 @@ public class Storyline{
 				}
 			}
 
-			ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 2 orgre claw.");
-			orgreClaw = orgreClaw + 2;
-
-			orgre.takeDamage(damage);
-
-			orgreHP -= damage;
-
-			// Ensure playerHP doesn't go below 0
-			if (orgreHP < 0) {
-				orgreHP = 0;
-			}
-
-			ui.monsterHP.setText("" + orgreHP);
-
-			if (orgreHP > 0){
-				ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage.");
-				ui.choice1.setText(">");
-				ui.choice2.setText("");
-				ui.choice3.setText("");
-				ui.choice4.setText("");
-	
-				ui.choice1.setVisible(true);
-				ui.choice2.setVisible(false);
-				ui.choice3.setVisible(false);
-				ui.choice4.setVisible(false);
-				
-			}
-		
-			else{
+			if(orgre.getHP() <= damage){
+				ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 2 orgre claw.");
+				orgreClaw = orgreClaw + 2;
+				orgre.takeDamage(damage);  //method update & set hp of orgre
+				orgreHP -= damage;
+					
+				// Ensure HP doesn't go below 0
+				if (orgreHP < 0) {
+					orgreHP = 0;
+		 		}
 				orgre.setHP(0);
-				ui.monsterHP.setText("" + orgreHP);
-				
+				ui.monsterHP.setText("" + orgreHP); //update orgre hp in monster panel
+
 				ui.choice2.setText("Advance");
 				ui.choice3.setText("View map");
 
@@ -1819,56 +1723,39 @@ public class Storyline{
 				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
 			}
+			else if (orgre.getHP() > damage){
+				ui.mainTextArea.setText("You attack the orgre, giving it " + damage + " damage.");
+				orgre.takeDamage(damage);  //method update & set hp of orgre
+				orgreHP -= damage;
+				ui.monsterHP.setText("" + orgreHP);   //update orgre hp in monster panel
+
+				ui.choice1.setText(">");
+				ui.choice2.setText("");
+				ui.choice3.setText("");
+				ui.choice4.setText("");
+	
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);	
+			}
 		}
 
 		else if(name == "wraith"){  //waterfall
 			position = "attackWraith";
-
-			ui.monsterName.setText(wraith.getName());
-			ui.monsterHP.setText("" + wraith.getHP());
-			
 			ui.monsterPanel.setVisible(true);
 			
-			turn += 1;
+			turn += 1;  //total number of attacks
 			int damage=0;
 
-			
 			if(character == "warrior"){
-				
-				if(swordCount == 0){
-				//warrior.attack(wraith);
-					damage = knife.getDamage();
-				}
-
-				else if(axeCount == 1){
-					damage = axe.getDamage();
-				}
-
-				else if(swordCount == 1){
-					warrior.attack(wraith);
-					damage = warrior.damage();
-				}
-				
+				damage = warrior.damage();  //method identifies weapon/s of warrior and calculate its total damage.
 			}
-
 			else if(character == "healer"){
-
-				if(swordCount == 0 && axeCount == 0){
-				//warrior.attack(wraith);
-				damage = knife.getDamage();
-				}
-				else if(swordCount == 0 && axeCount == 1){
-					damage = axe.getDamage();
-				}
-				else if(swordCount == 1){
-				// healer.attack(wraith);
-				// damage = healer.damage();
-				damage = knife.getDamage();
-				}
+				damage = healer.damage();   //method identifies weapon of healer and calculate its total damage.
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();
+					damage = blast.getDamage();  //method to get damage of each spell
 				}
 				if(attack == "fire"){
 					damage = fire.getDamage();
@@ -1883,17 +1770,16 @@ public class Storyline{
 
 			if(wraith.getHP() <= damage){
 				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 3 wraith cloth.");
-		
 				wraithCloth += wraithCloth + 3;
-				wraith.takeDamage(damage);
+				wraith.takeDamage(damage);  //method update & set hp of wraith
 				wraithHP -= damage;
 					
-				// Ensure playerHP doesn't go below 0
+				// Ensure HP doesn't go below 0
 				if (wraithHP < 0) {
 					wraithHP = 0;
 		 		}
-				//wraith.setHP(0);
-				ui.monsterHP.setText("" + wraithHP);
+				wraith.setHP(0);
+				ui.monsterHP.setText("" + wraithHP);  //update wraith hp in monster panel
 
 				ui.choice2.setText("Advance in forest");
 				ui.choice3.setText("Go back");
@@ -1902,10 +1788,12 @@ public class Storyline{
 				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
 			}
-
-
 			else if (wraith.getHP() > damage){
 				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage.");
+				wraith.takeDamage(damage);  //method update & set hp of wraith
+				wraithHP -= damage;
+				ui.monsterHP.setText("" + wraithHP);  //update wraith hp in monster panel
+
 				ui.choice1.setText(">");
 				ui.choice2.setText("");
 				ui.choice3.setText("");
@@ -1913,12 +1801,7 @@ public class Storyline{
 	
 				ui.choice2.setVisible(false);
 				ui.choice3.setVisible(false);
-				ui.choice4.setVisible(false);
-
-				wraith.takeDamage(damage);
-				wraithHP -= damage;
-				ui.monsterHP.setText("" + wraithHP);
-				
+				ui.choice4.setVisible(false);	
 			}
 
 		}
@@ -1926,46 +1809,19 @@ public class Storyline{
 		else if(name == "dragon"){  // final boss
 			position = "attackDragon";
 			ui.monsterPanel.setVisible(true);
-			// ui.monsterName.setText(dragon.getName());
-			// ui.monsterHP.setText("" + dragon.getHP());
 			
-			turn += 1;
+			turn += 1;  //total number of attacks
 			int damage=0;
 
 			if(character == "warrior"){
-
-				if(swordCount == 0){
-					damage = knife.getDamage();
-				}
-
-				else if(axeCount == 1){
-					damage = axe.getDamage();
-				}
-
-				else if(swordCount == 1){
-
-					warrior.attack(dragon);
-					damage = warrior.damage();
-				}
-				
+				damage = warrior.damage();  //method identifies weapon/s of warrior and calculate its total damage.
 			}
 			else if(character == "healer"){
-
-				if(swordCount == 0 && axeCount == 0){
-					damage = knife.getDamage();
-				}
-				else if(swordCount == 0 && axeCount == 1){
-					damage = axe.getDamage();
-				}
-				else if(swordCount == 1){
-			
-					damage = knife.getDamage();
-				
-				}
+				damage = healer.damage();   //method identifies weapon of healer and calculate its total damage.
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();
+					damage = blast.getDamage();  //method to get damage of each spell
 				}
 				if(attack == "fire"){
 					damage = fire.getDamage();
@@ -1978,30 +1834,31 @@ public class Storyline{
 				}
 			}
 
-			ui.mainTextArea.setText("You attack the dragon, giving it " + dragonHP + " damage, defeating it. You free the girl and take her back to town.");
-			// if(character == "warrior"){
-			// 	warrior.attack(dragon);
-			// 	damage = warrior.damage();
-			// }
-			// else if(character == "healer"){
-			// 	healer.attack(dragon);
-			// 	damage = healer.damage();
-			// }
+			if(dragon.getHP() <= damage){
+				ui.mainTextArea.setText("You attack the dragon, giving it " + dragonHP + " damage, defeating it. You free the girl and take her back to town.");
+				dragon.takeDamage(damage);  //method update & set hp of dragon
+				dragonHP -= damage;
+					
+				// Ensure Hp doesn't go below 0
+				if (dragonHP < 0) {
+					dragonHP = 0;
+		 		}
+				dragon.setHP(0);
+				ui.monsterHP.setText("" + dragonHP);  // update dragon hp in monster panel
 
-			dragon.takeDamage(damage);
-			
+				ui.choice2.setText(">");
+				ui.choice3.setText("");
 
-			dragonHP -= damage;
-			// Ensure dragonHP doesn't go below 0
-			if (dragonHP < 0) {
-				dragonHP = 0;
+				ui.choice2.setVisible(true);
+				ui.choice3.setVisible(false);
+				ui.choice1.setVisible(false);
 			}
-
-
-			ui.monsterHP.setText("" + dragonHP);
-
-			if (dragonHP > 0){
+			else if (dragonHP > 0){
 				ui.mainTextArea.setText("You attack the dragon, giving it " + damage + " damage.");
+				dragon.takeDamage(damage);  //method update & set hp of dragon
+				dragonHP -= damage;
+				ui.monsterHP.setText("" + dragonHP);  // update dragon hp in monster panel
+
 				ui.choice1.setText(">");
 				ui.choice2.setText("");
 				ui.choice3.setText("");
@@ -2010,24 +1867,11 @@ public class Storyline{
 				ui.choice2.setVisible(false);
 				ui.choice3.setVisible(false);
 				ui.choice4.setVisible(false);
-				
-			}
-		
-			else{
-				//ui.mainTextArea.setText("You attack the dragon, giving it " + damage + " damage, defeating it. You free the girl and take her back to town.");
-				dragon.setHP(0);
-				ui.monsterHP.setText("" + dragonHP);
-				
-				ui.choice2.setText(">");
-
-				ui.choice2.setVisible(true);
-				ui.choice3.setVisible(false);
-				ui.choice1.setVisible(false);
 			}
 		}
 
 		// give option to heal 
-		if(character == "healer" && turn > 2){
+		if(healerCount == 1 && turn > 3){
 			ui.choice4.setText("Heal");
 			ui.choice4.setVisible(true);
 		}
