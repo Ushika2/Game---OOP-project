@@ -109,8 +109,8 @@ public class Storyline{
 			ui.hpLabelNumber.setText("" + playerHP);
 			warrior.setHP(playerHP);
 			turn = 0;
+			ui.choice4.setVisible(false);
 		}
-		ui.choice4.setVisible(false);
 	}
 
 	public void mageSetup(){
@@ -331,8 +331,10 @@ public class Storyline{
 		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
 		ui.mainTextArea.setBounds(100, 100, 600, 250); 
 		ui.mainTextPanel.setBackground(Color.black);
-		ui.mainTextArea.setForeground(Color.black);  //maybe to change later
-		//startButton.setFont(normalFont);
+		//ui.mainTextArea.setForeground(Color.black);  //maybe to change later
+		ui.mainTextArea.setBackground(Color.black);
+		ui.mainTextArea.setForeground(Color.white);
+		ui.mainTextArea.setFont(ui.normaltextFont);
 		ui.mainTextArea.setLineWrap(true);
 		ui.mainTextArea.setWrapStyleWord(true); 
 		ui.mainTextArea.setEditable(false); 	
@@ -345,8 +347,10 @@ public class Storyline{
 		ui.mainTextArea = new JTextArea("Game loaded successfully"); 
 		ui.mainTextArea.setBounds(100, 100, 600, 250);
 		ui.mainTextPanel.setBackground(Color.black);
-		ui.mainTextArea.setForeground(Color.black);  //maybe to change later
-		//startButton.setFont(normalFont);
+		//ui.mainTextArea.setForeground(Color.black);  //maybe to change later
+		ui.mainTextArea.setBackground(Color.black);
+		ui.mainTextArea.setForeground(Color.white);
+		ui.mainTextArea.setFont(ui.normaltextFont);
 		ui.mainTextArea.setLineWrap(true);
 		ui.mainTextArea.setWrapStyleWord(true); 
 		ui.mainTextArea.setEditable(false); 	
@@ -370,7 +374,7 @@ public class Storyline{
 
 		ui.mapTextArea = new JTextArea("Choose where to go.");
 		ui.mapTextArea.setBounds(100, 150, 600, 250);
-		ui.mapTextArea.setBackground(Color.red);
+		ui.mapTextArea.setBackground(Color.black);
 		ui.mapTextArea.setForeground(Color.white);
 		ui.mapTextArea.setFont(normalFont);
 		ui.mapTextArea.setLineWrap(true);
@@ -1440,6 +1444,7 @@ public class Storyline{
 		}
 		ui.choice1.setText("Turn the second statue to the right");
 		ui.choice2.setText("Turn the second statue to the left");
+		ui.choice3.setVisible(false);
 	}
 
 	public void statueRight(){ //puzzle solved
@@ -1888,7 +1893,7 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
         ui.mainTextArea.setVisible(true);
 		ui.choiceButtonPanel.setVisible(true);
-		 playerHP = 0;
+		playerHP = 0;
 		
 		 // Update hp of player in the UI
 		ui.hpLabelNumber.setText("" + playerHP);

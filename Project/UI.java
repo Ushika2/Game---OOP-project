@@ -24,7 +24,7 @@ public class UI{
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
-	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 26);  //custom font-
+	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 20);  //custom font-
 	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton, mageButton, warriorButton; //add button
 	JTextArea mainTextArea,mapTextArea;
 	
