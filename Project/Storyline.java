@@ -899,6 +899,7 @@ public class Storyline{
 			}
 		}
 		ui.choice1.setText("Back");
+		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
@@ -918,6 +919,7 @@ public class Storyline{
 		if(CurePotionCount == 1){
 			ui.choice2.setVisible(false);
 		}
+		ui.choice3.setVisible(true);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(true);
 	}
