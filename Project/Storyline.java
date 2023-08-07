@@ -45,14 +45,14 @@ public class Storyline{
 	Grimoire grimoire = new Grimoire("grimoire",20);
 
 	// Creating spells
-	Blast blast = new Blast("blast",10);
-	Fire fire = new Fire("fire",18);
-	Frost frost = new Frost("frost",12);
-	Lightning lightning = new Lightning("lightning", 15);
+	Blast blast = new Blast("blast",15);
+	Fire fire = new Fire("fire",20);
+	Frost frost = new Frost("frost",16);
+	Lightning lightning = new Lightning("lightning", 18);
 
 	// Creating characters
 	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
-	Healer healer = new Healer("healer", playerHP, 10, knife);
+	Healer healer = new Healer("healer", playerHP, 15, knife);
 	Mage mage = new Mage("mage",playerHP,blast,grimoire);
 
 	// Creating monsters
@@ -60,7 +60,7 @@ public class Storyline{
 	Orgre orgre = new Orgre("orgre", 60);
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
-	Dragon dragon = new Dragon("dragon",150);
+	Dragon dragon = new Dragon("dragon",90);
 
     public UI ui;          
 
@@ -302,7 +302,9 @@ public class Storyline{
 		ui.characterLabelName.setText("" + warrior.getName());
 		ui.weaponLabelName.setText(weapon);
 		if(swordCount == 1){
-			ui.weaponLabelName.setText(weapon + "," + sword.getName());
+			ui.weaponLabelName.setText(knife.getName() + "," + sword.getName());
+			warrior.setLeftHandWeapon(sword);
+			warrior.setRightHandWeapon(knife);
 		}
 		ui.locationName.setText(location);
 		ui.goldLabelNumber.setText(""+ gold);
@@ -328,7 +330,7 @@ public class Storyline{
     public void intro(){
 		// Begining of story - town
 		position = "intro";
-		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You may begin your quest by viewing the map."); // to change
+		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You can visit the village to buy armors."); // to change
 		ui.mainTextArea.setBounds(100, 100, 600, 250); 
 		ui.mainTextPanel.setBackground(Color.black);
 		//ui.mainTextArea.setForeground(Color.black);  //maybe to change later
@@ -702,6 +704,7 @@ public class Storyline{
 		ui.choice1.setText("Sell");
 		ui.choice2.setText("Buy");
 		ui.choice3.setText("View Map");
+		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(true);
 		ui.choice4.setVisible(false);
@@ -833,11 +836,14 @@ public class Storyline{
 				axeCount = 1;
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.weaponLabelName.setText(""+ axe.getName());
+				if(character == "healer"){
+					ui.weaponLabelName.setText(""+ axe.getName());
+				}
 				healer.setWeapon(axe);
 			}
 		}
 		ui.choice1.setText("Back");
+		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
@@ -1045,15 +1051,18 @@ public class Storyline{
 			if(CurePotionCount == 0){
 				ui.mainTextArea.setText("You do not possess the potion. You might find one at the village shop.");
 				ui.choice1.setText("View map");
-				ui.choice2.setVisible(false);
+				ui.choice2.setText("Back");
+				ui.choice2.setVisible(true);
 				ui.choice3.setVisible(false);
 			}
 			else if(CurePotionCount == 1){
 				ui.mainTextArea.setText("You reach for your pockets and take out the curing potion. At the same time, one of the boys commes towards you, begging you to save him.But, you possess only 1 potion.");
-				ui.choice2.setText("Save river");
-				ui.choice3.setText("Save boy");
+				ui.choice3.setText("Save river");
+				ui.choice4.setText("Save boy");
 				ui.choice1.setVisible(false);
+				ui.choice2.setVisible(false);
 				ui.choice3.setVisible(true);
+				ui.choice4.setVisible(true);
 			}
 		}
 	}
@@ -1794,6 +1803,7 @@ public class Storyline{
 				ui.choice2.setVisible(true);
 				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
+				ui.choice4.setVisible(false);
 			}
 			else if (wraith.getHP() > damage){
 				ui.mainTextArea.setText("You attack the wraith, giving it " + damage + " damage.");
@@ -2026,7 +2036,7 @@ public class Storyline{
 	
 		if (chance < 80) {
 			// 80% chance to get gold
-			int randomGold = random.nextInt(1000) + 1; // Generates a random number between 1 and 1000 (inclusive)
+			int randomGold = random.nextInt(50,300) + 1; // Generates a random number between 1 and 1000 (inclusive)
 			return new Gold(randomGold);
 		} else {
 			// 20% chance to get a weapon

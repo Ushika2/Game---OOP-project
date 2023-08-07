@@ -171,7 +171,7 @@ public class UI{
 
 		//player panel
 		playerPanel = new JPanel();
-		playerPanel.setBounds(70, 5, 600, 50);
+		playerPanel.setBounds(70, 5, 630, 50);
 		playerPanel.setBackground(Color.black);
 		playerPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
 		con.add(playerPanel);
@@ -538,9 +538,9 @@ public class UI{
 			case "potion":
 				switch(yourChoice){
 					case "c1": story.Map(); break;
-					case "c2": story.saveRiver2(); break;
-					case "c3": story.saveBoy(); break;
-					case "c4":  break;
+					case "c2": story.investigate(); break;
+					case "c3": story.saveRiver2(); break;
+					case "c4": story.saveBoy(); break;
 				}
 				break;
 			case "endRiver":
