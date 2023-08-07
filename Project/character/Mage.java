@@ -34,11 +34,11 @@ public class Mage extends Character{
         System.out.println(getName() + "takes" + damage + "damage.");
     }
 
-    public void attack(Monster target){
-        int totalDamage = spell.getDamage() + weapon.getDamage();
-        target.takeDamage(totalDamage);
-        System.out.println(getName() + "cast spell on" + target.getName() + "causing" + totalDamage + "damage.");
-    }
+    // public void attack(Monster target){
+    //     int totalDamage = spell.getDamage() + weapon.getDamage();
+    //     target.takeDamage(totalDamage);
+    //     System.out.println(getName() + "cast spell on" + target.getName() + "causing" + totalDamage + "damage.");
+    // }
 
     public int damage(){
         int damage = weapon.getDamage();

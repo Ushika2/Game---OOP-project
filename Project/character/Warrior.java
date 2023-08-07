@@ -29,11 +29,11 @@ public class Warrior extends Character {
         this.rightHandWeapon = rightHandWeapon;
     }
 
-    public void attack(Monster target) {
-        int totalDamage = leftHandWeapon.getDamage() + rightHandWeapon.getDamage();
-        target.takeDamage(totalDamage);
-        //System.out.println(getName() + " attacks " + target.getName() + " for " + totalDamage + " damage.");
-    }
+    // public void attack(Monster target) {
+    //     int totalDamage = leftHandWeapon.getDamage() + rightHandWeapon.getDamage();
+    //     target.takeDamage(totalDamage);
+    //     //System.out.println(getName() + " attacks " + target.getName() + " for " + totalDamage + " damage.");
+    // }
 
     public void takeDamage(int damage) {
         setHP(getHP() - damage);

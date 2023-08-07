@@ -28,11 +28,11 @@ public class Healer extends Character{
         this.weapon = weapon;
     }
 
-    public void attack(Monster target){
-        int totalDamage = weapon.getDamage();
-        target.takeDamage(totalDamage);
-        System.out.println(getName() + "attacks" + target.getName() + "for" + totalDamage + "damage.");
-    }
+    // public void attack(Monster target){
+    //     int totalDamage = weapon.getDamage();
+    //     target.takeDamage(totalDamage);
+    //     System.out.println(getName() + "attacks" + target.getName() + "for" + totalDamage + "damage.");
+    // }
 
     public void takeDamage(int damage){
         setHP(getHP() - damage);

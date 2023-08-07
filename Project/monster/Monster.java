@@ -22,6 +22,6 @@ public abstract class Monster{  //superclass
         this.HP = HP;
     }
 
-    public abstract void attack(Monster taget);  // abstract methods
+   // public abstract void attack(Monster taget);  // abstract methods
     public abstract void takeDamage(int damage);
 }

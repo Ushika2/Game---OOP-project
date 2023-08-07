@@ -23,7 +23,7 @@ public abstract class Character{
         this.HP = HP;
     }
 
-    public abstract void attack(Monster taget);
+    //public abstract void attack(Monster taget);
     public abstract void takeDamage(int damage);
     public abstract int damage();
     

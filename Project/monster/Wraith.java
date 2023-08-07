@@ -16,7 +16,7 @@ public class Wraith extends Monster{
         setHP(getHP() - damage);
     }
 
-    public void attack(Monster target){
-        target.takeDamage(attackDamage);
-    }
+    // public void attack(Monster target){
+    //     target.takeDamage(attackDamage);
+    // }
 }
