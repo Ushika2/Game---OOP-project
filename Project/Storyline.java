@@ -299,6 +299,7 @@ public class Storyline{
 		}
 		ui.locationName.setText(location);
 		ui.goldLabelNumber.setText(""+ gold);
+		goblin.setHP(goblinHP);
 		ui.monsterName.setText(""+ goblin.getName());
 		ui.monsterHP.setText("" + goblin.getHP());
 
@@ -321,7 +322,7 @@ public class Storyline{
     public void intro(){
 		// Begining of story - town
 		position = "intro";
-		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person. Hello Player, I am the chief of this town. We need your help. The safety of the town is threatened by a monster. To ensure the safety of the townfolks you must find the monster and defeat it. You can visit the village to buy armors."); // to change
+		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person.'Hello adventurer, I am the chief of this town. I plead for your help to find my daughter who has been kidnapped.' Feeling empathy, you accept to help him. You can visit the village to buy armors."); // to change
 		ui.mainTextArea.setBounds(100, 100, 600, 250); 
 		ui.mainTextPanel.setBackground(Color.black);
 		//ui.mainTextArea.setForeground(Color.black);  //maybe to change later
@@ -811,7 +812,9 @@ public class Storyline{
 				swordCount = 1;
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
+				if(character == "warrior"){
+					ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
+				}
 				warrior.setRightHandWeapon(sword);
 			}
 		}
@@ -1946,6 +1949,9 @@ public class Storyline{
 	public void end(){
 		ui.mainTextArea.setText("You won!\n\n The End.");
 		ui.choice1.setVisible(false);
+		ui.choice2.setVisible(false);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
 		ui.healerButtonPanel.setVisible(false);
 		ui.warriorButtonPanel.setVisible(false);
 		ui.mageButtonPanel.setVisible(false);
