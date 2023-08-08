@@ -1,16 +1,10 @@
 package spell;
 
-// public class Fire extends Spell{
-//     public Fire(int damage){
-//         super(damage);
-//     }
-// }
-
 public class Fire implements Spell{   // implements from spells
     private String name;
     private final int damage;
 
-    public Fire(String name, int damage){  //constructor
+    public Fire(String name, int damage){  // constructor initializing object with name and damage
         this.name = name;
         this.damage = damage;
     }

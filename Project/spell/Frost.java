@@ -1,16 +1,10 @@
 package spell;
 
-// public class Frost extends Spell{
-//     public Frost(int damage){
-//         super(damage);
-//     }
-// }
-
 public class Frost implements Spell{  // implements from spells
     private String name;
     private final int damage;
 
-    public Frost(String name, int damage){  //constructor
+    public Frost(String name, int damage){  // constructor initializing object with name and damage
         this.name = name;
         this.damage = damage;
     }

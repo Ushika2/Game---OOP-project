@@ -1,11 +1,11 @@
 package monster;
 
-// Monster
-public abstract class Monster{  //superclass
+// Monster superclass
+public abstract class Monster{  // abstract class definition
     private String name;
     private int HP; //healthpoints
 
-    public Monster(String name, int HP){  //constructor
+    public Monster(String name, int HP){  //constructor 
         this.name = name;  // assign parameter name to constructor name
         this.HP = HP;  // assign parameter Hp to constructor Hp
     }
@@ -22,6 +22,6 @@ public abstract class Monster{  //superclass
         this.HP = HP;
     }
 
-   // public abstract void attack(Monster taget);  // abstract methods
-    public abstract void takeDamage(int damage);
+    // abstract method
+    public abstract void takeDamage(int damage);  //method where the monster receives damage
 }
