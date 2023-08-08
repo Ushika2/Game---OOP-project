@@ -1,46 +1,39 @@
 package character;
 import spell.*;
 import weapon.*;
-import monster.Monster;
 
-public class Mage extends Character{
-    private Spell spell;
+// sub-class
+public class Mage extends Character{  // class definition (inheritance from the character class)
+    private Spell spell;  // spell used by mage
     private Weapon weapon;
 
-    public Mage(String name, int HP, Spell spell, Weapon weapon){
-        super(name, HP);
-        this.spell = spell;
+    public Mage(String name, int HP, Spell spell, Weapon weapon){ // constructor initializes the Mage object with name, HP, spell and weapon
+        super(name, HP); // call constructor of super-class 'character' and set common properties
+        this.spell = spell;  // set other properties for mage
         this.weapon = weapon;
     }
 
-    public Spell getSpell(){
+    public Spell getSpell(){  // getter method which returns spell of mage
         return spell;
     }
 
-    public void setSpell(Spell spell){
+    public void setSpell(Spell spell){   // setter method which set a spell to mage
         this.spell = spell;
     }
 
-    public Weapon getWeapon(){
+    public Weapon getWeapon(){  // getter method which returns weapon of healer
         return weapon;
     }
 
-    public void setWeapon(Weapon weapon){
+    public void setWeapon(Weapon weapon){   // setter method which assign a weapon to the mage
         this.weapon = weapon;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage){  // this method reduces the Hp of mage by damage dealt
         setHP(getHP() - damage);
-        System.out.println(getName() + "takes" + damage + "damage.");
     }
 
-    // public void attack(Monster target){
-    //     int totalDamage = spell.getDamage() + weapon.getDamage();
-    //     target.takeDamage(totalDamage);
-    //     System.out.println(getName() + "cast spell on" + target.getName() + "causing" + totalDamage + "damage.");
-    // }
-
-    public int damage(){
+    public int damage(){  // this method returns the damage done by the mage's weapon
         int damage = weapon.getDamage();
         return damage;
     }
