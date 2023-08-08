@@ -1,19 +1,14 @@
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 
 public class UI{
@@ -24,10 +19,11 @@ public class UI{
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName,characterLabel, characterLabelName,locationLabel, locationName, monsterLabel, monsterName, monsterHP,monsterHPLabel, textLabel,goldLabel,goldLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
-	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 20);  //custom font-
+	Font normaltextFont = new Font("Times New Roman", Font.PLAIN, 20);  //custom font
 	JButton startButton, continueButton, choice1, choice2, choice3, choice4, mapButton, enterButton, healerButton, mageButton, warriorButton; //add button
 	JTextArea mainTextArea,mapTextArea;
 	
+	// Creating instances
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ContinueScreenHandler conHandler = new ContinueScreenHandler();
     MapScreenHandler mapHandler = new MapScreenHandler();
@@ -35,11 +31,11 @@ public class UI{
 	MageScreenHandler mageHandler = new MageScreenHandler();
 	WarriorScreenHandler warriorHandler = new WarriorScreenHandler();
 
-	Storyline story;
+	Storyline story;  //declaring variable 'story'
 
     public void titleUI(){
 
-        //WINDOW
+        //Creating WINDOW frame
         window = new JFrame();
 		window.setSize(800, 600);
 		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,9 +51,10 @@ public class UI{
         // Add container to the window
         con = window.getContentPane();
 
+		// initializes the story variable with a new instance of the Storyline class, passing con and this as arguments to the constructor.
 		story = new Storyline(con,this);
 		
-	    //TITLE SCREEN
+	    // Creating TITLE SCREEN
         titleNamePanel = new JPanel();
 		titleNamePanel.setBounds(100, 100, 600, 150);
 		titleNamePanel.setBackground(Color.black);
@@ -67,9 +64,7 @@ public class UI{
         //titleNamePanel.setLayout(new BorderLayout());
         //titleNamePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        //START BUTTON
-
-        // Start button panel
+        // Creating START BUTTON
 		startButtonPanel = new JPanel();
 		startButtonPanel.setBounds(300, 400, 200, 50);
 		startButtonPanel.setBackground(Color.black);
@@ -86,7 +81,7 @@ public class UI{
 		startButton.addActionListener(tsHandler);
 		startButton.setFocusPainted(false);
 
-		// CONTINUE BUTTON
+		// Creating CONTINUE BUTTON
 		continueButton = new JButton("CONTINUE");
 		continueButton.setToolTipText(null); 
 		continueButton.setBackground(Color.black);
@@ -98,11 +93,12 @@ public class UI{
 		continueButton.setActionCommand("continue");
 		//continueButton.setBorder(null);
     
+		// Adding label & buttons to respective panels
 		titleNamePanel.add(titleNameLabel);
 		startButtonPanel.add(startButton);
 		startButtonPanel.add(continueButton);
 
-		con.add(titleNamePanel);
+		con.add(titleNamePanel);  //Add panels to window frame
 		con.add(startButtonPanel);
 
         window.setVisible(true);
@@ -111,7 +107,7 @@ public class UI{
 
 	public void choices(){
 
-		// choices panel
+		// Creating choices panel & 4 choice buttons
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250, 370, 300, 150);
 		choiceButtonPanel.setBackground(Color.black);
@@ -131,29 +127,28 @@ public class UI{
 		choice4 = createChoiceButton("");
 		choice4.setActionCommand("c4");
 
-		choice1.setText(""); // Set text after creating the button
-		choice2.setText(""); // Set text after creating the button
-		choice3.setText(""); // Set text after creating the button
-		choice4.setText(""); // Set text after creating the button
+		choice1.setText(""); // Set text after creating the buttons
+		choice2.setText(""); 
+		choice3.setText(""); 
+		choice4.setText(""); 
 
-		choice1.setVisible(true);
+		choice1.setVisible(true);  //Make choice button visible
 		choice2.setVisible(true);
 		choice3.setVisible(true);
 		choice4.setVisible(true);
 
-
 		choiceButtonPanel.setVisible(false);
 	}
 	
-	// //ENCAPSULATION
-	private JButton createChoiceButton(String text) {
-		JButton button = new JButton(text);
-		button.setToolTipText(null);
+	//ENCAPSULATION
+	private JButton createChoiceButton(String text){ //creates and configures a JButton component for displaying choices in GUI
+		JButton button = new JButton(text); //Button creation
+		button.setToolTipText(null);  //Button customization
 		button.setBackground(Color.black);
 		button.setForeground(Color.white);
 		button.setFont(normalFont);
 		button.setFocusPainted(false);
-		button.addActionListener(e -> handleChoiceButtonClick(e));
+		button.addActionListener(e -> handleChoiceButtonClick(e));  //Button action listener
 		choiceButtonPanel.add(button);
 		return button;
 	}
@@ -163,13 +158,14 @@ public class UI{
 		titleNamePanel.setVisible(false);
 		startButtonPanel.setVisible(false);
 
+		// Creating main text panel
 		mainTextPanel = new JPanel();
 		mainTextPanel.setBounds(100,100, 600, 250);
 		mainTextPanel.setBackground(Color.black); 
 		//mainTextPanel.setBackground(Color.white);
 		con.add(mainTextPanel);
 
-		//player panel
+		// Creating player panel containg hp label, character name, weapon, location and gold amount
 		playerPanel = new JPanel();
 		playerPanel.setBounds(70, 5, 630, 50);
 		playerPanel.setBackground(Color.black);
@@ -216,7 +212,7 @@ public class UI{
 		goldLabelNumber.setForeground(Color.white);
 		playerPanel.add(goldLabelNumber);
 
-		//monster panel
+		// Creating monster panel containing monster name and Hp
 		monsterPanel = new JPanel();
 		monsterPanel.setBounds(70, 500, 250, 50);
 		monsterPanel.setBackground(Color.black);
@@ -240,19 +236,16 @@ public class UI{
 		monsterPanel.add(monsterName);
 		monsterPanel.setVisible(false);
 
-		if(startOrContinue.equals("start")){
-			 
-			story.playerSetup();
+		if(startOrContinue.equals("start")){  //condition if player choose to start the game from begining 
+			story.playerSetup();  //method calls
             story.intro();
-		//	story.goblinSetup();
-			
 		}
 		
         choices();
        
 		// choice4.setContentAreaFilled(false);  // disable highlighting on press
 
-		// Map button panel
+		// Creating Map button panel
 		mapButtonPanel = new JPanel();
 		mapButtonPanel.setToolTipText(null);
 		mapButtonPanel.setBounds(500, 500, 300, 150);
@@ -269,7 +262,7 @@ public class UI{
 		con.add(mapButtonPanel);
 		window.setVisible(true);
         
-		// Healer button panel
+		// Creating Healer button panel to allow for character switch
 		healerButtonPanel = new JPanel();
 		healerButtonPanel.setBounds(500, 450, 300, 150);
 		healerButtonPanel.setBackground(Color.black); 
@@ -285,7 +278,7 @@ public class UI{
 		window.setVisible(true);
 		healerButtonPanel.setVisible(false);
 
-		// Mage button panel
+		// Creating Mage button panel to allow for character switch
 		mageButtonPanel = new JPanel();
 		mageButtonPanel.setBounds(500, 400, 300, 150);
 		mageButtonPanel.setBackground(Color.black);
@@ -301,7 +294,7 @@ public class UI{
 		window.setVisible(true);
 		mageButtonPanel.setVisible(false);
 
-		// Warrior button panel
+		// Creating Warrior button panel to allow for character switch
 		warriorButtonPanel = new JPanel();
 		//warriorButtonPanel.setBounds(600, 350, 200, 50);
 	    warriorButtonPanel.setBounds(500, 500, 300, 150);
@@ -318,25 +311,23 @@ public class UI{
 		window.setVisible(true);
 		warriorButtonPanel.setVisible(true);
 
-		if(startOrContinue.equals("continue")) {				 
+		if(startOrContinue.equals("continue")){ //condition if player choose to load the game from previous save 				 
 			story.loadData();
-
 		}
-		
-	}
 
+	}
 	
+	//Methods that implements the action listener which handle actions triggered by button clicks
+
     public class TitleScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 		   Gameplay("start");
         
 		}
-	
     }
 
 	public class ContinueScreenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-
 				titleNamePanel.setVisible(false);
 				startButtonPanel.setVisible(false);
 				Gameplay("continue"); // Load the saved game data
@@ -371,9 +362,10 @@ public class UI{
 		}
 	}
     
+	// method also takes into account for different choices at different part of the game and calls appropraite methods for the storyline
 	private void handleChoiceButtonClick(ActionEvent event) {
 		String yourChoice = event.getActionCommand();
-		switch (story.position) {
+		switch (story.position){
 			case "dead":
 				switch (yourChoice) {
 					case "c1": story.Restart();break; 
@@ -621,7 +613,6 @@ public class UI{
 					case "c1": story.heal(); break;
 				}
 				break;
-			//if choice is left
 			case "left":   
 				switch(yourChoice){     
 					case "c1": story.goldchest(); break;
@@ -760,10 +751,7 @@ public class UI{
 						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}	
 				}
 				break;
-			// Add other cases as needed for different positions
 		}
 	}
-
-    
 }
 
