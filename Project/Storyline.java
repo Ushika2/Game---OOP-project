@@ -42,12 +42,12 @@ public class Storyline{
 	Axe axe = new Axe("axe",20);  //goblin weapon in village
     Knife knife = new Knife("knife",10);
 	Sword sword = new Sword("sword", 25);
-	Grimoire grimoire = new Grimoire("grimoire",20);
+	Grimoire grimoire = new Grimoire("grimoire",10);
 
 	// Creating spells
-	Blast blast = new Blast("blast",15);
-	Fire fire = new Fire("fire",20);
-	Frost frost = new Frost("frost",16);
+	Blast blast = new Blast("blast",12);
+	Fire fire = new Fire("fire",16);
+	Frost frost = new Frost("frost",14);
 	Lightning lightning = new Lightning("lightning", 18);
 
 	// Creating characters
@@ -60,7 +60,7 @@ public class Storyline{
 	Orgre orgre = new Orgre("orgre", 60);
 	Wolf wolf = new Wolf("wolf",23);
 	Wraith wraith = new Wraith("wraith", 35);
-	Dragon dragon = new Dragon("dragon",90);
+	Dragon dragon = new Dragon("dragon",150);
 
     public UI ui;          
 
@@ -1239,16 +1239,16 @@ public class Storyline{
 		}
 		else if(character == "mage"){
 			if(attack == "blast"){
-				damage = blast.getDamage();  //method to get damage of each spell
+				damage = blast.getDamage() + mage.damage();  //method to get damage of each spell + damage of grimoire
 			}
 			if(attack == "fire"){
-				damage = fire.getDamage();
+				damage = fire.getDamage() + mage.damage();
 			}
 			if(attack == "frost"){
-				damage = frost.getDamage();
+				damage = frost.getDamage() + mage.damage();
 			}
 			if(attack == "light"){
-				damage = lightning.getDamage();
+				damage = lightning.getDamage() + mage.damage();
 			}
 		}
 
@@ -1641,16 +1641,16 @@ public class Storyline{
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();  //method to get damage of each spell
+					damage = blast.getDamage() + mage.damage();  //method to get damage of each spell + damage of grimoire
 				}
 				if(attack == "fire"){
-					damage = fire.getDamage();
+					damage = fire.getDamage() + mage.damage();
 				}
 				if(attack == "frost"){
-					damage = frost.getDamage();
+					damage = frost.getDamage() + mage.damage();
 				}
 				if(attack == "light"){
-					damage = lightning.getDamage();
+					damage = lightning.getDamage() + mage.damage();
 				}
 			}
 
@@ -1706,16 +1706,16 @@ public class Storyline{
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();  //method to get damage of each spell
+					damage = blast.getDamage() + mage.damage();  //method to get damage of each spell + damage of grimoire
 				}
 				if(attack == "fire"){
-					damage = fire.getDamage();
+					damage = fire.getDamage() + mage.damage();
 				}
 				if(attack == "frost"){
-					damage = frost.getDamage();
+					damage = frost.getDamage() + mage.damage();
 				}
 				if(attack == "light"){
-					damage = lightning.getDamage();
+					damage = lightning.getDamage() + mage.damage();
 				}
 			}
 
@@ -1771,16 +1771,16 @@ public class Storyline{
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();  //method to get damage of each spell
+					damage = blast.getDamage() + mage.damage();  //method to get damage of each spell + damage of grimoire
 				}
 				if(attack == "fire"){
-					damage = fire.getDamage();
+					damage = fire.getDamage() + mage.damage();
 				}
 				if(attack == "frost"){
-					damage = frost.getDamage();
+					damage = frost.getDamage() + mage.damage();
 				}
 				if(attack == "light"){
-					damage = lightning.getDamage();
+					damage = lightning.getDamage() + mage.damage();
 				}
 			}
 
@@ -1838,16 +1838,16 @@ public class Storyline{
 			}
 			else if(character == "mage"){
 				if(attack == "blast"){
-					damage = blast.getDamage();  //method to get damage of each spell
+					damage = blast.getDamage() + mage.damage();  //method to get damage of each spell + damage of grimoire
 				}
 				if(attack == "fire"){
-					damage = fire.getDamage();
+					damage = fire.getDamage() + mage.damage();
 				}
 				if(attack == "frost"){
-					damage = frost.getDamage();
+					damage = frost.getDamage() + mage.damage();
 				}
 				if(attack == "light"){
-					damage = lightning.getDamage();
+					damage = lightning.getDamage() + mage.damage();
 				}
 			}
 
