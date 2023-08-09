@@ -19,7 +19,7 @@ public class Storyline{
 
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 18);
 	
-    String playerName, weapon, position, location, goblinName,  wraithName, orgreName, wolfName, dragonName, character;
+    String playerName, weapon, position, location, goblinName,  wraithName, orgreName, wolfName, dragonName, character, attack;
     int playerHP=100, goblinHP, orgreHP, wolfHP, wraithHP, dragonHP, gold, turn=0;
 
 	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
@@ -27,26 +27,25 @@ public class Storyline{
 
 	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
 	int fireC = 0, frostC = 0, lightC = 0;
-	String attack;
 
-    // Creating weapons
-	Axe axe = new Axe("axe",20);  //goblin weapon in village
+    // Creating weapons and assigning a name and damage
+	Axe axe = new Axe("axe",20); 
     Knife knife = new Knife("knife",10);
 	Sword sword = new Sword("sword", 25);
 	Grimoire grimoire = new Grimoire("grimoire",10);
 
-	// Creating spells
+	// Creating spells, assigning name and damage
 	Blast blast = new Blast("blast",12);
 	Fire fire = new Fire("fire",16);
 	Frost frost = new Frost("frost",14);
 	Lightning lightning = new Lightning("lightning", 18);
 
-	// Creating characters
+	// Creating characters, assigning a name, Hp and weapon
 	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
 	Healer healer = new Healer("healer", playerHP, 15, knife);
 	Mage mage = new Mage("mage",playerHP,blast,grimoire);
 
-	// Creating monsters
+	// Creating monsters, assigning name and Hp
 	Goblin goblin = new Goblin("goblin",13);
 	Orgre orgre = new Orgre("orgre", 60);
 	Wolf wolf = new Wolf("wolf",23);
@@ -56,16 +55,14 @@ public class Storyline{
     public UI ui;          
 
     public Storyline(Container container,UI ui) {     ///to avoid the null pointer exception
-
 		this.con = container;
         this.ui = ui;
 		
 	}
 
 	//CHARACTER SETUP
-
-    public void playerSetup(){ 
-		location = "Town";
+    public void playerSetup(){ //update player panel
+		location = "Town";  //initial location
         character = "warrior";
 		ui.weaponLabelName.setText(knife.getName());
 		if(swordCount == 1){
@@ -77,12 +74,11 @@ public class Storyline{
 		playerName = warrior.getName();
 		ui.goldLabelNumber.setText(""+ gold);
 		ui.characterLabelName.setText("" + warrior.getName());
-		
 	}
 
-	public void healerSetup(){
+	public void healerSetup(){  //update player panel when switching to healer
 		character = "healer";
-		ui.characterLabelName.setText("" + healer.getName());
+		ui.characterLabelName.setText("" + healer.getName());  //update weapon 
 		if(axeCount == 1){
 			ui.weaponLabelName.setText(""+ axe.getName());
 		}
@@ -94,33 +90,32 @@ public class Storyline{
 		}
 	}
 
-	public void heal(){
-		if(character == "healer" && turn >3){
+	public void heal(){  //increaing playerHp when healing
+		if(character == "healer" && turn >3){  //character should be healer and heal is available after every 3 attacks done by player
 			playerHP += healer.getHealingPower();
 			ui.hpLabelNumber.setText("" + playerHP);
 			warrior.setHP(playerHP);
-			turn = 0;
+			turn = 0;  //restart count for number of attacks
 			ui.choice4.setVisible(false);
 		}
 	}
 
-	public void mageSetup(){
+	public void mageSetup(){  //update player panel when switching to mage
 		character = "mage";
-		ui.characterLabelName.setText("" + mage.getName());
-		ui.weaponLabelName.setText(grimoire.getName());
+		ui.characterLabelName.setText("" + mage.getName());  //change characterlabel
+		ui.weaponLabelName.setText(grimoire.getName());  //change weapon
 	}
 
-	public void warriorSetup(){
+	public void warriorSetup(){  //update player panel when switching back to warrior
 		character = "warrior";
 		ui.characterLabelName.setText("" + warrior.getName());
 		ui.weaponLabelName.setText(knife.getName());
 		if(swordCount == 1){
 			ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
 		}
-		
 	}
 
-	public void mageAttack(){
+	public void mageAttack(){  //display spells (that player has) choices during fights
 		position = "mageAttack";
 		ui.choice1.setText("Blast");
 		if(fireC == 1){
@@ -136,12 +131,11 @@ public class Storyline{
 			ui.choice4.setVisible(true);
 		}
 		ui.choice1.setVisible(true);
-		
 	}
 
-	//-----MONSTER SETUP-----
+	// MONSTER Setup which will be displayed in the monster panel during fights
 
-	// Goblin setup
+	// Goblin setup in forest
 	public void goblinSetup(){
 		ui.monsterName.setText(goblin.getName());
 		goblinHP = 13;
@@ -194,23 +188,22 @@ public class Storyline{
 		
 	}
 
-
 	//-----SAVE AND LOAD GAME DATA-----
 
 	public void saveGame(){
 		try{
-			BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt"));
-			bw.write(""+warrior.getHP());
+			BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt"));  //creating text file
+			bw.write(""+warrior.getHP());   //player Hp
 			bw.newLine();
-			bw.write(warrior.getName());
+			bw.write(warrior.getName());  // character name
 			bw.newLine();
-			bw.write(knife.getName());
+			bw.write(knife.getName());   //character weapon
 			bw.newLine();
-			bw.write(location);			
+			bw.write(location);			// location
 			bw.newLine();
-			bw.write(""+gold);
+			bw.write(""+gold);         // amount of gold
 			bw.newLine();	
-			bw.write(goblinName);			//save goblin Hp
+			bw.write(goblinName);		//save goblin name & Hp
 			bw.newLine();
 			bw.write(""+goblin.getHP());	
 			bw.newLine();
@@ -228,9 +221,9 @@ public class Storyline{
 			bw.newLine();
 			bw.write(""+ swordCount);  // save weapon - sword if acquired
 			bw.newLine();
-			bw.write(""+ forestCount);
+			bw.write(""+ forestCount);  // save if (forest) goblin has been defeated
 			bw.newLine();
-			bw.write(""+ waterfallCount);
+			bw.write(""+ waterfallCount);  //save if wraith has been defeated at waterfall
 			bw.newLine();
 			bw.write(""+wraithHP);  //save wraith Hp
 			bw.newLine();
@@ -253,7 +246,7 @@ public class Storyline{
 
 	public void loadData(){
 		try{
-			BufferedReader br = new BufferedReader(new FileReader("saveFile.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("saveFile.txt"));  //read data from text file
 			playerHP = Integer.parseInt(br.readLine());
 			playerName = br.readLine();
 			weapon = br.readLine();
@@ -261,7 +254,6 @@ public class Storyline{
 			gold = Integer.parseInt(br.readLine());
 			goblinName = br.readLine();
 			goblinHP = Integer.parseInt(br.readLine());
-           // goblin.setHP(goblinHP);
 			villageCount = Integer.parseInt(br.readLine());
 			healerCount = Integer.parseInt(br.readLine());
 			mageCount = Integer.parseInt(br.readLine());
@@ -272,9 +264,7 @@ public class Storyline{
 			forestCount = Integer.parseInt(br.readLine());
 			waterfallCount = Integer.parseInt(br.readLine());
 			wraithHP = Integer.parseInt(br.readLine());
-			//wraith.setHP(wraithHP);
 			orgreHP = Integer.parseInt(br.readLine());
-			//orgre.setHP(orgreHP);
 			fireC = Integer.parseInt(br.readLine());
 			frostC = Integer.parseInt(br.readLine());
 			lightC = Integer.parseInt(br.readLine());
@@ -288,6 +278,8 @@ public class Storyline{
 		 ui.mainTextArea.setText("Failed to load the game. Please check your save file and try again.");
 		   
 		}
+
+		// update player panel as per load data
 		character = "warrior";
 		ui.hpLabelNumber.setText("" + playerHP);
 		ui.characterLabelName.setText("" + warrior.getName());
@@ -299,6 +291,8 @@ public class Storyline{
 		}
 		ui.locationName.setText(location);
 		ui.goldLabelNumber.setText(""+ gold);
+
+		// update goblin setup
 		goblin.setHP(goblinHP);
 		ui.monsterName.setText(""+ goblin.getName());
 		ui.monsterHP.setText("" + goblin.getHP());
@@ -314,34 +308,31 @@ public class Storyline{
 			ui.mageButton.setVisible(true);
 			ui.mageButtonPanel.setVisible(true);
 		}
-
 	    loadgame();
 		
 	}
    
-    public void intro(){
-		// Begining of story - town
+    public void intro(){  // Begining of story - town
 		position = "intro";
+		// output narration of storyline
 		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person.'Hello adventurer, I am the chief of this town. I plead for your help to find my daughter who has been kidnapped.' Feeling empathy, you accept to help him. You can visit the village to buy armors."); // to change
-		ui.mainTextArea.setBounds(100, 100, 600, 250); 
+		ui.mainTextArea.setBounds(100, 100, 600, 250);   //mainTextArea customization
 		ui.mainTextPanel.setBackground(Color.black);
-		//ui.mainTextArea.setForeground(Color.black);  //maybe to change later
 		ui.mainTextArea.setBackground(Color.black);
 		ui.mainTextArea.setForeground(Color.white);
 		ui.mainTextArea.setFont(ui.normaltextFont);
 		ui.mainTextArea.setLineWrap(true);
 		ui.mainTextArea.setWrapStyleWord(true); 
 		ui.mainTextArea.setEditable(false); 	
-		ui.mainTextPanel.add(ui.mainTextArea);
+		ui.mainTextPanel.add(ui.mainTextArea);  // adding mainTextArea to mainTextPanel
 		 
 	}
 
-	public void loadgame(){
+	public void loadgame(){  //display message to show game has been loaded
 		position = "continue";
 		ui.mainTextArea = new JTextArea("Game loaded successfully"); 
 		ui.mainTextArea.setBounds(100, 100, 600, 250);
 		ui.mainTextPanel.setBackground(Color.black);
-		//ui.mainTextArea.setForeground(Color.black);  //maybe to change later
 		ui.mainTextArea.setBackground(Color.black);
 		ui.mainTextArea.setForeground(Color.white);
 		ui.mainTextArea.setFont(ui.normaltextFont);
@@ -353,7 +344,7 @@ public class Storyline{
 
 	}
 
-	public void Map() {
+	public void Map() {  //method for when player opens map
 		position = "map";
 
 		ui.choiceButtonPanel.setVisible(true);
@@ -367,7 +358,7 @@ public class Storyline{
 		con.add(mapPanel);
 
 		ui.mapTextArea = new JTextArea("Choose where to go.");
-		ui.mapTextArea.setBounds(100, 150, 600, 250);
+		ui.mapTextArea.setBounds(100, 150, 600, 250);  //customization
 		ui.mapTextArea.setBackground(Color.black);
 		ui.mapTextArea.setForeground(Color.white);
 		ui.mapTextArea.setFont(normalFont);
@@ -378,18 +369,16 @@ public class Storyline{
 		mapPanel.add(ui.mapTextArea);
 		mapPanel.setVisible(true); // Show the map panel
 
-		ui.choice1.setText("Town");
-		ui.choice2.setText("Forest"); // in forest, you go to river, mountain or back to town
+		ui.choice1.setText("Town");  //choices to different location
+		ui.choice2.setText("Forest");
 		ui.choice3.setText("Village");
 		ui.choice4.setText("River");
-		// choice 5 for moauntain
 		
 		//ensure that all choices appear when map is called
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(true);
 		ui.choice4.setVisible(true);
-		//choice.story.position = position;
 	}
 
 
@@ -412,7 +401,7 @@ public class Storyline{
 	}
 
 	
-	// Going to village for 1st time
+	// Going to village for 1st time - side quest initiated
 	public void village1(){
 		villageCount = 1;
 		position = "village1";
@@ -441,20 +430,17 @@ public class Storyline{
 	}
 
 	public void dodge(){
-		//position = "dodge";
+		position = "villageattackGoblin";
 		Random random = new Random();
-        int randomNumber = random.nextInt(2);
+        int randomNumber = random.nextInt(2);  //make dodge random
 		if (randomNumber == 0){
 			ui.mainTextArea.setText("You duck your head and was able to dodge the attack");
 		}
 		else{
 			int damage = new java.util.Random().nextInt(5,20);
 			ui.mainTextArea.setText("You try to dodge, but failed, taking in" + damage + "damage");
-
 			warrior.takeDamage(damage);
 
-			// update hp of player
-			// ui.hpLabelNumber.setText(""+warrior.getHP());
 			 // Update playerHP based on the damage taken
 			 playerHP -= damage;
 			 // Ensure playerHP doesn't go below 0
@@ -465,35 +451,31 @@ public class Storyline{
 			 // Update hp of player in the UI
 			 ui.hpLabelNumber.setText("" + playerHP);
 		}
-		position = "villageattackGoblin";
 		ui.choice1.setText("Attack");
 		ui.choice2.setVisible(false);
 	}
 
 	public void blockAttack(){
-		
+		position = "villageattackGoblin";
 		if (warrior.getLeftHandWeapon().getDamage() < axe.getDamage()){
 
 			int damage = new java.util.Random().nextInt(1,10);
 			ui.mainTextArea.setText("You try to block the attack, but failed. You stumble back and receives " + damage + " damage.");
 			warrior.takeDamage(damage);
-			//ui.hpLabelNumber.setText(""+warrior.getHP());
-			 //Update playerHP based on the damage taken
-			 playerHP -= damage;
-			 // Ensure playerHP doesn't go below 0
-			 if (playerHP < 0) {
-				 playerHP = 0;
-			 }
-		 
-			 // Update hp of player in the UI
-			 ui.hpLabelNumber.setText("" + playerHP);
+			//Update playerHP based on the damage taken
+			playerHP -= damage;
+			// Ensure playerHP doesn't go below 0
+			if (playerHP < 0) {
+				playerHP = 0;
+				dead();   // call method dead
+			}
+		
+			// Update hp of player in the UI
+			ui.hpLabelNumber.setText("" + playerHP);
 		}
 		else{
 			ui.mainTextArea.setText("You raise your weapon and block the attack.");
 		}
-		
-										 
-		position = "villageattackGoblin";
 		ui.choice1.setText(">");
 		ui.choice2.setVisible(false);
 		
@@ -503,14 +485,11 @@ public class Storyline{
 	public void villagegoblinAttack(){
 		position = "villagegoblinAttack";
 		ui.monsterPanel.setVisible(true);
-		//goblin.setHP(13);
-		//goblinSetup();
 
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
         
-		int damage = new java.util.Random().nextInt(1,20);
-
+		int damage = new java.util.Random().nextInt(1,20);   //make damage bt goblin random in range of 1 to 20
 		ui.mainTextArea.setText("The goblin attacked you giving " + damage + " damage.");
 
 		warrior.takeDamage(damage);    //decrease HP of warrior
@@ -552,12 +531,8 @@ public class Storyline{
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
-		//warrior.attack(goblin);
 		goblin.takeDamage(damage);
 		// update hp of goblin
-		// ui.monsterHP.setText("" + goblin.getHP());
-		//goblinAttack();
-
 		goblinHP -= damage;
 		 // Ensure playerHP doesn't go below 0
 		 if (goblinHP < 0) {
@@ -567,36 +542,24 @@ public class Storyline{
 		 ui.monsterHP.setText("" + goblinHP);
 
 		if (goblinHP > 0){
-			//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
-		 	//goblinAttack();
 			ui.mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
 			ui.choice1.setText(">");
 			ui.choice2.setText("");
 			ui.choice3.setText("");
 			ui.choice4.setText("");
-			//goblinAttack();
+
 			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
 			
 		}
-		
 		else{
 			goblin.setHP(0);
 			ui.monsterHP.setText("" + goblin.getHP());
 			
-			if(location == "Forest"){
-				position = "endFightForest";
-
-				ui.choice1.setText("Advance in the forest");
-				ui.choice2.setText("View map");
-				ui.choice2.setVisible(true);
-			}
-			else if(location == "Village"){
-				position = "endFightVillage";
-				ui.choice1.setText(">");
-				ui.choice2.setVisible(false);
-			}
+			position = "endFightVillage";
+			ui.choice1.setText(">");
+			ui.choice2.setVisible(false);
 			
 			ui.choice1.setVisible(true);
 			ui.choice3.setVisible(false);
@@ -604,18 +567,14 @@ public class Storyline{
 		}
 	}
 
-
-
 	public void villageFightEnd(){
 		position = "endQuest1";
 		ui.monsterPanel.setVisible(false);
 		ui.mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
-		//playerHP = warrior.getHP() + 25;
 		playerHP = playerHP + 25;
 
-		 if (playerHP > 100) {
+		if (playerHP > 100){  // make sure player Hp doesn't go beyond limit
 			playerHP = 100;
-		
 		}
 
 		warrior.setHP(playerHP);
@@ -635,14 +594,12 @@ public class Storyline{
 		ui.mainTextArea.setText("You find a place to hide and watch the fight closely. After some struggle, he managed to fight them off, but then collapsed to the ground.");
 		ui.choice1.setText("Rush to his aid");
 		ui.choice2.setText("Don't bother to help");
-	
 	}
 
 	public void aidHealer2(){
 		position = "aidHealer2";
 		ui.mainTextArea.setText("You rushed to his side and managed to drag him on a nearby bench.'Water, please.'");
 		ui.choice1.setText("Offer him some water");
-
 	}
 
 	public void notHelp1(){
@@ -650,7 +607,6 @@ public class Storyline{
 		ui.mainTextArea.setText("The latter started to whimper in pain, asking for some water.");
 		ui.choice1.setText("Offer him some water");
 		ui.choice2.setText("Walk past him");
-		
 	}
 
 	public void offerWater(){
@@ -664,7 +620,6 @@ public class Storyline{
 		//gain healer
 		healerCount = 1;
 		ui.healerButtonPanel.setVisible(true);	
-
 	}
 
 	public void walkPast(){
@@ -675,7 +630,7 @@ public class Storyline{
 		ui.choice2.setVisible(true);
 	}
 
-	public void village2(){
+	public void village2(){  // going to the village after side quest
 		position = "endQuest1";
 		ui.locationName.setText(location);
 		mapPanel.setVisible(false);
@@ -715,16 +670,16 @@ public class Storyline{
 		ui.choice4.setVisible(true);
 	}
 
-	public void sellItem(String item){
+	public void sellItem(String item){   //method takes as attribute the name of item player wants to sell
 		position = "sellItem";
 		if(item == "GoblinTeeth"){
 			if(goblinTeeth == 0){
 				ui.mainTextArea.setText("You do not have any goblin teeth to sell.");
 			}
 			else{
-				int priceGoblin = 10;
+				int priceGoblin = 10;  //initialize and calculate price
 				int total = priceGoblin*goblinTeeth;
-				gold = gold + total;
+				gold = gold + total;  // update gold after sale
 				ui.goldLabelNumber.setText(""+ gold);
 				ui.mainTextArea.setText("You sold all goblin teeth and received " + total + " golds.");
 			}
@@ -734,9 +689,9 @@ public class Storyline{
 				ui.mainTextArea.setText("You do not have any wolf skin to sell.");
 			}
 			else{
-				int priceWolf = 25;
+				int priceWolf = 25;   //calculate price
 				int total = priceWolf*wolfSkin;
-				gold = gold + total;
+				gold = gold + total;   // update gold
 				ui.goldLabelNumber.setText(""+ gold);
 				ui.mainTextArea.setText("You sold all wolf skins and received " + total + " golds.");
 			}
@@ -746,9 +701,9 @@ public class Storyline{
 				ui.mainTextArea.setText("You do not have any wraith cloth to sell.");
 			}
 			else{
-				int priceWraith = 22;
+				int priceWraith = 22;  //calculate price
 				int total = priceWraith*wraithCloth;
-				gold = gold + total;
+				gold = gold + total;  //update gold
 				ui.goldLabelNumber.setText(""+ gold);
 				ui.mainTextArea.setText("You sold all wraith cloth and received " + total + " golds.");
 			}
@@ -758,9 +713,9 @@ public class Storyline{
 				ui.mainTextArea.setText("You do not have any orgre claw to sell.");
 			}
 			else{
-				int priceOrgre = 30;
+				int priceOrgre = 30;   //calculate price
 				int total = priceOrgre*orgreClaw;
-				gold = gold + total;
+				gold = gold + total;  //update gold
 				ui.goldLabelNumber.setText(""+ gold);
 				ui.mainTextArea.setText("You sold all orgre claw and received " + total + " golds.");
 			}
@@ -793,7 +748,7 @@ public class Storyline{
 		ui.choice4.setText("Back");
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(true);
-		if(swordCount == 1){
+		if(swordCount == 1){   //condition because item are only purchased once
 			ui.choice1.setVisible(false);
 		}
 		if(axeCount == 1){
@@ -961,7 +916,7 @@ public class Storyline{
 		ui.choice4.setVisible(false);
 	}
 
-	public void river1(){
+	public void river1(){  //going to river for the 1st time - side quest
 		position = "river1";
 		location = "River";
 		ui.locationName.setText(location);
@@ -1002,7 +957,7 @@ public class Storyline{
 		position = "saveRiver";
 		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
-		if(healerCount == 0){
+		if(healerCount == 0){   //player die without healer
 			ui.mainTextArea.setText("You get in the water, but end up getting poisoned. The poison started to infect your whole body until you feel numb. And without much help, you die in your own suffering.");
 			playerHP = 0;
 			warrior.setHP(0);
@@ -1014,7 +969,7 @@ public class Storyline{
 			ui.choice4.setVisible(false);
 		}
 		else{
-			if(character == "warrior" || character == "archer"){
+			if(character == "warrior"){  //guide player to switch to healer first
 				ui.mainTextArea.setText("Having a good expertise, Brook tells you that he will be able to remove the poison and heal the people.");
 			
 				ui.choice2.setText("Switch to Brook");
@@ -1022,7 +977,7 @@ public class Storyline{
 				ui.choice3.setVisible(false);
 				ui.choice4.setVisible(false);
 			}
-			else if(character == "healer"){
+			else if(character == "healer"){  //if character already == healer
 				ui.mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
 				playerHP = warrior.getHP() - 35;	
 				healer.setHP(playerHP);
@@ -1039,7 +994,7 @@ public class Storyline{
 		
 	}
 	
-	public void usePotion(String name){
+	public void usePotion(String name){  //alternate solution if player doesn't possess a healer
 		position = "potion";
 		if(name == "CuringPotion"){
 			if(CurePotionCount == 0){
@@ -1084,7 +1039,7 @@ public class Storyline{
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 
-		//gain healer
+		//gain mage
 		mageCount = 1;
 		ui.mageButtonPanel.setVisible(true);
 	}
@@ -1123,7 +1078,7 @@ public class Storyline{
 		ui.choice4.setVisible(false);
 	}
 
-	// Going to forest for the 1st time
+	// Going to forest for the 1st time - encounter goblin
 	public void forest1(){
 		forestCount = 1;
 		position = "forest";
@@ -1133,7 +1088,7 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
 		ui.choiceButtonPanel.setVisible(true); // Set the choiceButtonPanel to visible
 
-
+		goblinSetup();
 		if(goblinHP > 0){
 			ui.mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
 			ui.choice1.setText("Fight the goblin");
@@ -1145,19 +1100,9 @@ public class Storyline{
 			ui.choice4.setVisible(false);
 			System.out.println(""+goblinHP);
 		}
-		// else{
-		// 	ui.mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
-		// 	ui.choice3.setText("Advance in forest");
-		//     ui.choice4.setText("View map");
-
-		// 	ui.choice1.setVisible(false);
-		//     ui.choice2.setVisible(false);	
-		// 	System.out.println("else "+goblinHP);
-			
-		// }
 	}
 
-	public void endForest1(){
+	public void endForest1(){  //going back to forest after defeating goblin
 		position = "endforest1";
 		location = "Forest";
 		ui.locationName.setText(location);
@@ -1166,12 +1111,11 @@ public class Storyline{
 		ui.choiceButtonPanel.setVisible(true); // Set the choiceButtonPanel to visible
 
 		ui.mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
-			ui.choice1.setText("Advance in forest");
-		    ui.choice2.setText("View map");
+		ui.choice1.setText("Advance in forest");
+		ui.choice2.setText("View map");
 
-			ui.choice3.setVisible(false);
-		    ui.choice4.setVisible(false);	
-			System.out.println("else "+goblinHP);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);	
 
 	}
 
@@ -1179,13 +1123,10 @@ public class Storyline{
 	public void goblinAttack(){
 		position = "goblinAttack";
 		ui.monsterPanel.setVisible(true);
-		//goblinSetup();
-
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 
-		int damage = new java.util.Random().nextInt(1,20);
-
+		int damage = new java.util.Random().nextInt(1,20); //goblin attack causing random damage
 		ui.mainTextArea.setText("The goblin attacked you giving " + damage + " damage.");
 
 		warrior.takeDamage(damage);    //decrease HP of warrior
@@ -1215,15 +1156,14 @@ public class Storyline{
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
 		}
-		
 	}
 
 	public void AttackGoblin(){
 		position = "attackGoblin";
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
-		//int damage = knife.getDamage();
-         int damage = 0;
+
+        int damage = 0;
 
 		if(character == "warrior"){
 			damage = warrior.damage();  //method identifies weapon/s of warrior and calculate its total damage.
@@ -1248,58 +1188,41 @@ public class Storyline{
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
-		//warrior.attack(goblin);
-		goblin.takeDamage(damage);
-		// update hp of goblin
-		// ui.monsterHP.setText("" + goblin.getHP());
-		//goblinAttack();
-
+		goblin.takeDamage(damage);  // update hp of goblin
 		goblinHP -= damage;
 		 // Ensure playerHP doesn't go below 0
-		 if (goblinHP < 0) {
-			 goblinHP = 0;
-		 }
+		if (goblinHP < 0) {
+			goblinHP = 0;
+		}
 
-		 ui.monsterHP.setText("" + goblinHP);
+		ui.monsterHP.setText("" + goblinHP);
 
-		if (goblinHP > 0){
-			//mainTextArea.setText("You attack the goblin back, giving it a" + goblin.getHP() + "damage.");
-		 	//goblinAttack();
+		if (goblinHP > 0){ //if goblin still alive
 			ui.mainTextArea.setText("You attack the goblin back, giving it " + damage + " damage.");
 			ui.choice1.setText(">");
 			ui.choice2.setText("");
 			ui.choice3.setText("");
 			ui.choice4.setText("");
-			//goblinAttack();
+			
 			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
-			
 		}
-		
-		else{
+		else{  //if goblin has been defeated
 			goblin.setHP(0);
-			ui.monsterHP.setText("" + goblin.getHP());
+			ui.monsterHP.setText("" + goblin.getHP());  //diplay goblin hp as 0
 			
-			if(location == "Forest"){
-				position = "endFightForest";
-				
-				ui.choice1.setText("Advance in the forest");
-				ui.choice2.setText("View map");
-				ui.choice2.setVisible(true);
-			}
-			else if(location == "Village"){
-				position = "endFightVillage";
-				ui.choice1.setText(">");
-				ui.choice2.setVisible(false);
-			}
+			position = "endFightForest";
+			
+			ui.choice1.setText("Advance in the forest");
+			ui.choice2.setText("View map");
+			ui.choice2.setVisible(true);
 			
 			ui.choice1.setVisible(true);
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
 		}
 	}
-
 
 	public void forest2(){
 		position = "forest2";
@@ -1325,7 +1248,7 @@ public class Storyline{
 	public void left(){
 		position = "left";
 		
-		if(chestForest == 0){
+		if(chestForest == 0){  //condition ensuring that chest can be opened only once
 			ui.mainTextArea.setText("You find a hidden chest.");
 			ui.choice1.setVisible(true);
 		}
@@ -1349,7 +1272,7 @@ public class Storyline{
 		location = "Waterfall";
 		position = "waterfallfight";
 		ui.monsterPanel.setVisible(true);
-		ui.mainTextArea.setText("You arrived at a river and the place is filled with wraith.");
+		ui.mainTextArea.setText("You arrived at a waterfall and the place is filled with wraith.");
 		ui.choice1.setText("Attack");
 		ui.choice2.setText("Turn back");
 		ui.choice3.setText("");
@@ -1361,7 +1284,7 @@ public class Storyline{
 		ui.choice4.setVisible(false);
 	}
 
-    public void waterfall2(){
+    public void waterfall2(){  //going back to waterfall after defeating wraith
 		position = "waterfall";
 		ui.monsterPanel.setVisible(false);
 		ui.mapButtonPanel.setVisible(false);
@@ -1377,10 +1300,9 @@ public class Storyline{
 		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
-
 	}
 
-    public void swim(){
+    public void swim(){  //player dies
 		position = "swim";
 		ui.mapButtonPanel.setVisible(false);
 		ui.healerButtonPanel.setVisible(false);
@@ -1480,18 +1402,16 @@ public class Storyline{
 	}
 	
 	public void monsterAttack(String name){
-		if(name == "wolf"){ //forest & in cave
+		if(name == "wolf"){
 			position = "wolfAttack";
 			ui.monsterPanel.setVisible(true);
 			ui.monsterName.setText(wolf.getName());
 			ui.monsterHP.setText("" + wolf.getHP());
 
-			int damage = new java.util.Random().nextInt(2,11);
-
+			int damage = new java.util.Random().nextInt(2,11);  // random damage
 			ui.mainTextArea.setText("The wolf attacked you giving " + damage + " damage.");
 
 			warrior.takeDamage(damage);    //decrease HP of warrior
-			//healer.takeDamage(damage);
 
 			// Update playerHP based on the damage taken
 			playerHP -= damage;
@@ -1508,10 +1428,9 @@ public class Storyline{
 			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
-		
 		}
 
-		else if(name == "orgre"){  // path mountain
+		else if(name == "orgre"){  // path  to mountain
 			position = "orgreAttack";
 			int damage = new java.util.Random().nextInt(4,25);
 
@@ -1525,7 +1444,7 @@ public class Storyline{
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				//dead();
+				
 				ui.choice3.setText(">");
 				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
@@ -1554,14 +1473,13 @@ public class Storyline{
 			ui.mainTextArea.setText("The wraith attacked you giving " + damage + " damage.");
 
 			warrior.takeDamage(damage);    //decrease HP of warrior
-			//healer.takeDamage(damage);
 
 			// Update playerHP based on the damage taken
 			playerHP -= damage;
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				//dead();
+				
 				ui.choice3.setText(">");
 				ui.choice3.setVisible(true);
 				ui.choice1.setVisible(false);
@@ -1589,14 +1507,13 @@ public class Storyline{
 			ui.mainTextArea.setText("The dragon attacked you giving " + damage + " damage.");
 
 			warrior.takeDamage(damage);    //decrease HP of warrior
-			//healer.takeDamage(damage);
 
 			// Update playerHP based on the damage taken
 			playerHP -= damage;
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				//dead();
+			
 				ui.choice2.setText(">");
 				ui.choice2.setVisible(true);
 				ui.choice1.setVisible(false);
@@ -1615,16 +1532,13 @@ public class Storyline{
 				ui.choice4.setVisible(false);
 			}
 		}
-
 	}
 
 	// Method for attacking monster, taking the attribute monster name (to know which monster we are attacking). 
 	public void attackMonster(String name){
 		if(name == "wolf"){  //in cave - puzzle failed
 			position = "attackWolf";
-
 			turn += 1;  //Turn = total number of attacks
-
 			int damage=0;
 
 			if(character == "warrior"){
@@ -1889,7 +1803,7 @@ public class Storyline{
 	}
 
 	
-	public void dead(){
+	public void dead(){  //method when player dies
 		position = "dead";
 		ui.mapButtonPanel.setVisible(false);
 		ui.monsterPanel.setVisible(false);
@@ -1901,11 +1815,9 @@ public class Storyline{
 		ui.choiceButtonPanel.setVisible(true);
 		playerHP = 0;
 		
-		 // Update hp of player in the UI
+		// Update hp of player in the UI
 		ui.hpLabelNumber.setText("" + playerHP);
-
 		ui.mainTextArea.setText("Game Over!");
-
 			
 		ui.choice1.setText("Restart");
 		ui.choice2.setText("Load game");
@@ -1914,14 +1826,12 @@ public class Storyline{
 
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(true);
-
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	
 	}
 
-	public void Restart(){
-
+	public void Restart(){  // restart game after dying
 		// To close the JFrame programmatically:
         ui.window.dispose();
 
@@ -1932,8 +1842,7 @@ public class Storyline{
 		ui.Gameplay("start");
 	}
 
-	public void continueGame(){
-
+	public void continueGame(){  //load game from previous save, after dying
 		// To close the JFrame programmatically:
         ui.window.dispose();
 		
@@ -1942,11 +1851,9 @@ public class Storyline{
 		ui.titleNamePanel.setVisible(false);
 		ui.startButtonPanel.setVisible(false);
 		ui.Gameplay("continue");
-
 	}
 
-
-	public void end(){
+	public void end(){  //method for when player wins the game
 		ui.mainTextArea.setText("You won!\n\n The End.");
 		ui.choice1.setVisible(false);
 		ui.choice2.setVisible(false);
@@ -1966,21 +1873,32 @@ public class Storyline{
 
 		Reward reward = generateRandomReward();
 
-		if (reward instanceof Gold) {
+		if (reward instanceof Gold){  //obtain gold from chest
 			Gold goldReward = (Gold) reward;
-			int addGold = goldReward.getAmount();
-			// int addgold = new java.util.Random().nextInt(1000) + 1;
-			gold = gold + addGold;
+			int addGold = goldReward.getAmount();  // random amount
+			gold = gold + addGold;  //update gold of player
 			// update gold of player
 			ui.goldLabelNumber.setText(""+ gold);
 			ui.mainTextArea.setText("You opened the chest and found " + addGold + " gold.");
 		}
-		else if (reward instanceof Weapon) {
+		else if (reward instanceof Weapon){  //obtain weapon from chest
 			Weapon weaponReward = (Weapon) reward;
-			String weaponName = weaponReward.getName();
+			String weaponName = weaponReward.getName();  //random weapon between sword or axe
 			ui.mainTextArea.setText("You opened the chest and found a " + weaponName + ".");
-			// Your code to handle the weapon goes here
-			// For example, you can equip the weapon to the player or add it to their inventory
+			if(weaponName == "Sword"){  //update player weapon
+				swordCount = 1;
+				warrior.setRightHandWeapon(sword);
+				if(character == "warrior"){
+					ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
+				}
+			}
+			if(weaponName == "Axe"){
+				axeCount = 1;
+				healer.setWeapon(axe);
+				if(character == "healer"){
+					ui.weaponLabelName.setText(axe.getName());
+				}
+			}
 		}
 
 		if(location == "Forest"){
@@ -1994,53 +1912,51 @@ public class Storyline{
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
 		}
-
 	}
 
+	// Serializable interface
 	class Reward implements Serializable{
-		// Base class for rewards
-		//serves as a placeholder base class for different types of rewards
+		// Base class for rewards serves as a placeholder base class for different types of rewards
 		// it acts as a common superclass to enable polymorphism and help organize the different types of rewards.
 	}
 	
-	class Gold extends Reward{
+	// polymorphism
+	class Gold extends Reward{  // gold being a sub-class of reward
 		private int amount;
 	
-		public Gold(int amount) {
+		public Gold(int amount){  //constructor taking in parameter the amount of gold
 			this.amount = amount;
 		}
 	
-		public int getAmount() {
+		public int getAmount(){  //retrieve amount of gold
 			return amount;
 		}
 	}
 	
-	class Weapon extends Reward{
+	class Weapon extends Reward{  // weapon being a sub-class of reward
 		private String name;
 	
-		public Weapon(String name) {
+		public Weapon(String name){  //constructor taking in parameter the name of weapon
 			this.name = name;
 		}
 	
-		public String getName() {
+		public String getName(){  //retrieve name of weapon
 			return name;
 		}
 	}
 	
-	private Reward generateRandomReward() {
+	private Reward generateRandomReward(){  // method that generates random reward
 		Random random = new Random();
 		int chance = random.nextInt(100); // Generating a random number between 0 and 99 (inclusive)
 	
-		if (chance < 80) {
-			// 80% chance to get gold
+		if(chance < 80){  // 80% chance to get gold
 			int randomGold = random.nextInt(50,300) + 1; // Generates a random number between 1 and 1000 (inclusive)
 			return new Gold(randomGold);
-		} else {
-			// 20% chance to get a weapon
+		} 
+		else{  // 20% chance to get a weapon
 			String[] weapons = {"Sword", "Axe"};
 			int randomWeaponIndex = random.nextInt(weapons.length);
 			return new Weapon(weapons[randomWeaponIndex]);
 		}
 	}
-
 }

@@ -375,7 +375,7 @@ public class UI{
 			case "map":
 				switch (yourChoice) {
 					case "c1": story.townn(); break;
-					case "c2": /*story.goblinSetup(); story.forest1();break;*/if(story.forestCount == 0){story.goblinSetup();story.forest1();} else{story.endForest1();}; break;
+					case "c2": if(story.forestCount == 0){story.goblinSetup();story.forest1();} else{story.endForest1();}; break;
 					case "c3": if(story.villageCount == 0){story.villagegoblinSetup();story.village1();} else{story.village2();}; break;
 					case "c4": if(story.riverCount == 0){story.river1();} else{story.river2();}; break;
 				}
