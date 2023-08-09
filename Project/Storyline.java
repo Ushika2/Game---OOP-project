@@ -25,7 +25,7 @@ public class Storyline{
 	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
 	int swordCount = 0, axeCount = 0;
 
-	int goblinTeeth = 0, wolfSkin = 0, orgreClaw = 0, wraithCloth = 0;
+	int goblinTeeth = 0, orgreClaw = 0, wraithCloth = 0;
 	int fireC = 0, frostC = 0, lightC = 0;
 
     // Creating weapons and assigning a name and damage
@@ -234,6 +234,12 @@ public class Storyline{
 			bw.write(""+frostC);
 			bw.newLine();
 			bw.write(""+lightC);
+			bw.newLine();
+			bw.write(""+goblinTeeth); // save monster materials obtained after fight
+			bw.newLine();
+			bw.write(""+orgreClaw);
+			bw.newLine();
+			bw.write(""+wraithCloth);
 
 			bw.close();
 		}
@@ -268,6 +274,7 @@ public class Storyline{
 			fireC = Integer.parseInt(br.readLine());
 			frostC = Integer.parseInt(br.readLine());
 			lightC = Integer.parseInt(br.readLine());
+			goblinTeeth = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
@@ -529,7 +536,7 @@ public class Storyline{
 
 		int damage = knife.getDamage();
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 6 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
 		goblin.takeDamage(damage);
 		// update hp of goblin
@@ -661,9 +668,9 @@ public class Storyline{
 		position = "sell";
 		ui.mainTextArea.setText("You can sell all the items you've acquired from destroying monsters.");
 		ui.choice1.setText("Goblin teeth");
-		ui.choice2.setText("Wolf skin");
-		ui.choice3.setText("Wraith Cloth");
-		ui.choice4.setText("Orgre Claw");
+		ui.choice2.setText("Wraith Cloth");
+		ui.choice3.setText("Orgre Claw");
+		ui.choice4.setText("Back");
 
 		ui.choice2.setVisible(true);
 		ui.choice3.setVisible(true);
@@ -681,19 +688,8 @@ public class Storyline{
 				int total = priceGoblin*goblinTeeth;
 				gold = gold + total;  // update gold after sale
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold all goblin teeth and received " + total + " golds.");
-			}
-		}
-		else if(item == "WolfSkin"){
-			if(wolfSkin == 0){
-				ui.mainTextArea.setText("You do not have any wolf skin to sell.");
-			}
-			else{
-				int priceWolf = 25;   //calculate price
-				int total = priceWolf*wolfSkin;
-				gold = gold + total;   // update gold
-				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold all wolf skins and received " + total + " golds.");
+				ui.mainTextArea.setText("You sold " + goblinTeeth +" goblin teeth and received " + total + " golds.");
+				goblinTeeth = 0;
 			}
 		}
 		else if(item == "WraithCloth"){
@@ -701,11 +697,12 @@ public class Storyline{
 				ui.mainTextArea.setText("You do not have any wraith cloth to sell.");
 			}
 			else{
-				int priceWraith = 22;  //calculate price
+				int priceWraith = 25;  //calculate price
 				int total = priceWraith*wraithCloth;
 				gold = gold + total;  //update gold
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold all wraith cloth and received " + total + " golds.");
+				ui.mainTextArea.setText("You sold "+ wraithCloth +" wraith cloth and received " + total + " golds.");
+				wraithCloth = 0;
 			}
 		}
 		else if(item == "OrgreClaw"){
@@ -717,7 +714,8 @@ public class Storyline{
 				int total = priceOrgre*orgreClaw;
 				gold = gold + total;  //update gold
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold all orgre claw and received " + total + " golds.");
+				ui.mainTextArea.setText("You sold "+ orgreClaw +" orgre claw and received " + total + " golds.");
+				orgreClaw = 0;
 			}
 		}
 		ui.choice1.setText("Back");
@@ -1186,7 +1184,7 @@ public class Storyline{
 			}
 		}
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 3 goblin teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 6 goblin teeth.");
 		goblinTeeth = goblinTeeth + 3;
 		goblin.takeDamage(damage);  // update hp of goblin
 		goblinHP -= damage;
@@ -1563,8 +1561,7 @@ public class Storyline{
 			}
 
 			if(wolf.getHP() <= damage){
-				ui.mainTextArea.setText("You attack the wolf, giving it " + wolfHP + " damage, defeating it. You've acquired 4 wolf skin.");
-				wolfSkin = wolfSkin + 4;
+				ui.mainTextArea.setText("You attack the wolf, giving it " + wolfHP + " damage, defeating it.");
 				wolf.takeDamage(damage);  //method updates and set hp of wolf
 				wolfHP -= damage;
 					
@@ -1628,8 +1625,8 @@ public class Storyline{
 			}
 
 			if(orgre.getHP() <= damage){
-				ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 2 orgre claw.");
-				orgreClaw = orgreClaw + 2;
+				ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 3 orgre claw.");
+				orgreClaw = orgreClaw + 3;
 				orgre.takeDamage(damage);  //method update & set hp of orgre
 				orgreHP -= damage;
 					
@@ -1693,8 +1690,8 @@ public class Storyline{
 			}
 
 			if(wraith.getHP() <= damage){
-				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 3 wraith cloth.");
-				wraithCloth += wraithCloth + 3;
+				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 4 wraith cloth.");
+				wraithCloth += wraithCloth + 4;
 				wraith.takeDamage(damage);  //method update & set hp of wraith
 				wraithHP -= damage;
 					
