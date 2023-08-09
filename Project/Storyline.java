@@ -1088,12 +1088,13 @@ public class Storyline{
 
 		goblinSetup();
 		if(goblinHP > 0){
-			ui.mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You can either fight it or run away, by opening your map.");		
+			ui.mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You engage in a fight with the goblin");		
 			ui.choice1.setText("Fight the goblin");
-			ui.choice2.setText("view map");
+			ui.choice2.setText("");
 			ui.choice3.setText("");
 			ui.choice4.setText("");
-
+            
+			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
 			System.out.println(""+goblinHP);
@@ -1430,7 +1431,8 @@ public class Storyline{
 
 		else if(name == "orgre"){  // path  to mountain
 			position = "orgreAttack";
-			int damage = new java.util.Random().nextInt(4,25);
+
+			int damage = new java.util.Random().nextInt(4,25);  
 
 			ui.mainTextArea.setText("The orgre attacked you giving " + damage + " damage.");
 

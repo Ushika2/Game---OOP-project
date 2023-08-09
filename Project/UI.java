@@ -542,9 +542,9 @@ public class UI{
 			case "forest":   
 				    switch(yourChoice){     
 						case "c1": story.goblinAttack(); break; 
-						case "c2": story.Map(); break;
-						case "c3": story.forest2(); break;
-						case "c4": story.Map(); break;
+						//case "c2": story.Map(); break;
+						//case "c3": story.forest2(); break;
+						//case "c4": story.Map(); break;
 					}
 					break;
 			case "endforest1":
