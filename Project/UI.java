@@ -472,7 +472,7 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.buyWeapons("Sword"); break;
 					case "c2": story.buyWeapons("Axe");  break;
-					case "c4": story.buy(); break;
+					case "c4": story.shop(); break;
 				}
 				break;
 			case "buyWeapon":
@@ -485,7 +485,7 @@ public class UI{
 					case "c1": story.buySpells("Fire"); break;
 					case "c2": story.buySpells("Lightning");  break;
 					case "c3": story.buySpells("Frost"); break;
-					case "c4": story.buy(); break;
+					case "c4": story.shop(); break;
 				}
 				break;
 			case "chooseSpell":
@@ -497,7 +497,7 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.buyPotions("HealingPotion"); break;
 					case "c2": story.buyPotions("CuringPotion"); break;
-					case "c4": story.buy(); break;
+					case "c4": story.shop(); break;
 				}
 				break;
 			case "choosePotion":

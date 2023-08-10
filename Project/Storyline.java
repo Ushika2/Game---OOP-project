@@ -760,6 +760,9 @@ public class Storyline{
 		if(axeCount == 1){
 			ui.choice2.setVisible(false);
 		}
+		if(swordCount == 1 && axeCount == 1){
+			ui.mainTextArea.setText("Weapons are currently out of stock");
+		}
 	}
 
 	public void buyWeapons(String item){
@@ -821,6 +824,9 @@ public class Storyline{
 		if(frostC == 1){
 			ui.choice3.setVisible(false);
 		}
+		if(fireC == 1 && lightC == 1 && frostC == 1 ){
+			ui.mainTextArea.setText("Spells are currently out of stock");
+		}
 	}
 
 	public void buySpells(String item){
@@ -879,6 +885,9 @@ public class Storyline{
 		}
 		if(CurePotionCount == 1){
 			ui.choice2.setVisible(false);
+		}
+		if(swordCount == 1 && axeCount == 1){
+			ui.mainTextArea.setText("Potions are currently out of stock");
 		}
 		ui.choice3.setVisible(true);
 		ui.choice3.setVisible(false);
@@ -1884,7 +1893,7 @@ public class Storyline{
 
 		Reward reward = generateRandomReward();
 
-		if (reward instanceof Gold){  //obtain gold from chest
+		if (reward instanceof Gold){  //obtain gold from chest 
 			Gold goldReward = (Gold) reward;
 			int addGold = goldReward.getAmount();  // random amount
 			gold = gold + addGold;  //update gold of player
@@ -1893,12 +1902,13 @@ public class Storyline{
 			ui.mainTextArea.setText("You opened the chest and found " + addGold + " gold.");
 		}
 		else if (reward instanceof Weapon){  //obtain weapon from chest
+
 			Weapon weaponReward = (Weapon) reward;
 			String weaponName = weaponReward.getName();  //random weapon between sword or axe
+
 			ui.mainTextArea.setText("You opened the chest and found a " + weaponName + ".");
+
 			if(weaponName == "Sword"){  //update player weapon
-				// swordCount = 1;
-				// warrior.setRightHandWeapon(sword);
 				if(character == "warrior"&& swordCount == 0){
 					swordCount = 1;
 				    warrior.setRightHandWeapon(sword);
@@ -1911,8 +1921,6 @@ public class Storyline{
 			}
 
 			if(weaponName == "Axe"){
-				// axeCount = 1;
-				// healer.setWeapon(axe);
 				if(character == "healer" || axeCount == 0){  //obtain axe even if character not healer (can use when healer obtained)
 					axeCount = 1;
 				    healer.setWeapon(axe);
@@ -1972,7 +1980,7 @@ public class Storyline{
 		Random random = new Random();
 		int chance = random.nextInt(100); // Generating a random number between 0 and 99 (inclusive)
 	
-		if(chance < 50){  // 80% chance to get gold
+		if(chance < 80){  // 80% chance to get gold
 			int randomGold = random.nextInt(50,300) + 1; // Generates a random number between 1 and 1000 (inclusive)
 			return new Gold(randomGold);
 		} 
