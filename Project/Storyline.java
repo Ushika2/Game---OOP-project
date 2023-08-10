@@ -193,7 +193,7 @@ public class Storyline{
 	public void saveGame(){
 		try{
 			BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt"));  //creating text file
-			bw.write(""+warrior.getHP());   //player Hp
+			bw.write(""+playerHP);   //player Hp
 			bw.newLine();
 			bw.write(warrior.getName());  // character name
 			bw.newLine();
@@ -225,9 +225,9 @@ public class Storyline{
 			bw.newLine();
 			bw.write(""+ waterfallCount);  //save if wraith has been defeated at waterfall
 			bw.newLine();
-			bw.write(""+wraithHP);  //save wraith Hp
+			bw.write(""+wraith.getHP());  //save wraith Hp
 			bw.newLine();
-			bw.write(""+orgreHP);  // save orgre Hp
+			bw.write(""+orgre.getHP());  // save orgre Hp
 			bw.newLine();
 			bw.write(""+fireC);  // save acquired spell
 			bw.newLine();
