@@ -275,6 +275,8 @@ public class Storyline{
 			frostC = Integer.parseInt(br.readLine());
 			lightC = Integer.parseInt(br.readLine());
 			goblinTeeth = Integer.parseInt(br.readLine());
+			orgreClaw = Integer.parseInt(br.readLine());
+			wraithCloth = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
