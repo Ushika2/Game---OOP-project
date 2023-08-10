@@ -581,7 +581,7 @@ public class UI{
 				break;
 			case "right":   
 				switch(yourChoice){     
-					case "c1": story.OrgreSetup();story.orgre(); break;  //Orgre setup
+					case "c1": if(story.orgreCount == 0){story.OrgreSetup();story.orgre();}else{story.Mountain();} break;  //Orgre setup
 					case "c2": story.forest2(); break;
 				}
 				break;

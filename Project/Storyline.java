@@ -22,7 +22,7 @@ public class Storyline{
     String playerName, weapon, position, location, goblinName,  wraithName, orgreName, wolfName, dragonName, character, attack;
     int playerHP=100, goblinHP, orgreHP, wolfHP, wraithHP, dragonHP, gold, turn=0;
 
-	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0;
+	int chestForest = 0, forestCount = 0, villageCount = 0, riverCount = 0, waterfallCount = 0, HealPotionCount = 0, CurePotionCount = 0, healerCount = 0, mageCount = 0, torch = 0,orgreCount = 0;
 	int swordCount = 0, axeCount = 0;
 
 	int goblinTeeth = 0, orgreClaw = 0, wraithCloth = 0;
@@ -240,6 +240,9 @@ public class Storyline{
 			bw.write(""+orgreClaw);
 			bw.newLine();
 			bw.write(""+wraithCloth);
+			bw.newLine();
+			bw.write(""+orgreCount);
+
 
 			bw.close();
 		}
@@ -277,6 +280,7 @@ public class Storyline{
 			goblinTeeth = Integer.parseInt(br.readLine());
 			orgreClaw = Integer.parseInt(br.readLine());
 			wraithCloth = Integer.parseInt(br.readLine());
+			orgreCount = Integer.parseInt(br.readLine());
 
 			br.close();
 		}
@@ -1649,6 +1653,7 @@ public class Storyline{
 			}
 
 			if(orgre.getHP() <= damage){
+				orgreCount = 1;
 				ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 3 orgre claw.");
 				orgreClaw = orgreClaw + 3;
 				orgre.takeDamage(damage);  //method update & set hp of orgre
