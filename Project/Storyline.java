@@ -35,10 +35,10 @@ public class Storyline{
 	Grimoire grimoire = new Grimoire("grimoire",10);
 
 	// Creating spells, assigning name and damage
-	Blast blast = new Blast("blast",12);
-	Fire fire = new Fire("fire",16);
-	Frost frost = new Frost("frost",14);
-	Lightning lightning = new Lightning("lightning", 18);
+	Blast blast = new Blast("blast",12); //default spell
+	Fire fire = new Fire("fire",30);
+	Frost frost = new Frost("frost",15);
+	Lightning lightning = new Lightning("lightning", 20);
 
 	// Creating characters, assigning a name, Hp and weapon
 	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
@@ -48,7 +48,7 @@ public class Storyline{
 	// Creating monsters, assigning name and Hp
 	Goblin goblin = new Goblin("goblin",13);
 	Orgre orgre = new Orgre("orgre", 60);
-	Wolf wolf = new Wolf("wolf",23);
+	Wolf wolf = new Wolf("wolf",80);
 	Wraith wraith = new Wraith("wraith", 35);
 	Dragon dragon = new Dragon("dragon",150);
 
@@ -330,7 +330,7 @@ public class Storyline{
     public void intro(){  // Begining of story - town
 		position = "intro";
 		// output narration of storyline
-		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person.'Hello adventurer, I am the chief of this town. I plead for your help to find my daughter who has been kidnapped.' Feeling empathy, you accept to help him. You can visit the village to buy armors."); // to change
+		ui.mainTextArea = new JTextArea("At the entrance of the hometown, you see someone standing. You approach the person.\n\n'Hello adventurer, I am the chief of this town. I plead for your help to find my daughter who has been kidnapped.'\nFeeling empathy, you accept to help him.\n\nYou can visit the village to buy items to help you in this quest."); 
 		ui.mainTextArea.setBounds(100, 100, 600, 250);   //mainTextArea customization
 		ui.mainTextPanel.setBackground(Color.black);
 		ui.mainTextArea.setBackground(Color.black);
@@ -425,7 +425,7 @@ public class Storyline{
 		mapPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 
-		ui.mainTextArea.setText("You decide to go take a look at the forlorn village. Upon arrival, you find the village under attack by a horde of goblins. Amidst the chaos, you catch sight of a solitary figure battling the malignant goblins.");		
+		ui.mainTextArea.setText("You decide to go take a look at the forlorn village.\n\nUpon arrival, you find the village is under attack by a horde of goblins.\n\nAmidst the chaos, you catch sight of a solitary figure battling the malignant goblins.");		
 		ui.choice1.setText("Join him in the fight");
 		ui.choice2.setText("Hide and watch");
 		ui.choice3.setText("");
@@ -437,7 +437,7 @@ public class Storyline{
 
 	public void aidHealer1(){
 		position = "aidHealer1";
-		ui.mainTextArea.setText("You rush to his side while his gaze acknowledges your kindness and you fight off the monsters alongside.\nYou turn to your left and see a goblin charges at you with an ax.");
+		ui.mainTextArea.setText("You rush to his aid and battling the monsters side by side.\n\nSuddenly, you turn to your left and see a goblin charging at you with an axe.");
 		ui.choice1.setText("Dodge");
 		ui.choice2.setText("Block attack");
 		ui.choice3.setText("Attack back");
@@ -479,6 +479,7 @@ public class Storyline{
 			warrior.takeDamage(damage);
 			//Update playerHP based on the damage taken
 			playerHP -= damage;
+
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
@@ -511,6 +512,7 @@ public class Storyline{
 
 		// Update playerHP based on the damage taken
 		playerHP -= damage;
+
 		// Ensure playerHP doesn't go below 0
 		if (playerHP < 0) {
 			playerHP = 0;
@@ -544,7 +546,7 @@ public class Storyline{
 
 		int damage = knife.getDamage();
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage. The goblin has been defeated. You've acquired 6 goblin teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage.\nThe goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.");
 		goblinTeeth = goblinTeeth + 3;
 		goblin.takeDamage(damage);
 		// update hp of goblin
@@ -585,7 +587,7 @@ public class Storyline{
 	public void villageFightEnd(){
 		position = "endQuest1";
 		ui.monsterPanel.setVisible(false);
-		ui.mainTextArea.setText("Eventually, you were able to drive away these mischievous creatures.\n'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?'\nYou introduce yourself and Brook offers to heal your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\nHe then guides you to a small shady shop at the corner.");
+		ui.mainTextArea.setText("Eventually, you were able to drive away the mischievous creatures.\n'Thank you adventurer, I appreciate the help. I am Brook, a healer, allow me to mend your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\n\nHEALER ACQUIRED\n\nYou roam around the village and come accross a desolated street where a small shady shop comes into view.");
 		playerHP = playerHP + 25;
 
 		if (playerHP > 100){  // make sure player Hp doesn't go beyond limit
@@ -606,14 +608,14 @@ public class Storyline{
 
 	public void hideWatch(){
 		position = "hide";
-		ui.mainTextArea.setText("You find a place to hide and watch the fight closely. After some struggle, he managed to fight them off, but then collapsed to the ground.");
+		ui.mainTextArea.setText("You find a place to hide and watch the fight closely. After some struggle, the figure manages to fight them off, but then collapses to the ground.");
 		ui.choice1.setText("Rush to his aid");
 		ui.choice2.setText("Don't bother to help");
 	}
 
 	public void aidHealer2(){
 		position = "aidHealer2";
-		ui.mainTextArea.setText("You rushed to his side and managed to drag him on a nearby bench.'Water, please.'");
+		ui.mainTextArea.setText("You rush to his side and manage to drag him on a nearby bench.\n'Water, please.'");
 		ui.choice1.setText("Offer him some water");
 	}
 
@@ -626,7 +628,7 @@ public class Storyline{
 
 	public void offerWater(){
 		position = "endQuest1";
-		ui.mainTextArea.setText("You offer him some water and after a few minutes, he sits up, feeling better.'Thanks buddy, I appreciate the help. I am Brook by the way. And you are?' You introduce yourself and while chatting. You tell him about your quest and he offers to join you. He then guides you to a small shady shop at the corner.\n\nYou found yourself a healer. Brook can fight alongside you and can heal you in case of serious injuries.");
+		ui.mainTextArea.setText("You offer him some water and after a few minutes, he sits up, feeling better.'Thank you adventurer, I appreciate the help. I am Brook. A healer. And you are?'You introduce yourself and while chatting you tell him about your quest and he offers to join you.\nBrook can fight alongside you and can heal you in case of serious injuries.\n\nHEALER ACQUIRED\n\nYou roam around the village and come accross a desolated street where a small shady shop comes into view. ");
 		ui.choice1.setText("Enter shop");
 		ui.choice2.setText("View map");
 		ui.choice1.setVisible(true);
@@ -639,7 +641,7 @@ public class Storyline{
 
 	public void walkPast(){
 		position = "endQuest1";
-		ui.mainTextArea.setText("You walk past him, heading to the small shady shop at the corner.");
+		ui.mainTextArea.setText("You walk past him, heading inside the village. While roaming around, you found a small shop.");
 		ui.choice1.setText("Enter shop");
 		ui.choice2.setText("View map");
 		ui.choice2.setVisible(true);
@@ -674,8 +676,8 @@ public class Storyline{
 
 	public void sell(){
 		position = "sell";
-		ui.mainTextArea.setText("You can sell all the items you've acquired from destroying monsters.");
-		ui.choice1.setText("Goblin teeth");
+		ui.mainTextArea.setText("You can sell all the items you've acquired from destroying monsters.\n\nTradeable Possessions:\nGoblin Teeth - "+goblinTeeth+"\nWraith Cloth - "+wraithCloth+"\nOrgre Claw - "+orgreClaw);
+		ui.choice1.setText("Goblin Teeth");
 		ui.choice2.setText("Wraith Cloth");
 		ui.choice3.setText("Orgre Claw");
 		ui.choice4.setText("Back");
@@ -689,40 +691,40 @@ public class Storyline{
 		position = "sellItem";
 		if(item == "GoblinTeeth"){
 			if(goblinTeeth == 0){
-				ui.mainTextArea.setText("You do not have any goblin teeth to sell.");
+				ui.mainTextArea.setText("You do not have any Goblin Teeth to sell.");
 			}
 			else{
 				int priceGoblin = 10;  //initialize and calculate price
 				int total = priceGoblin*goblinTeeth;
 				gold = gold + total;  // update gold after sale
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold " + goblinTeeth +" goblin teeth and received " + total + " golds.");
+				ui.mainTextArea.setText("You sold " + goblinTeeth +" Goblin Teeth and received " + total + " golds.");
 				goblinTeeth = 0;
 			}
 		}
 		else if(item == "WraithCloth"){
 			if(wraithCloth == 0){
-				ui.mainTextArea.setText("You do not have any wraith cloth to sell.");
+				ui.mainTextArea.setText("You do not have any Wraith Cloth to sell.");
 			}
 			else{
 				int priceWraith = 25;  //calculate price
 				int total = priceWraith*wraithCloth;
 				gold = gold + total;  //update gold
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold "+ wraithCloth +" wraith cloth and received " + total + " golds.");
+				ui.mainTextArea.setText("You sold "+ wraithCloth +" Wraith Cloth and received " + total + " golds.");
 				wraithCloth = 0;
 			}
 		}
 		else if(item == "OrgreClaw"){
 			if(orgreClaw == 0){
-				ui.mainTextArea.setText("You do not have any orgre claw to sell.");
+				ui.mainTextArea.setText("You do not have any Orgre Claw to sell.");
 			}
 			else{
 				int priceOrgre = 30;   //calculate price
 				int total = priceOrgre*orgreClaw;
 				gold = gold + total;  //update gold
 				ui.goldLabelNumber.setText(""+ gold);
-				ui.mainTextArea.setText("You sold "+ orgreClaw +" orgre claw and received " + total + " golds.");
+				ui.mainTextArea.setText("You sold "+ orgreClaw +" Orgre Claw and received " + total + " golds.");
 				orgreClaw = 0;
 			}
 		}
@@ -747,7 +749,7 @@ public class Storyline{
 
 	public void weapons(){
 		position = "chooseWeapon";
-		ui.mainTextArea.setText("Choose a weapon: ");
+		ui.mainTextArea.setText("Choose a weapon:\nSword - 25 damage\nAxe - 20 damage");
 		ui.choice1.setText("Sword - 80 gold");
 		ui.choice2.setText("Axe - 40 gold");
 		ui.choice3.setText("");
@@ -809,9 +811,9 @@ public class Storyline{
 
 	public void spells(){
 		position = "buySpell";
-		ui.mainTextArea.setText("Choose a spell: ");
-		ui.choice1.setText("Fire - 40 gold");
-		ui.choice2.setText("Lightning - 40 gold");
+		ui.mainTextArea.setText("Choose a spell:\n\nFire - 30 damage \nLightning - 20 damage\nFrost - 15 damage\n");
+		ui.choice1.setText("Fire - 70 gold");
+		ui.choice2.setText("Lightning - 50 gold");
 		ui.choice3.setText("Frost - 40 gold");
 		ui.choice4.setText("Back");
 		ui.choice4.setVisible(true);
@@ -832,24 +834,24 @@ public class Storyline{
 	public void buySpells(String item){
 		position = "chooseSpell";
 		if(item == "Fire"){
-			if(gold < 40){
+			if(gold < 70){
 				ui.mainTextArea.setText("You do not have enough gold to buy this spell.");
 			}
 			else{
 				ui.mainTextArea.setText("You have acquired the fire spell.\nDamage: "+ fire.getDamage());
-				gold = gold - 40;
+				gold = gold - 70;
 				ui.goldLabelNumber.setText(""+ gold);
 				fireC = 1;
 				
 			}
 		}
 		else if(item == "Lightning"){
-			if(gold < 40){
+			if(gold < 50){
 				ui.mainTextArea.setText("You do not have enough gold to buy this spell.");
 			}
 			else{
 				ui.mainTextArea.setText("You have acquired the lightning spell.\nDamage: "+ lightning.getDamage());
-				gold = gold - 40;
+				gold = gold - 50;
 				ui.goldLabelNumber.setText(""+ gold);
 				lightC = 1;
 			}
@@ -874,7 +876,7 @@ public class Storyline{
 
 	public void potions(){
 		position = "buyPotion";
-		ui.mainTextArea.setText("Choose item: ");
+		ui.mainTextArea.setText("Choose potion:\n\nHealing potion - Recover Hp\nCuring potion - Cure poison");
 		ui.choice1.setText("Healing potion - 80 gold");
 		ui.choice2.setText("Curing potion - 80 gold");
 		ui.choice3.setText(" ");
@@ -905,7 +907,7 @@ public class Storyline{
 				ui.mainTextArea.setText("Hp is already above 70. Buy potion later");
 			}
 			else{
-				ui.mainTextArea.setText("You have acquired the healing potion.\nRecover: " + healingPotionHP+ "Hp");
+				ui.mainTextArea.setText("You have acquired the healing potion.\nRecover: " + healingPotionHP+ " Hp");
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
 				playerHP = playerHP + healingPotionHP;
@@ -939,7 +941,7 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
 		ui.mapButtonPanel.setVisible(false);
 
-		ui.mainTextArea.setText("You went down to a nearby river to rest and bath, when you see that water has been poisoned. People in surrounding camps seem to be infected and in agony.");		
+		ui.mainTextArea.setText("You went down to a nearby river to rest and bath, when you see that water has been poisoned.\n\nPeople in surrounding camps seem to be infected and in agony.");		
 		ui.choice1.setText("Investigate");
 		ui.choice2.setText("View map");
 		ui.choice3.setText("");
@@ -957,7 +959,7 @@ public class Storyline{
 		ui.locationName.setText(location);
 		ui.mainTextPanel.setVisible(true);
 
-		ui.mainTextArea.setText("You move towards a person lying on the grounds, hoping to get some informations from him. Feebly, he said:\n 'The water, it's bad. Got poisoned by some witch. We need a cure, please. A cure.'");		
+		ui.mainTextArea.setText("You move towards a person lying on the ground, hoping to get some informations from him.\n\nFeebly, he said:\n'The water, it's bad. Got poisoned by a witch. We need a cure. Please help us.'");		
 		ui.choice1.setText("Try to save them");
 		ui.choice2.setText("Use curing potion");
 		ui.choice3.setText("View map");
@@ -973,7 +975,7 @@ public class Storyline{
 		ui.healerButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
 		if(healerCount == 0){   //player die without healer
-			ui.mainTextArea.setText("You get in the water, but end up getting poisoned. The poison started to infect your whole body until you feel numb. And without much help, you die in your own suffering.");
+			ui.mainTextArea.setText("As you venture closer to investigate, you loose balance and fall in the water.\nThe poison starts to infect your whole body until you feel numb.\nWithout much help, you end up getting poisoned and you die in your own suffering.");
 			playerHP = 0;
 			warrior.setHP(0);
 			ui.hpLabelNumber.setText("" + playerHP);
@@ -993,7 +995,7 @@ public class Storyline{
 				ui.choice4.setVisible(false);
 			}
 			else if(character == "healer"){  //if character already == healer
-				ui.mainTextArea.setText("You get in the water without any issues and with some powerful magic, you were able to cleanse the river from all the poison. But all this power cost you 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.");
+				ui.mainTextArea.setText("You get in the water without any issues and with a  powerful cleansing magic, you were able to cleanse the river from all the poison.\n\nHowever, this power came at a cost of 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.\n\nCost of helping - 15 Hp");
 				playerHP = warrior.getHP() - 35;	
 				healer.setHP(playerHP);
 				ui.hpLabelNumber.setText("" + playerHP);
@@ -1020,7 +1022,7 @@ public class Storyline{
 				ui.choice3.setVisible(false);
 			}
 			else if(CurePotionCount == 1){
-				ui.mainTextArea.setText("You reach for your pockets and take out the curing potion. At the same time, one of the boys commes towards you, begging you to save him.But, you possess only 1 potion.");
+				ui.mainTextArea.setText("You reach for your pockets and take out the curing potion.\n\nAt the same time, one of the boys commes towards you, begging you to save him.\nBut, you possess only 1 potion.\nYou have to make a choice.");
 				ui.choice3.setText("Save river");
 				ui.choice4.setText("Save boy");
 				ui.choice1.setVisible(false);
@@ -1035,7 +1037,7 @@ public class Storyline{
 		riverCount = 1;
 		position = "endRiver";
 		ui.healerButtonPanel.setVisible(true);
-		ui.mainTextArea.setText("You decide that saving the river would be the best choice and you empty the flask into the river. The boy was left in anguish. Unable to fight against the poison, he succumbs to his death.");
+		ui.mainTextArea.setText("You decide that saving the river would be the best choice and you empty the flask into the river.\n\nThe boy was left in anguish.\nUnable to fight against the poison, he succumbs to his death.");
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);
@@ -1047,7 +1049,7 @@ public class Storyline{
 		riverCount = 1;
 		position = "endRiver";
 		ui.healerButtonPanel.setVisible(true);
-		ui.mainTextArea.setText("Feeling pity for the boy, he decide to save him and in less than a minute, he's completely back to normal. Out of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.");
+		ui.mainTextArea.setText("Feeling pity for the boy, you decide to save him.\n\nOut of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells. \n\nMAGE ACQUIRED\n\nWeapon: Grimoire - 10 damage     Blast Spell - 12 damage");
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);
@@ -1105,7 +1107,7 @@ public class Storyline{
 
 		goblinSetup();
 		if(goblinHP > 0){
-			ui.mainTextArea.setText("You make way to the forest where you see a goblin coming towards you. You engage in a fight with the goblin");		
+			ui.mainTextArea.setText("You make way to the forest where you see a goblin coming towards you.\n\nYou engage in a fight with the goblin");		
 			ui.choice1.setText("Fight the goblin");
 			ui.choice2.setText("");
 			ui.choice3.setText("");
@@ -1126,7 +1128,7 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
 		ui.choiceButtonPanel.setVisible(true); // Set the choiceButtonPanel to visible
 
-		ui.mainTextArea.setText("You go back to the forest and see no monsters. You can advance further in the forest");
+		ui.mainTextArea.setText("You go back to the forest and see no monsters.\n\nYou can advance further in the forest");
 		ui.choice1.setText("Advance in forest");
 		ui.choice2.setText("View map");
 
@@ -1202,7 +1204,7 @@ public class Storyline{
 			}
 		}
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated. You've acquired 6 goblin teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.");
 		goblinTeeth = goblinTeeth + 3;
 		goblin.takeDamage(damage);  // update hp of goblin
 		goblinHP -= damage;
@@ -1249,7 +1251,7 @@ public class Storyline{
 		ui.mainTextPanel.setVisible(true);
 		ui.mapButtonPanel.setVisible(false);
 
-		ui.mainTextArea.setText("You arrive at a crossroad in the forest. You can either go right or left.");		
+		ui.mainTextArea.setText("You arrive at a crossroad in the forest.\n\nYou can either go right or left.");		
 		ui.choice1.setText("Right");
 		ui.choice2.setText("Left");
 		ui.choice3.setText("View map");
@@ -1328,7 +1330,7 @@ public class Storyline{
 		ui.warriorButtonPanel.setVisible(false);
 		ui.mageButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
-		ui.mainTextArea.setText("You decide to go for a swim. However, the water was too deep and you drowned.");
+		ui.mainTextArea.setText("You decide to go for a swim.\n\nHowever, the water was too deep and you drowned.");
 		ui.choice1.setText(">");
         ui. choice1.setVisible(true);
 		ui.choice2.setVisible(false);
@@ -1338,7 +1340,7 @@ public class Storyline{
 
 	public void right(){
 		position = "right";
-		ui.mainTextArea.setText("While venturing deep in the forest, you arrived at the foot of a mountain. The path to the summit appears treacherous, windy through the rocky terrain.Its shadowy twists hinting at the dangers that lie ahead.");
+		ui.mainTextArea.setText("While venturing deep in the forest, you arrived at the foot of a mountain.\n\nThe path to the summit appears treacherous, windy through the rocky terrain.\n\nIts shadowy twists hinting at the dangers that lie ahead.");
 		ui.choice1.setText("Climb the mountain");
 		ui.choice2.setText("Turn back");
 		ui.choice3.setText("");
@@ -1363,7 +1365,7 @@ public class Storyline{
 	public void Mountain(){
 		position = "mountainTop";
 		ui.monsterPanel.setVisible(false);
-		ui.mainTextArea.setText("Breathless, you arrive at the top and notice a small dark cave. At the entrance, you find a dirty old torch, but still usable.\r\n(Danger: Proceeding to the mountain will not allow you to go back/open your map. Adventurers are advised to be fully prepared.)");
+		ui.mainTextArea.setText("Breathless, you arrive at the top and notice a small dark cave.\n\nAt the entrance, you find a dirty old torch, but still usable.\r\n(Danger: Proceeding to the mountain will not allow you to go back/open your map. Adventurers are advised to be fully prepared.)");
 		ui.choice1.setText("Take the torch");
 		ui.choice2.setText("Leave torch");
 		ui.choice3.setText("View map");
