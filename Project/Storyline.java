@@ -93,6 +93,9 @@ public class Storyline{
 	public void heal(){  //increaing playerHp when healing
 		if(character == "healer" && turn >3){  //character should be healer and heal is available after every 3 attacks done by player
 			playerHP += healer.getHealingPower();
+			if(playerHP > 100){
+				playerHP = 100;
+			}
 			ui.hpLabelNumber.setText("" + playerHP);
 			warrior.setHP(playerHP);
 			turn = 0;  //restart count for number of attacks
@@ -567,7 +570,7 @@ public class Storyline{
 
 		int damage = knife.getDamage();
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage.\nThe goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP+ " damage.\nThe goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.\n\nItem can be sold in the shop.");
 		goblinTeeth = goblinTeeth + 3;
 		goblin.takeDamage(damage);
 		// update hp of goblin
@@ -608,7 +611,7 @@ public class Storyline{
 	public void villageFightEnd(){
 		position = "endQuest1";
 		ui.monsterPanel.setVisible(false);
-		ui.mainTextArea.setText("Eventually, you were able to drive away the mischievous creatures.\n'Thank you adventurer, I appreciate the help. I am Brook, a healer, allow me to mend your injuries.\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\n\nHEALER ACQUIRED\n\nYou roam around the village and come accross a desolated street where a small shady shop comes into view.");
+		ui.mainTextArea.setText("Eventually, you were able to drive away the mischievous creatures.\n'Thank you adventurer, I appreciate the help. I am Brook, a healer, allow me to mend your injuries.'     (Recover 25 Hp)\nYou thank him and tell him about your quest. Wanting to return the favor, he offers to join you.\n\nHEALER ACQUIRED\n\nYou roam around the village and come accross a desolated street where a small shady shop comes into view.");
 		playerHP = playerHP + 25;
 
 		if (playerHP > 100){  // make sure player Hp doesn't go beyond limit
@@ -924,7 +927,7 @@ public class Storyline{
 			if(gold < 80){
 				ui.mainTextArea.setText("You do not have enough gold to buy healing potion.");
 			}
-			else if(playerHP > 70){
+			else if(playerHP >= 70){
 				ui.mainTextArea.setText("Hp is already above 70. Buy potion later");
 			}
 			else{
@@ -932,6 +935,12 @@ public class Storyline{
 				gold = gold - 80;
 				ui.goldLabelNumber.setText(""+ gold);
 				playerHP = playerHP + healingPotionHP;
+
+				//update Hp to a maximum of 100
+				if(playerHP > 100){
+					playerHP = 100;
+				}
+
 				warrior.setHP(playerHP);
 				ui.hpLabelNumber.setText("" + playerHP);
 				HealPotionCount = 1;
@@ -1070,7 +1079,7 @@ public class Storyline{
 		riverCount = 1;
 		position = "endRiver";
 		ui.healerButtonPanel.setVisible(true);
-		ui.mainTextArea.setText("Feeling pity for the boy, you decide to save him.\n\nOut of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.\n\nMAGE ACQUIRED\n\nWeapon: Grimoire - 10 damage     Blast Spell - 12 damage");
+		ui.mainTextArea.setText("Feeling pity for the boy, you decide to save him.\n\nOut of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.\n\nMAGE ACQUIRED\n\nWeapon: Grimoire - 10 damage      Spell: Blast - 12 damage");
 		playerHP = playerHP - 15;
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
@@ -1226,7 +1235,7 @@ public class Storyline{
 			}
 		}
 
-		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.");
+		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP + " damage. The goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.\n\nItem can be sold for gold in the shop in village.");
 		goblinTeeth = goblinTeeth + 3;
 		goblin.takeDamage(damage);  // update hp of goblin
 		goblinHP -= damage;
@@ -1674,7 +1683,7 @@ public class Storyline{
 
 			if(orgre.getHP() <= damage){
 				orgreCount = 1;
-				ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it. You've acquired 3 orgre claw.");
+				ui.mainTextArea.setText("You attack the orgre, giving it " + orgreHP + " damage, defeating it.\n\n\nYou've acquired 3 Orgre Claw.\n\nItem can be sold for gold in the shop in village.");
 				orgreClaw = orgreClaw + 3;
 				orgre.takeDamage(damage);  //method update & set hp of orgre
 				orgreHP -= damage;
@@ -1740,7 +1749,7 @@ public class Storyline{
 
 			if(wraith.getHP() <= damage){
 				waterfallCount = 1;
-				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 4 wraith cloth.");
+				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated.\n\n\nYou've acquired 4 Wraith Cloth.\n\nItem can be sold for gold in the shop in village.");
 				wraithCloth += wraithCloth + 4;
 				wraith.takeDamage(damage);  //method update & set hp of wraith
 				wraithHP -= damage;

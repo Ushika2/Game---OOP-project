@@ -723,7 +723,8 @@ public class UI{
 						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
 						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
 						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
-						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}
+						if(story.position == "wolfAttack"){story.attackMonster("wolf"); break;}
+						break;
 
 					case "c2": 
 						story.attack = "fire";
@@ -731,7 +732,7 @@ public class UI{
 						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
 						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
 						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
-						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}
+						if(story.position == "wolfAttack"){story.attackMonster("wolf"); break;}
 						 
 					case "c3": 
 						story.attack = "frost";
