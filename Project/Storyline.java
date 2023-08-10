@@ -42,7 +42,7 @@ public class Storyline{
 
 	// Creating characters, assigning a name, Hp and weapon
 	Warrior warrior = new Warrior("warrior",playerHP, knife, null);
-	Healer healer = new Healer("healer", playerHP, 15, knife);
+	Healer healer = new Healer("healer", playerHP, 20, knife);
 	Mage mage = new Mage("mage",playerHP,blast,grimoire);
 
 	// Creating monsters, assigning name and Hp
@@ -98,6 +98,10 @@ public class Storyline{
 			turn = 0;  //restart count for number of attacks
 			ui.choice4.setVisible(false);
 		}
+
+		if(character != "healer"){
+			ui.mainTextArea.setText("Healer have healing skill.\n\nSwitch to healer and heal again. Then proceed");
+			}
 	}
 
 	public void mageSetup(){  //update player panel when switching to mage
@@ -118,19 +122,32 @@ public class Storyline{
 	public void mageAttack(){  //display spells (that player has) choices during fights
 		position = "mageAttack";
 		ui.choice1.setText("Blast");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(false);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+
 		if(fireC == 1){
 			ui.choice2.setText("Fire");
 			ui.choice2.setVisible(true);
+			
+		    ui.choice3.setVisible(false);
+			ui.choice4.setVisible(false);
 		}
 		if(frostC == 1){
 			ui.choice3.setText("Frost");
 			ui.choice3.setVisible(true);
+
+			ui.choice4.setVisible(false);
 		}
 		if(lightC == 1){
 			ui.choice4.setText("Lightning");
 			ui.choice4.setVisible(true);
 		}
-		ui.choice1.setVisible(true);
+		//ui.choice1.setVisible(true);
+
+		
 	}
 
 	// MONSTER Setup which will be displayed in the monster panel during fights
@@ -796,7 +813,7 @@ public class Storyline{
 				ui.mainTextArea.setText("Axe can only be used by healer.");
 			}
 			else{
-				ui.mainTextArea.setText("You have acquired an axe.\nDamage: "+ axe.getDamage());
+				ui.mainTextArea.setText("You have acquired an axe. Healer weapon.\nDamage: "+ axe.getDamage());
 				axeCount = 1;
 				gold = gold - 40;
 				ui.goldLabelNumber.setText(""+ gold);
@@ -902,7 +919,7 @@ public class Storyline{
 
 	public void buyPotions(String item){
 		position = "choosePotion";
-		int healingPotionHP = 30;
+		int healingPotionHP = 40;
 		if(item == "HealingPotion"){
 			if(gold < 80){
 				ui.mainTextArea.setText("You do not have enough gold to buy healing potion.");
@@ -1564,6 +1581,8 @@ public class Storyline{
 	public void attackMonster(String name){
 		if(name == "wolf"){  //in cave - puzzle failed
 			position = "attackWolf";
+			ui.monsterPanel.setVisible(true);
+
 			turn += 1;  //Turn = total number of attacks
 			int damage=0;
 
@@ -1826,7 +1845,8 @@ public class Storyline{
 		if(healerCount == 1 && turn > 3){
 			ui.choice4.setText("Heal");
 			ui.choice4.setVisible(true);
-		}
+		}	
+
 	}
 
 	
