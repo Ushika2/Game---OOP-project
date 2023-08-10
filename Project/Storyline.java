@@ -304,6 +304,12 @@ public class Storyline{
 		ui.monsterName.setText(""+ goblin.getName());
 		ui.monsterHP.setText("" + goblin.getHP());
 
+		// update wraith setup
+		wraith.setHP(wraithHP);
+
+		// update orgre setup
+		orgre.setHP(orgreHP);
+
 		if(healerCount == 1){
 			ui.healerButton.setVisible(true);
 			ui.healerButtonPanel.setVisible(true);
@@ -1253,7 +1259,10 @@ public class Storyline{
 		}
 		else{
 			ui.mainTextArea.setText("You already opened the chest.");
+			//ui.choice1.setVisible(false);
+			ui.choice2.setVisible(true);
 			ui.choice1.setVisible(false);
+
 		}
 
 		ui.choice1.setText("Open Chest");
@@ -1261,7 +1270,7 @@ public class Storyline{
 		ui.choice3.setText("Turn back");
 		ui.choice4.setText("");
 
-		ui.choice2.setVisible(true);
+		//ui.choice2.setVisible(false);
 		ui.choice3.setVisible(true);
 		ui.choice4.setVisible(false);
 
@@ -1288,7 +1297,7 @@ public class Storyline{
 		ui.monsterPanel.setVisible(false);
 		ui.mapButtonPanel.setVisible(false);
 		ui.mainTextPanel.setVisible(true);
-		ui.mainTextArea.setText("You go upstream and arrived at the waterfall.");
+		ui.mainTextArea.setText("The waterfall is now free from monsters.");
 
 		ui.choice1.setText("Go for a swim");
 		ui.choice2.setText("Turn back");
@@ -1692,6 +1701,7 @@ public class Storyline{
 			}
 
 			if(wraith.getHP() <= damage){
+				waterfallCount = 1;
 				ui.mainTextArea.setText("You attack the wraith back, giving it " + wraithHP+ " damage. The wraith has been defeated. You've acquired 4 wraith cloth.");
 				wraithCloth += wraithCloth + 4;
 				wraith.takeDamage(damage);  //method update & set hp of wraith
@@ -1705,10 +1715,10 @@ public class Storyline{
 				ui.monsterHP.setText("" + wraithHP);  //update wraith hp in monster panel
 
 				ui.choice2.setText("Advance in forest");
-				ui.choice3.setText("Go back");
+				//ui.choice3.setText("Go back");
 
 				ui.choice2.setVisible(true);
-				ui.choice3.setVisible(true);
+				ui.choice3.setVisible(false);
 				ui.choice1.setVisible(false);
 				ui.choice4.setVisible(false);
 			}

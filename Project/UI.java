@@ -621,7 +621,7 @@ public class UI{
 				break;
 			case "goldchest":   
 				switch(yourChoice){     
-					case "c1": if(story.waterfallCount == 0){story.waterfall();} else{story.waterfall2();} break;
+					case "c1": if(story.waterfallCount == 0){story.WraithSetup();story.waterfall();} else{story.waterfall2();} break;
 					case "c2": story.forest2(); break;
 				}
 				break;
@@ -647,7 +647,7 @@ public class UI{
 				switch(yourChoice){     
 					case "c1": story.monsterAttack("wraith"); break;
 					case "c2": story.waterfall2();break;
-					case "c3": story.forest2(); break;
+					//case "c3": story.forest2(); break;
 					case "c4": story.heal(); break;
 				}
 				break;
