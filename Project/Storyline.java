@@ -1897,17 +1897,29 @@ public class Storyline{
 			String weaponName = weaponReward.getName();  //random weapon between sword or axe
 			ui.mainTextArea.setText("You opened the chest and found a " + weaponName + ".");
 			if(weaponName == "Sword"){  //update player weapon
-				swordCount = 1;
-				warrior.setRightHandWeapon(sword);
-				if(character == "warrior"){
+				// swordCount = 1;
+				// warrior.setRightHandWeapon(sword);
+				if(character == "warrior"&& swordCount == 0){
+					swordCount = 1;
+				    warrior.setRightHandWeapon(sword);
 					ui.weaponLabelName.setText(knife.getName() +","+ sword.getName());
 				}
+
+				else{
+				ui.mainTextArea.setText("You found a "+weaponName+" but already in possession.\nThere's no need for them to acquire another.");
+				}
 			}
+
 			if(weaponName == "Axe"){
-				axeCount = 1;
-				healer.setWeapon(axe);
-				if(character == "healer"){
-					ui.weaponLabelName.setText(axe.getName());
+				// axeCount = 1;
+				// healer.setWeapon(axe);
+				if(character == "healer" || axeCount == 0){  //obtain axe even if character not healer (can use when healer obtained)
+					axeCount = 1;
+				    healer.setWeapon(axe);
+				}
+
+				else{
+				ui.mainTextArea.setText("You found a "+weaponName+".\nWeapon already in possession.\nThere's no need for them to acquire another.");
 				}
 			}
 		}
@@ -1960,7 +1972,7 @@ public class Storyline{
 		Random random = new Random();
 		int chance = random.nextInt(100); // Generating a random number between 0 and 99 (inclusive)
 	
-		if(chance < 80){  // 80% chance to get gold
+		if(chance < 50){  // 80% chance to get gold
 			int randomGold = random.nextInt(50,300) + 1; // Generates a random number between 1 and 1000 (inclusive)
 			return new Gold(randomGold);
 		} 
