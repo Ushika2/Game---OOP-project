@@ -1043,7 +1043,7 @@ public class Storyline{
 				ui.choice3.setVisible(false);
 			}
 			else if(CurePotionCount == 1){
-				ui.mainTextArea.setText("You reach for your pockets and take out the curing potion.\n\nAt the same time, one of the boys commes towards you, begging you to save him.\nBut, you possess only 1 potion.\nYou have to make a choice.");
+				ui.mainTextArea.setText("You reach for your pockets and take out the curing potion.\n\nAt the same time, one of the boys commes towards you, begging you to save him.\nCost to saving the boy - 15 Hp\nBut, you possess only 1 potion.\nYou have to make a choice.");
 				ui.choice3.setText("Save river");
 				ui.choice4.setText("Save boy");
 				ui.choice1.setVisible(false);
@@ -1070,7 +1070,8 @@ public class Storyline{
 		riverCount = 1;
 		position = "endRiver";
 		ui.healerButtonPanel.setVisible(true);
-		ui.mainTextArea.setText("Feeling pity for the boy, you decide to save him.\n\nOut of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells. \n\nMAGE ACQUIRED\n\nWeapon: Grimoire - 10 damage     Blast Spell - 12 damage");
+		ui.mainTextArea.setText("Feeling pity for the boy, you decide to save him.\n\nOut of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.\n\nMAGE ACQUIRED\n\nWeapon: Grimoire - 10 damage     Blast Spell - 12 damage");
+		playerHP = playerHP - 15;
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);
