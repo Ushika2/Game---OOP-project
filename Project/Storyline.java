@@ -104,7 +104,8 @@ public class Storyline{
 
 		if(character != "healer"){
 			ui.mainTextArea.setText("Healer have healing skill.\n\nSwitch to healer and heal again. Then proceed");
-			}
+		}
+
 	}
 
 	public void mageSetup(){  //update player panel when switching to mage
@@ -1585,6 +1586,11 @@ public class Storyline{
 				ui.choice4.setVisible(false);
 			}
 		}
+
+		//No heal option if Hp = 0
+		if(healerCount == 1 && turn > 3 && playerHP <= 0){   
+			ui.choice4.setVisible(false);
+		}
 	}
 
 	// Method for attacking monster, taking the attribute monster name (to know which monster we are attacking). 
@@ -1851,12 +1857,13 @@ public class Storyline{
 			}
 		}
 
-		// give option to heal 
-		if(healerCount == 1 && turn > 3){
+
+		// give healer option to heal after a number of attack 
+		if(healerCount == 1 && turn > 3 && playerHP > 0){   
 			ui.choice4.setText("Heal");
 			ui.choice4.setVisible(true);
-		}	
-
+		}
+		
 	}
 
 	
