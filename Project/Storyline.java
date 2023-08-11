@@ -463,7 +463,7 @@ public class Storyline{
 		ui.mainTextArea.setText("You rush to his aid and battling the monsters side by side.\n\nSuddenly, you turn to your left and see a goblin charging at you with an axe.");
 		ui.choice1.setText("Dodge");
 		ui.choice2.setText("Block attack");
-		ui.choice3.setText("Attack back");
+		
 
 	}
 
@@ -481,9 +481,16 @@ public class Storyline{
 
 			 // Update playerHP based on the damage taken
 			 playerHP -= damage;
+
 			 // Ensure playerHP doesn't go below 0
 			 if (playerHP < 0) {
 				 playerHP = 0;
+
+				//Game Over
+				ui.choice3.setText(">");
+
+				ui.choice3.setVisible(true);
+				ui.choice1.setVisible(false);
 			 }
 		 
 			 // Update hp of player in the UI
@@ -506,7 +513,12 @@ public class Storyline{
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				dead();   // call method dead
+
+				//Game Over
+				ui.choice3.setText(">");
+				ui.choice3.setVisible(true);
+				
+				ui.choice1.setVisible(false);
 			}
 		
 			// Update hp of player in the UI
@@ -539,7 +551,12 @@ public class Storyline{
 		// Ensure playerHP doesn't go below 0
 		if (playerHP < 0) {
 			playerHP = 0;
-			dead();
+
+			//Game Over
+		    ui.choice3.setText(">");
+		    ui.choice3.setVisible(true);
+			ui.choice1.setVisible(false);
+			ui.choice2.setVisible(false);
 		}
 	
 		// Update hp of player in the UI
@@ -1008,6 +1025,8 @@ public class Storyline{
 			playerHP = 0;
 			warrior.setHP(0);
 			ui.hpLabelNumber.setText("" + playerHP);
+
+			//Game Over
 			ui.choice1.setText(">");
 			ui.choice1.setVisible(true);
 			ui.choice2.setVisible(false);
@@ -1184,7 +1203,12 @@ public class Storyline{
 		// Ensure playerHP doesn't go below 0
 		if (playerHP < 0) {
 			playerHP = 0;
-			dead();
+			
+			//Game Over
+		    ui.choice2.setText(">");
+		    ui.choice2.setVisible(true);
+			ui.choice1.setVisible(false);
+			ui.choice3.setVisible(false);
 		}
 	
 		// Update hp of player in the UI
@@ -1192,16 +1216,8 @@ public class Storyline{
 
 		if(playerHP > 0){
 			ui.choice1.setText("Attack goblin");
-			if(location == "Forest" && goblinHP == 13){
-				ui.choice2.setText("Retreat");
-				ui.choice2.setVisible(false);
-			}
-			else{
-				ui.choice2.setVisible(false);
-			}
-			ui.choice3.setText("");
+
 			ui.choice4.setText("");
-			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
 		}
 	}

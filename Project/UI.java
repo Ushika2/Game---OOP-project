@@ -396,18 +396,20 @@ public class UI{
 				switch(yourChoice){
 					case "c1": story.dodge(); break;
 					case "c2": story.blockAttack(); break;
-					case "c3": story.villageAttackGoblin(); break;
+					//case "c3": story.villageAttackGoblin(); break;
 				}
 				break;
 			case "villagegoblinAttack":
 				switch(yourChoice){
 					case "c1":story.villageAttackGoblin();break;
 					case "c2": story.Map(); break;
+					case "c3":story.dead();break;
 				}
 				break;
 			case "villageattackGoblin":
 				switch(yourChoice){
 					case "c1":story.villagegoblinAttack(); break;
+					case "c3":story.dead(); break;
 				}
 				break;
 			case "endFightVillage":
@@ -520,7 +522,7 @@ public class UI{
 				break;
 			case "saveRiver":
 				switch(yourChoice){
-					case "c1": story.dead(); //player dies
+					case "c1": story.dead();break; //player dies
 					case "c2": story.healerSetup(); break;  //switch to healer
 					case "c3": story.saveBoy(); break;
 					case "c4": story.NosaveBoy(); break;
@@ -542,9 +544,7 @@ public class UI{
 			case "forest":   
 				    switch(yourChoice){     
 						case "c1": story.goblinAttack(); break; 
-						//case "c2": story.Map(); break;
-						//case "c3": story.forest2(); break;
-						//case "c4": story.Map(); break;
+						
 					}
 					break;
 			case "endforest1":
@@ -556,7 +556,7 @@ public class UI{
 			case "goblinAttack":
 				switch(yourChoice){
 					case "c1":if(story.character == "mage"){story.mageAttack();}else{story.AttackGoblin();};break;
-					case "c2": story.Map(); break;
+					case "c2": story.dead(); break;
 					case "c4": story.heal(); break;
 				}
 				break;
