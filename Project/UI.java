@@ -692,7 +692,7 @@ public class UI{
 			case "wolfAttack":
 				switch(yourChoice){     
 					case "c1": if(story.character == "mage"){story.mageAttack();}else{story.attackMonster("wolf");}; break;
-					case "c2": story.forest2(); break;
+					case "c2": story.dead(); break;
 					case "c4": story.heal(); break;
 				}
 				break;
@@ -723,7 +723,7 @@ public class UI{
 						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
 						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
 						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
-						if(story.position == "wolfAttack"){story.attackMonster("wolf"); break;}
+						if(story.location == "left"){story.attackMonster("wolf"); break;}
 						break;
 
 					case "c2": 
@@ -732,7 +732,8 @@ public class UI{
 						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
 						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
 						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
-						if(story.position == "wolfAttack"){story.attackMonster("wolf"); break;}
+						if(story.location == "left"){story.attackMonster("wolf"); break;}
+						break;
 						 
 					case "c3": 
 						story.attack = "frost";
@@ -740,7 +741,7 @@ public class UI{
 						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
 						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
 						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
-						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}
+						if(story.location == "left"){story.attackMonster("wolf"); break;}
 						
 					case "c4": 
 						story.attack = "light";
@@ -748,7 +749,7 @@ public class UI{
 						if(story.location == "Waterfall"){story.attackMonster("wraith"); break;}
 						if(story.location == "Mountain"){story.attackMonster("orgre"); break;}
 						if(story.location == "Cave"){story.attackMonster("dragon"); break;}
-						if(story.position == "puzzleAttack"){story.attackMonster("wolf"); break;}	
+						if(story.location == "left"){story.attackMonster("wolf"); break;}	
 				}
 				break;
 		}

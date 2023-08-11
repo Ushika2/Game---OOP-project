@@ -149,9 +149,7 @@ public class Storyline{
 			ui.choice4.setText("Lightning");
 			ui.choice4.setVisible(true);
 		}
-		//ui.choice1.setVisible(true);
-
-		
+			
 	}
 
 	// MONSTER Setup which will be displayed in the monster panel during fights
@@ -1415,12 +1413,12 @@ public class Storyline{
 		ui.healerButtonPanel.setVisible(true);
 		position = "cave";
 		if(torch == 0){
-			ui.mainTextArea.setText("You leave the torch on the ground and go into the cave trying to make out the path in the dark. You were not able to avoid the obstacles along the way and took some damage. Eventually you find yourself at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
+			ui.mainTextArea.setText("You leave the torch on the ground and go into the cave trying to make out the path in the dark.\nYou were not able to avoid the obstacles along the way and took some damage.\n\nDamage inccured = 10 HP\n\nEventually you find yourself at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
 			playerHP -= 10;
 			ui.hpLabelNumber.setText("" + playerHP);
 		}
 		else{
-			ui.mainTextArea.setText("You pick it up, pull a lighter from your pockets and try to ignite the worn fabric. Its flickering flame casting a feeble glow was able to provide some light as you walk in the darkness. After evading some obstacle along the way, you arrive at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
+			ui.mainTextArea.setText("You pick it up, pull a lighter from your pockets and try to ignite the worn fabric.\nIts flickering flame casting a feeble glow was able to provide some light as you walk in the darkness. After evading some obstacle along the way, you arrive at a dead end.\nYou notice two statues, one facing you and the other facing to the left.");
 		}
 		ui.choice1.setText("Turn the second statue to the right");
 		ui.choice2.setText("Turn the second statue to the left");
@@ -1446,8 +1444,9 @@ public class Storyline{
 
 	public void inside(){
 		position = "inside";
+		location = "Cave";
 		ui.monsterPanel.setVisible(true);
-		ui.mainTextArea.setText("Once inside, you see a girl trapped in a cage. You rush to free her. Unkowingly, you woke up the dragon and it charges at you.");
+		ui.mainTextArea.setText("Once inside, you see a girl trapped in a cage.\nYou rush to free her.\nUnkowingly, you woke up the dragon and it charges at you.");
 		ui.choice1.setText("Attack");
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);
@@ -1456,31 +1455,39 @@ public class Storyline{
 	
 	public void monsterAttack(String name){
 		if(name == "wolf"){
-			position = "wolfAttack";
-			ui.monsterPanel.setVisible(true);
-			ui.monsterName.setText(wolf.getName());
-			ui.monsterHP.setText("" + wolf.getHP());
 
-			int damage = new java.util.Random().nextInt(2,11);  // random damage
+			position = "wolfAttack";
+			location = "left";
+			
+			int damage = new java.util.Random().nextInt(2,30);  // random damage
 			ui.mainTextArea.setText("The wolf attacked you giving " + damage + " damage.");
 
 			warrior.takeDamage(damage);    //decrease HP of warrior
 
 			// Update playerHP based on the damage taken
 			playerHP -= damage;
+
 			// Ensure playerHP doesn't go below 0
 			if (playerHP < 0) {
 				playerHP = 0;
-				dead();
+
+				ui.choice2.setText(">");
+				ui.choice2.setVisible(true);
+				ui.choice1.setVisible(false);
+				ui.choice3.setVisible(false);
 			}
 	
 			// Update hp of player in the UI
 			ui.hpLabelNumber.setText("" + playerHP);
 
-			ui.choice1.setText("Attack wolf");
-			ui.choice2.setVisible(false);
-			ui.choice3.setVisible(false);
-			ui.choice4.setVisible(false);
+			if(playerHP > 0){
+
+				ui.choice1.setText("Attack wolf");
+				ui.choice2.setVisible(false);
+				ui.choice3.setVisible(false);
+				ui.choice4.setVisible(false);
+
+			}
 		}
 
 		else if(name == "orgre"){  // path  to mountain
@@ -1556,6 +1563,7 @@ public class Storyline{
 		}
 		else if(name == "dragon"){  // final boss
 			position = "dragonAttack";
+
 			int damage = new java.util.Random().nextInt(10,30);
 
 			ui.mainTextArea.setText("The dragon attacked you giving " + damage + " damage.");
