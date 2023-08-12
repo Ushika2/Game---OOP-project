@@ -214,7 +214,7 @@ public class UI{
 
 		// Creating monster panel containing monster name and Hp
 		monsterPanel = new JPanel();
-		monsterPanel.setBounds(70, 500, 250, 50);
+		monsterPanel.setBounds(70, 500, 350, 50);
 		monsterPanel.setBackground(Color.black);
 		monsterPanel.setLayout(new FlowLayout(FlowLayout.LEADING,5,5));
 		con.add(monsterPanel);
@@ -382,10 +382,16 @@ public class UI{
 				break;
 			case "townn":
 				switch(yourChoice){
-					case "c1": story.saveGame();break;
+					case "c1": story.saveGame();story.saved();break;
 					case "c2": story.Map(); break;
 				}
 				break;
+			case "gameSaved":
+				switch(yourChoice){
+					case "c1": story.Map(); break;
+				}
+				break;
+			
 			case "village1":
 				switch(yourChoice){
 					case "c1": story.aidHealer1(); break;
@@ -479,7 +485,7 @@ public class UI{
 				break;
 			case "buyWeapon":
 				switch(yourChoice){
-					case "c1": story.shop(); break;
+					case "c1": story.buy(); break;
 				}
 				break;
 			case "buySpell":
@@ -492,7 +498,7 @@ public class UI{
 				break;
 			case "chooseSpell":
 				switch(yourChoice){
-					case "c1": story.shop(); break;
+					case "c1": story.buy(); break;
 				}
 				break;
 			case "buyPotion":
@@ -504,7 +510,7 @@ public class UI{
 				break;
 			case "choosePotion":
 				switch(yourChoice){
-					case "c1": story.shop(); break;
+					case "c1": story.buy(); break;
 				}
 				break;
 			case "river1":
@@ -544,7 +550,7 @@ public class UI{
 			case "forest":   
 				    switch(yourChoice){     
 						case "c1": story.goblinAttack(); break; 
-						
+
 					}
 					break;
 			case "endforest1":
@@ -668,8 +674,14 @@ public class UI{
 				break;
 			case "cave":
 				switch(yourChoice){
-					case "c1": story.DragonSetup();story.statueRight(); break;
-					case "c2": story.WolfSetup();story.statueLeft(); break;
+					case "c1": story.statues(); break;
+					case "c2": story.dead(); break;
+				}
+				break;	
+			case "statues":
+				switch(yourChoice){
+					case "c1": story.WolfSetup();story.statueRadiance(); break;
+					case "c2": story.DragonSetup();story.statueVigor();break;
 				}
 				break;
 			case "puzzle":
