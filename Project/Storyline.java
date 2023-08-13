@@ -228,8 +228,6 @@ public class Storyline {
 			bw.write(location); // location
 			bw.newLine();
 			bw.write("" + gold); // amount of gold
-			// bw.newLine();
-			// bw.write(goblinName); // save goblin name & Hp
 			bw.newLine();
 			bw.write("" + goblin.getHP());
 			bw.newLine();
@@ -287,7 +285,6 @@ public class Storyline {
 			weapon = br.readLine();
 			location = br.readLine();
 			gold = Integer.parseInt(br.readLine());
-			//goblinName = br.readLine();
 			goblinHP = Integer.parseInt(br.readLine());
 			villageCount = Integer.parseInt(br.readLine());
 			healerCount = Integer.parseInt(br.readLine());
@@ -615,7 +612,7 @@ public class Storyline {
 		goblin.takeDamage(damage);
 		// update hp of goblin
 		goblinHP -= damage;
-		// Ensure playerHP doesn't go below 0
+		// Ensure goblinHP doesn't go below 0
 		if (goblinHP <= 0) {
 			goblinHP = 0;
 		}
@@ -1021,7 +1018,7 @@ public class Storyline {
 		ui.mainTextPanel.setVisible(true);
 
 		ui.mainTextArea.setText(
-				"You move towards a person lying on the ground, hoping to get some informations from him.\n\nFeebly, he said:\n'The water, it's bad. Got poisoned by a witch. We need a cure. Please help us.'");
+				"You move towards a person lying on the ground, hoping to get some informations from him.\n\nFeebly, he said:\n'The water, it's bad. Got poisoned by a witch. We need a cure. Please help us.'\n\nReward - 20 gold");
 		ui.choice1.setText("Try to save them");
 		ui.choice2.setText("Use curing potion");
 		ui.choice3.setText("View map");
@@ -1065,6 +1062,9 @@ public class Storyline {
 				healer.setHP(playerHP);
 				ui.hpLabelNumber.setText("" + playerHP);
 
+				gold = gold + 20;
+				ui.goldLabelNumber.setText("" + gold);
+
 				ui.choice3.setText("Save the boy");
 				ui.choice4.setText("Leave him be");
 				ui.choice1.setVisible(false);
@@ -1072,6 +1072,7 @@ public class Storyline {
 				ui.choice3.setVisible(true);
 				ui.choice4.setVisible(true);
 			}
+
 		}
 
 	}
@@ -1087,7 +1088,7 @@ public class Storyline {
 				ui.choice3.setVisible(false);
 			} else if (CurePotionCount == 1) {
 				ui.mainTextArea.setText(
-						"You reach for your pockets and take out the curing potion.\n\nAt the same time, one of the boys commes towards you, begging you to save him.\n\nCost to saving the boy - 15 Hp\n\nBut, you possess only 1 potion.\nYou have to make a choice.");
+						"You reach for your pockets and take out the curing potion.\n\nAt the same time, one of the boys commes towards you, begging you to save him.\n\nBut, you possess only 1 potion. You have to make a choice.\n\nReward to save river - 20 gold\tCost to saving the boy - 15 Hp");
 				ui.choice3.setText("Save river");
 				ui.choice4.setText("Save boy");
 				ui.choice1.setVisible(false);
@@ -1104,6 +1105,8 @@ public class Storyline {
 		ui.healerButtonPanel.setVisible(true);
 		ui.mainTextArea.setText(
 				"You decide that saving the river would be the best choice and you empty the flask into the river.\n\nThe boy was left in anguish.\nUnable to fight against the poison, he succumbs to his death.");
+				gold = gold + 20;
+				ui.goldLabelNumber.setText("" + gold);
 		ui.choice1.setText("View map");
 		ui.choice1.setVisible(true);
 		ui.choice2.setVisible(false);

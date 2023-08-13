@@ -2,8 +2,8 @@ package spell;
 
 // Spell
 public interface Spell{  // interface
-    String getName();   // abstract methods
-    int getDamage();
+    String getName();   // Abstract method: Returns the name of the spell
+    int getDamage();   //  Abstract method: Returns the damage value associated with the spell
 }
 
 // Spells:

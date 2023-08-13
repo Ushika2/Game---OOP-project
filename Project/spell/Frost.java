@@ -8,9 +8,11 @@ public class Frost implements Spell{  // implements from spells
         this.name = name;
         this.damage = damage;
     }
+    @Override
     public String getName(){  //returns the name of the spell
         return name;
     }
+    @Override
     public int getDamage(){  //returns the damage value associated with the spell.
         return damage;
     }

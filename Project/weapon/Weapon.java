@@ -21,6 +21,5 @@ public class Weapon{  //superclass
 
 // Different weapons available:
 // Sword
-// Bow & Arrow
 // Knife - at the beginning
-// Magic book
+// Grimoire
