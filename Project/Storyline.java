@@ -1533,7 +1533,7 @@ public class Storyline {
 		position = "statues";
 
 		ui.mainTextArea.setText(
-				"Approaching the statutes, inscriptions on the wall catches your attention:\n\n'Two paths lie ahead, but choose wisely.One shall lead to triumph, the other to dismay.'\n\nStatue of Radiance: The statue exudes warmth,emiting a gentle, soothing light.\n\nStatue of Vigor: The statue radiates strength, shimmering with a vibrant gleam\n\n");
+				"Approaching the statutes, inscriptions on the wall catches your attention:\n\n'Two paths lie ahead, but choose wisely. Appearances can deceive. One shall lead to triumph, the other to dismay.'\n\nStatue of Radiance: The statue exudes warmth,emiting a gentle, soothing light.\n\nStatue of Vigor: The statue radiates strength, shimmering with a vibrant gleam\n\n");
 
 		ui.choice1.setText("Push the Statue of Radiance");
 		ui.choice2.setText("Push the Statue of Vigor");
