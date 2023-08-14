@@ -544,6 +544,14 @@ public class UI{
 				break;
 			case "endRiver":
 				switch(yourChoice){
+					case "c1": story.rest(); break;
+					case "c2": story.Map(); break;
+					// case "c1": story.Map(); break;
+					// case "c2": story.rest(); break;
+				}
+				break;
+			case "rest":
+				switch(yourChoice){
 					case "c1": story.Map(); break;
 				}
 				break;

@@ -1058,7 +1058,7 @@ public class Storyline {
 			} else if (character == "healer") { // if character already == healer
 				ui.mainTextArea.setText(
 						"You get in the water without any issues and with a  powerful cleansing magic, you were able to cleanse the river from all the poison.\n\nHowever, this power came at a cost of 35 Hp\n\nFilled with hope, one of the boys comes up to you begging you to save him.\n\nCost of helping - 15 Hp");
-				playerHP = warrior.getHP() - 35;
+				playerHP = playerHP - 35;
 				healer.setHP(playerHP);
 				ui.hpLabelNumber.setText("" + playerHP);
 
@@ -1107,9 +1107,9 @@ public class Storyline {
 				"You decide that saving the river would be the best choice and you empty the flask into the river.\n\nThe boy was left in anguish.\nUnable to fight against the poison, he succumbs to his death.");
 				gold = gold + 20;
 				ui.goldLabelNumber.setText("" + gold);
-		ui.choice1.setText("View map");
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(false);
+		ui.choice2.setText("View map");
+		ui.choice2.setVisible(true);
+		ui.choice1.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	}
@@ -1121,9 +1121,11 @@ public class Storyline {
 		ui.mainTextArea.setText(
 				"Feeling pity for the boy, you decide to save him.\n\nOut of gratitude, he decides to help you in your quest.\n\nYou found yourself a mage. Sam can fight alongside you using all sorts of spells.\n\nMAGE ACQUIRED\n\nWeapon: Grimoire - 10 damage      Spell: Blast - 12 damage");
 		playerHP = playerHP - 15;
-		ui.choice1.setText("View map");
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(false);
+		ui.hpLabelNumber.setText("" + playerHP);
+
+		ui.choice2.setText("View map");
+		ui.choice2.setVisible(true);
+		ui.choice1.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 
@@ -1142,10 +1144,10 @@ public class Storyline {
 
 		ui.mainTextArea.setText(
 				"You move away from him, leaving him in anguish. Unable to fight against the poison, he succumbs to his death.");
-		ui.choice1.setText("View map");
+		ui.choice2.setText("View map");
 
-		ui.choice1.setVisible(true);
-		ui.choice2.setVisible(false);
+		ui.choice2.setVisible(true);
+		ui.choice1.setVisible(false);
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	}
@@ -1159,6 +1161,40 @@ public class Storyline {
 		ui.mainTextPanel.setVisible(true);
 
 		ui.mainTextArea.setText("You went back to the river. Nothing in view except from the peaceful stream.");
+		//ui.choice1.setText("View map");
+		ui.choice1.setText("Rest");
+		ui.choice2.setText("View map");
+
+		ui.choice1.setVisible(true);
+		ui.choice2.setVisible(true);
+		ui.choice3.setVisible(false);
+		ui.choice4.setVisible(false);
+	}
+
+	public void rest() {
+		position = "rest";
+		location = "River";
+		ui.locationName.setText(location);
+		ui.healerButtonPanel.setVisible(true);
+		ui.mainTextPanel.setVisible(true);
+
+		if(playerHP < 50){
+
+			int recover;
+
+			recover = 50 - playerHP;  //recover hp upto 50 Hp
+            playerHP = playerHP + recover;
+
+			ui.hpLabelNumber.setText("" + playerHP);
+
+			ui.mainTextArea.setText("Hp " +recover+ " recovered.");
+
+		}
+		else if(playerHP >= 50){
+
+			ui.mainTextArea.setText("HP above 50. No need to rest.");
+		}
+
 		ui.choice1.setText("View map");
 
 		ui.choice1.setVisible(true);
@@ -1166,6 +1202,7 @@ public class Storyline {
 		ui.choice3.setVisible(false);
 		ui.choice4.setVisible(false);
 	}
+
 
 	// Going to forest for the 1st time - encounter goblin
 	public void forest1() {
