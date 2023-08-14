@@ -4,7 +4,6 @@ public class App {
     Storyline storyline = new Storyline(null, ui); // declare instance field of type Storyline
 
     public static void main(String[] args) throws Exception { // Main method
-        System.out.println("Hello, World!");
         new App(); // Constructor call initializes the application and executes the code inside the
                    // constructor.
 

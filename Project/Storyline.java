@@ -274,7 +274,6 @@ public class Storyline {
 			e.printStackTrace();
 
 		}
-		System.out.println("saved yes");
 	}
 
 	public void loadData() {
@@ -382,8 +381,6 @@ public class Storyline {
 		ui.mainTextArea.setWrapStyleWord(true);
 		ui.mainTextArea.setEditable(false);
 		ui.mainTextPanel.add(ui.mainTextArea);
-		System.out.println("load game" + goblinHP);
-
 	}
 
 	public void Map() { // method for when player opens map
@@ -1226,7 +1223,6 @@ public class Storyline {
 			ui.choice2.setVisible(false);
 			ui.choice3.setVisible(false);
 			ui.choice4.setVisible(false);
-			System.out.println("" + goblinHP);
 		}
 	}
 
@@ -1321,7 +1317,7 @@ public class Storyline {
 		
 		goblin.takeDamage(damage); // update hp of goblin
 		goblinHP -= damage;
-		// Ensure playerHP doesn't go below 0
+		// Ensure goblinHP doesn't go below 0
 		if (goblinHP < 0) {
 			goblinHP = 0;
 		}
