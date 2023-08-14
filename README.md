@@ -69,7 +69,3 @@ Adventure Game is a text-based interactive game written in Java. The game allows
 
 - This game was created by Jugessur Ushika, Teelhawod Ayesha and Jeetun Urousha, being students at the University of Mauritius. This project was done to put into practice everything we learnt in object-oriented programming (java).
 
-## License
-
-[License Information - If applicable]
-
