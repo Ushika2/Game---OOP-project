@@ -10,7 +10,7 @@ Adventure Game is a text-based interactive game written in Java. The game allows
 
 1. **Title Screen**: When you start the game, you will see a title screen with the "START" button. Click the "START" button to begin your adventure.
 
-2. **User Input**: After clicking the "START" button, you will be prompted to enter your name. Type your name in the text box and click "ENTER".
+2. 
 
 3. **Gameplay**: You will be presented with the main game screen, which includes information about your character, such as HP (health points), weapon, gold, and current location.
 
@@ -44,17 +44,16 @@ Adventure Game is a text-based interactive game written in Java. The game allows
 
 ## How to Run
 
-1. Clone this repository to your local machine or download the ZIP file.
+1. Clone this repository to your local machine or download the ZIP file. Open the repository in Visual Studio Code or any other java IDE.
 
-2. Navigate to the project directory.
+2. Navigate the game's folders and locate the game file named  “App.java”, containing the main method responsible for launching the game. This file is where the 
+   game's execution is initiated. 
 
-3. Open a terminal or command prompt in the project directory.
+3. Run the Game:  Select the  “App.java”  file and click on the run button(top right corner in VSC).
 
-4. Compile the Java files:
+4. Run the game
 
-5. Run the game:
-
-6. Follow the on-screen instructions to play the game.
+5. Follow the on-screen instructions to play the game.
 
 ## Credits
 
