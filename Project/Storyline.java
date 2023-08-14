@@ -1313,7 +1313,7 @@ public class Storyline {
 		}
 
 		ui.mainTextArea.setText("You attack the goblin back, giving it " + goblinHP
-				+ " damage. The goblin has been defeated.\n\n\nYou've acquired 3 Goblin Teeth.\n\nItem can be sold for gold in the shop in village.");
+				+ " damage. The goblin has been defeated.\n\n\nYou've acquired 6 Goblin Teeth.\n\nItem can be sold for gold in the shop in village.");
 		
 		goblin.takeDamage(damage); // update hp of goblin
 		goblinHP -= damage;
