@@ -26,7 +26,7 @@ Adventure Game is a text-based interactive game written in Java. The game allows
 
 8. **Chest**: During your exploration, you might find a chest which provides random reward; it could be a random amount of gold or a random weapon for one of your character. However, once the chest has already been opened, you won't get another try.
 
-9. **Battles**: During battles with monsters, you can choose to fight or run away. You will confront different monsters and during battles, a monster panel will appear at the bottom of the screen displaying the monster name and Hp, which will be updated with each attack you perform. Different weapons have deal different amount of damage. So choose your weapons wisely. You can also easily switch between characters and perform different attacks. Having a healer, allows you to heal during battles (increasing your Hp by 20), after every 3 attacks dealt on your opponent.
+9. **Battles**: During battles with monsters, you can choose to fight or run away. You will confront different monsters and during battles, a monster panel will appear at the bottom of the screen displaying the monster name and Hp, which will be updated with each attack you perform. Different weapons deal different amount of damage. So choose your weapons wisely. You can also easily switch between characters and perform different attacks. Having a healer, allows you to heal during battles (increasing your Hp by 20), after every 3 attacks dealt on your opponent.
 
 10. **Victory and Defeat**: The game continues until you defeat the final boss and save the girl. If your HP reaches zero, the game ends, and you lose. You can restart the game or reload from your previous save.
 
