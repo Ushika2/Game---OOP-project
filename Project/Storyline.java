@@ -2107,8 +2107,7 @@ public class Storyline {
 		}
 	}
 
-	// Serializable interface
-	class Reward implements Serializable {
+	class Reward {
 		// Base class for rewards serves as a placeholder base class for different types
 		// of rewards
 		// it acts as a common superclass to enable polymorphism and help organize the
@@ -2145,9 +2144,10 @@ public class Storyline {
 		int chance = random.nextInt(100); // Generating a random number between 0 and 99 (inclusive)
 
 		if (chance < 80) { // 80% chance to get gold
-			int randomGold = random.nextInt(50, 300) + 1; // Generates a random number between 1 and 1000 (inclusive)
+			int randomGold = random.nextInt(80, 300) + 1; // Generates a random number between 1 and 1000 (inclusive)
 			return new Gold(randomGold);
-		} else { // 20% chance to get a weapon
+		} 
+		else { // 20% chance to get a weapon
 			String[] weapons = { "Sword", "Axe" };
 			int randomWeaponIndex = random.nextInt(weapons.length);
 			return new Weapon(weapons[randomWeaponIndex]);
